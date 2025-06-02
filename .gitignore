@@ -270,3 +270,5 @@ MANIFEST
 
 # Visual Studio Code files
 .vscode
+
+graphs/

@@ -11,8 +11,12 @@ from Cython.Build import cythonize
 directory_path = os.path.dirname(os.path.abspath(__file__))
 
 ext_data = {
-    'genTree.tree': {
-        'sources': [join(directory_path, 'genTree', 'tree.pyx')],
+    'genTree.decisionNode': {
+        'sources': [join(directory_path, 'genTree', 'decisionNode.pyx')],
+        'include': [np.get_include()],
+    },
+    'genTree.genTree': {
+        'sources': [join(directory_path, 'genTree', 'genTree.pyx')],
         'include': [np.get_include()],
     },
 }

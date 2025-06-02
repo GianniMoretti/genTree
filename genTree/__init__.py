@@ -1,1 +1,1 @@
-from .tree import hello
+from .genTree import genTree
