@@ -77,10 +77,11 @@ def plot_tree(tree, filename=None, title="Tree", features_name=None, class_names
         else:
             myindex += 1
             feature_name = features_name[node.feature_index] if features_name else str(node.feature_index)
-            s = '{feature_name} <= {threshold}\nsamples={samples}'.format(
+            s = '{feature_name} <= {threshold}\nsamples={samples}\ndepth={depth}'.format(
                 feature_name=feature_name,
                 threshold=round(node.threshold, 3),
-                samples=node.leaf_samples
+                samples=node.leaf_samples,
+                depth=node.depth
             )
             dot.node(str(myindex), s)
             lastindex = myindex

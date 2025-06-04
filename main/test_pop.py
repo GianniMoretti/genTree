@@ -24,3 +24,6 @@ fake_class_names = [f"Classe_{i}" for i in range(n_classes)]
 # Visualizza il primo albero della popolazione
 first_tree = tree.population[0].root if hasattr(tree.population[0], "root") else tree.population[0]
 plot_tree(first_tree, filename="graphs/population_tree", features_name=fake_feature_names, class_names=fake_class_names, is_regression=False)
+
+newtree = tree.split(first_tree, X, y)
+plot_tree(newtree, filename="graphs/population_tree_muted", features_name=fake_feature_names, class_names=fake_class_names, is_regression=False)

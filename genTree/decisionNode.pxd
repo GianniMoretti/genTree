@@ -10,6 +10,7 @@ cdef class DecisionNode:
     cdef public double prediction
     cdef public int depth
     cdef public int leaf_samples
+    cdef public object sample_indices  # np.ndarray[np.int32_t, ndim=1] per foglie, array vuoto per nodi interni
 
     # riferimenti ai figli (istanze DecisionNode)
     cdef public DecisionNode left
@@ -19,7 +20,7 @@ cdef class DecisionNode:
     # costruttori statici
     # ——————————————————————————
     @staticmethod
-    cdef DecisionNode make_leaf(double pred, int samples, int depth)
+    cdef DecisionNode make_leaf(double pred, int samples, int depth, object sample_indices)
     @staticmethod
     cdef DecisionNode make_split(int feat_idx, double thresh, int depth, DecisionNode left, DecisionNode right, int samples)
 

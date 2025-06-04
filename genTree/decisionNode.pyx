@@ -26,6 +26,7 @@ cdef class DecisionNode:
         self.leaf_samples = 0
         self.left = None
         self.right = None
+        self.sample_indices = np.empty(0, dtype=np.int32)
 
     # def __dealloc__(self):
     #     # Il GC di Python dealloca ricorsivamente left/right
@@ -33,18 +34,20 @@ cdef class DecisionNode:
     #     self.right = None
 
     @staticmethod
-    cdef DecisionNode make_leaf(double pred, int samples, int depth):
+    cdef DecisionNode make_leaf(double pred, int samples, int depth, object sample_indices):
         """
         Restituisce un nuovo nodo foglia con:
         - prediction = pred
         - leaf_samples = samples
         - depth = depth
+        - sample_indices = np.ndarray[int32] (indici degli esempi)
         """
         cdef DecisionNode node = DecisionNode()
         node.is_leaf = True
         node.prediction = pred
         node.leaf_samples = samples
         node.depth = depth
+        node.sample_indices = sample_indices
         return node
 
     @staticmethod
@@ -54,7 +57,7 @@ cdef class DecisionNode:
         - feature_index = feat_idx
         - threshold = thresh
         - depth = depth
-        I figli left/right rimangono None.
+        - sample_indices = array vuoto
         """
         cdef DecisionNode node = DecisionNode()
         node.is_leaf = False
@@ -64,6 +67,7 @@ cdef class DecisionNode:
         node.left = left
         node.right = right
         node.leaf_samples = samples
+        node.sample_indices = np.empty(0, dtype=np.int32)
         return node
 
     cdef DecisionNode clone(self):
@@ -71,10 +75,16 @@ cdef class DecisionNode:
         Copia profonda (deep copy) di questo nodo e del suo sottoalbero.
         """
         cdef DecisionNode new_node
+        import numpy as np
         if self.is_leaf:
-            new_node = DecisionNode.make_leaf(self.prediction, self.leaf_samples, 0)
+            # Copia anche sample_indices (deep copy)
+            sample_indices_copy = np.copy(self.sample_indices)
+            new_node = DecisionNode.make_leaf(self.prediction, self.leaf_samples, 0, sample_indices_copy)
         else:
-            new_node = DecisionNode.make_split(self.feature_index, self.threshold, self.depth, self.left.clone(), self.right.clone(), self.leaf_samples)
+            new_node = DecisionNode.make_split(
+                self.feature_index, self.threshold, self.depth,
+                self.left.clone(), self.right.clone(), self.leaf_samples
+            )
         return new_node
 
     cdef int _count_leaves(self):
