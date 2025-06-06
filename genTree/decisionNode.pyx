@@ -28,11 +28,6 @@ cdef class DecisionNode:
         self.right = None
         self.sample_indices = np.empty(0, dtype=np.int32)
 
-    # def __dealloc__(self):
-    #     # Il GC di Python dealloca ricorsivamente left/right
-    #     self.left = None
-    #     self.right = None
-
     @staticmethod
     cdef DecisionNode make_leaf(double pred, int samples, int depth, object sample_indices):
         """

@@ -66,6 +66,8 @@ cdef class genTree:
         cdef double split_value, mean
         cdef DecisionNode left_node, right_node
         cdef np.ndarray[np.int32_t, ndim=1] counts = np.zeros(n_classes, dtype=np.int32)
+        cdef np.ndarray[np.int32_t, ndim=1] counts_sx = np.zeros(n_classes, dtype=np.int32)
+        cdef np.ndarray[np.int32_t, ndim=1] counts_dx = np.zeros(n_classes, dtype=np.int32)
         cdef int best_cls = 0
         cdef int max_count = 0
 
@@ -73,7 +75,6 @@ cdef class genTree:
         if depth >= self.max_depth or n_samples <= self.min_samples_leaf:
             if self.is_regression:
                 mean = 0.0
-                #TODO: Cambia in modo che usi indice dichiarato
                 for i in range(n_samples):
                     mean += y[sample_indices[i]]
                 mean /= n_samples
@@ -119,6 +120,7 @@ cdef class genTree:
                         best_cls = i
                 return True, DecisionNode.make_leaf(best_cls, n_samples, 0, sample_indices)
 
+        #TODO: Sarebbe da incapsulare in un metodo a parte
         # Split casuale, il primo split DEVE riuscire (force_split=True)
         try_count = 0
         cdef double[::1] feature_values
@@ -161,6 +163,21 @@ cdef class genTree:
                 try_count += 1
                 continue
 
+            # Se splitterebbe in due foglie con lo stesso valore di classe, non posso splittare
+            if not self.is_regression:
+                counts_sx[:] = 0
+                counts_dx[:] = 0
+                for i in range(n_samples):
+                    if X[sample_indices[i], split_feature] <= split_value:
+                        counts_sx[y[sample_indices[i]]] += 1
+                    else:
+                        counts_dx[y[sample_indices[i]]] += 1
+                # Controlla se i gli indici di np.counts_sx e counts_dx hanno lo stesso valore di classe
+                if np.argmax(counts_sx) == np.argmax(counts_dx):
+                    # Non posso splittare, i figli avrebbero lo stesso valore di classe
+                    try_count += 1
+                    continue
+
             # Split valido trovato
             break
 
@@ -193,12 +210,13 @@ cdef class genTree:
         """
         self.population = []
         cdef int i
-        cdef int actual_pop_size = self.pop_size
-        #TODO: Cambia in modo che ottenga sempre il numero di alberi giusto
-        for i in range(actual_pop_size):
+        cdef int actual_pop_size = 0
+        while actual_pop_size < self.pop_size:
+            # Prova a creare un albero randomico
             ok, root = self._initialize_random(X, y, n_classes, np.arange(X.shape[0], dtype=np.int32), 0, True)
             if ok:
                 self.population.append(root)
+                actual_pop_size += 1
 
     ########################################################
     # Evaluation
@@ -232,8 +250,59 @@ cdef class genTree:
     ########################################################
     # Mutation and crossover
     ########################################################
-    ## Controlla che quando splitta non splitti un nodo puro o comunque non splitti in due foglie con lo stesso valore di classe
-    cdef _split(self, DecisionNode tree, double[:, :] X, int[:] y):
+
+    cdef _get_sample_indices(self, DecisionNode tree):
+        """
+        Ritorna gli indici dei campioni presenti in un nodo.
+        """
+        if tree.is_leaf:
+            return tree.sample_indices
+        else:
+            left_indices = self._get_sample_indices(tree.left)
+            right_indices = self._get_sample_indices(tree.right)
+            return np.concatenate((left_indices, right_indices))
+
+    cdef _tree_to_leaf(self, DecisionNode tree, double[:, :] X, int[:] y):
+        """
+        Converte un albero in una foglia, calcolando il valore di voto (classificazione) o la media (regressione).
+        - Se l'albero è già una foglia, ritorna l'albero stesso.
+        - Se non riesce a convertire, ritorna None.
+        """
+        if tree.is_leaf:
+            return tree
+
+        cdef int n_samples = X.shape[0]
+        cdef int n_classes = 1  # TODO: Metterlo come parametro?
+        cdef int i
+        cdef double mean
+        cdef int best_cls = 0
+        cdef int max_count = 0  
+        cdef np.ndarray[np.int32_t, ndim=1] all_sample_indices
+
+        #Troviamo tutti i sample indices presenti nelle foglie dell'albero e li mettiamo in all_sample_indices
+        all_sample_indices = self._get_sample_indices(tree)
+        n_samples = all_sample_indices.shape[0]
+
+        if self.is_regression:
+            mean = 0.0
+            for i in range(n_samples):
+                mean += y[all_sample_indices[i]]
+            mean /= n_samples
+            return DecisionNode.make_leaf(mean, n_samples, 0, all_sample_indices)
+        else:
+            n_classes = int(np.max(y)) + 1  #TODO: Da cambiare vorrei ussasse tutti i valori?
+            counts = np.zeros(n_classes, dtype=np.int32)
+            for i in range(n_samples):
+                counts[y[all_sample_indices[i]]] += 1
+            best_cls = 0
+            max_count = counts[0]
+            for i in range(1, n_classes):
+                if counts[i] > max_count:
+                    max_count = counts[i]
+                    best_cls = i
+            return DecisionNode.make_leaf(best_cls, n_samples, 0, all_sample_indices)
+
+    cdef _split_random_leaf(self, DecisionNode tree, double[:, :] X, int[:] y):
         """
         Mutazione: cerca una foglia randomica scendendo casualmente nell'albero,
         prova a splittarla con una feature e soglia casuale. Se non riesce dopo n_max_fail, fallisce.
@@ -380,9 +449,601 @@ cdef class genTree:
         # Se arrivo qui, non ho trovato una foglia splittabile
         return tree
 
-    
+    cdef _prune_random_leaf(self, DecisionNode tree, double[:, :] X, int[:] y):
+        """
+        trova un nodo che ha figli solo foglia e lo sostituisce con una foglia
+        - Se il nodo ha figli che sono foglie, calcola il valore di voto (classificazione) o la media (regressione).
+        - Se non riesce a potare ritorna l'albero originale.
+        - Se il nodo è la radice, non lo pota.
+        """
+        cdef DecisionNode d = tree.clone()  # Clona l'albero per non modificarlo direttamente
+        cdef DecisionNode parent
+        cdef DecisionNode node
+        # 1. Cerca una foglia randomica scendendo casualmente
+        node = d
+        parent = None
+        left_child = 0
+        while not node.left.is_leaf or not node.right.is_leaf:
+            parent = node
+            if np.random.rand() < 0.5:
+                if node.left.is_leaf:
+                    # Se il figlio sinistro è una foglia, non posso andare a sinistra
+                    left_child = 0
+                    node = node.right
+                else:
+                    left_child = 1
+                    node = node.left
+            else:
+                if node.right.is_leaf:
+                    # Se il figlio destro è una foglia, non posso andare a destra
+                    left_child = 1
+                    node = node.left
+                else:
+                    left_child = 0
+                    node = node.right
+        
+        if node.depth == 0:
+            # Non posso potare la radice
+            return tree   
+        
+        # 2. Calcola il valore di voto (classificazione) o la media (regressione) per la foglia     
+        new_leaf = self._tree_to_leaf(node, X, y)
+        
+        # 3. Sostituisci il nodo con la foglia
+        if left_child:
+            if not self.is_regression:
+                if parent.right.is_leaf and parent.right.prediction == new_leaf.prediction:
+                    #Non posso potare, il nodo ha figli con lo stesso valore di predizione"
+                    return tree
+            parent.left = new_leaf
+        else:
+            if not self.is_regression:
+                if parent.left.is_leaf and parent.left.prediction == new_leaf.prediction:
+                    #Non posso potare, il nodo ha figli con lo stesso valore di predizione
+                    return tree
+            parent.right = new_leaf
 
-    cdef genTree _crossover(self, genTree other):
+        # 4. Ritorna l'albero modificato
+        return d
+
+    cdef _prune_random_node(self, DecisionNode tree, double[:, :] X, int[:] y):
+        """
+        Sceglie un nodo casuale e lo pota se possibile.
+        """
+        cdef DecisionNode d = tree.clone()  # Clona l'albero per non modificarlo direttamente
+        cdef DecisionNode parent
+        cdef DecisionNode node
+        # 1. Cerca una nodo randomico scendendo casualmente
+        node = d
+        parent = None
+        left_child = 0
+        while (not node.left.is_leaf or not node.right.is_leaf) and np.random.rand() < 0.5:
+            parent = node
+            if np.random.rand() < 0.5:
+                if node.left.is_leaf:
+                    # Se il figlio sinistro è una foglia, non posso andare a sinistra
+                    left_child = 0
+                    node = node.right
+                else:
+                    left_child = 1
+                    node = node.left
+            else:
+                if node.right.is_leaf:
+                    # Se il figlio destro è una foglia, non posso andare a destra
+                    left_child = 1
+                    node = node.left
+                else:
+                    left_child = 0
+                    node = node.right
+        
+        if node.depth == 0:
+            # Non posso potare la radice
+            return tree   
+        
+        # 2. Calcola il valore di voto (classificazione) o la media (regressione) per la foglia     
+        new_leaf = self._tree_to_leaf(node, X, y)
+        
+        # 3. Sostituisci il nodo con la foglia
+        if left_child:
+            if not self.is_regression:
+                if parent.right.is_leaf and parent.right.prediction == new_leaf.prediction:
+                    #Non posso potare, il nodo ha figli con lo stesso valore di predizione"
+                    return tree
+            parent.left = new_leaf
+        else:
+            if not self.is_regression:
+                if parent.left.is_leaf and parent.left.prediction == new_leaf.prediction:
+                    #Non posso potare, il nodo ha figli con lo stesso valore di predizione
+                    return tree
+            parent.right = new_leaf
+
+        # 4. Ritorna l'albero modificato
+        return d
+
+    cdef _major_split(self, DecisionNode tree, double[:, :] X, int[:] y):
+        """
+        Sceglie un nodo casuale e con una probabilità del 50% cambia la sua variabile di split,
+        dopo di che cambia il suo valore di split casualmente.
+        """
+        if self.is_regression:
+            n_classes = 1  # Per regressione, non serve
+        else:
+            n_classes = int(np.max(y)) + 1  #TODO: Da cambiare vorrei ussasse tutti i valori?
+
+        cdef DecisionNode d = tree.clone()  # Clona l'albero per non modificarlo direttamente
+        cdef DecisionNode parent
+        cdef DecisionNode node
+
+        cdef int n_features = X.shape[1]
+        cdef double[::1] feature_values
+        cdef double prev_val
+        cdef int n_candidates
+        cdef np.ndarray[np.int32_t, ndim=1] counts = np.zeros(n_classes, dtype=np.int32)
+        cdef np.ndarray[np.int32_t, ndim=1] counts_sx = np.zeros(n_classes, dtype=np.int32)
+        cdef np.ndarray[np.int32_t, ndim=1] counts_dx = np.zeros(n_classes, dtype=np.int32)
+        cdef DecisionNode new_split
+
+        # 1. Cerca una nodo randomico scendendo casualmente
+        node = d
+        parent = None
+        left_child = 0
+        while (not node.left.is_leaf or not node.right.is_leaf) and np.random.rand() < 1.0:
+            parent = node
+            if np.random.rand() < 0.5:
+                if node.left.is_leaf:
+                    # Se il figlio sinistro è una foglia, non posso andare a sinistra
+                    left_child = 0
+                    node = node.right
+                else:
+                    left_child = 1
+                    node = node.left
+            else:
+                if node.right.is_leaf:
+                    # Se il figlio destro è una foglia, non posso andare a destra
+                    left_child = 1
+                    node = node.left
+                else:
+                    left_child = 0
+                    node = node.right
+
+        print(f"Major split on node: {node.feature_index}, depth: {node.depth}, left child: {left_child}")
+
+        cdef np.ndarray[np.int32_t, ndim=1] sample_indices = self._get_sample_indices(node)
+        cdef int n_samples = sample_indices.shape[0]
+        cdef double[::1] split_candidates = np.empty(n_samples, dtype=np.float64)
+        
+        #2. Cambio al variabile di split con una probabilità del 50%
+        if np.random.rand() < 1.0:                     #TODO: da cambiare una volta che funziona tutto
+            print("CHANGING SPLIT FEATURE")
+            #2.1 Cambia la variabile di split e il valore di split
+            try_count = 0
+            # sample_indices = self._get_sample_indices(node)
+            # n_samples = sample_indices.shape[0]
+            #Cerca uno split valido con una nuova feature, ci prova 3 volte altrimenti la mutazione fallisce
+            while try_count < 3:
+                print(f"Trying to change split feature, attempt {try_count + 1}")
+                split_feature = np.random.randint(0, n_features)
+                # Estrai i valori della feature per i sample_indices
+                feature_values_np = np.asarray([X[sample_indices[i], split_feature] for i in range(n_samples)], dtype=np.float64)
+                feature_values_np.sort()
+                feature_values = feature_values_np
+                # Calcola split candidates (media tra valori adiacenti distinti)
+                print(f"Feature values for feature {split_feature}: {feature_values}")
+                n_candidates = 0
+                prev_val = feature_values[0]
+                for i in range(1, n_samples):
+                    if feature_values[i] != prev_val:
+                        split_candidates[n_candidates] = 0.5 * (feature_values[i] + prev_val)
+                        n_candidates += 1
+                        prev_val = feature_values[i]
+                # Se non ci sono candidati, non posso splittare
+                if n_candidates == 0:
+                    print("No split candidates found, trying again")
+                    print("---------------------------------------------------------------")
+                    try_count += 1
+                    continue
+                # Se siamo qui, ho almeno un candidato
+                # Scegli uno split casuale tra i candidati
+                idx = np.random.randint(0, n_candidates)
+                split_value = split_candidates[idx]
+                # Calcola maschere left/right e indici
+                left_count = 0
+                right_count = 0
+                for i in range(n_samples):
+                    if X[sample_indices[i], split_feature] <= split_value:
+                        left_count += 1
+                    else:
+                        right_count += 1
+                # Se uno dei due figli non ha campioni, non posso splittare
+                if left_count == 0 or right_count == 0:
+                    try_count += 1
+                    print("One of the children has no samples, trying again")
+                    print("---------------------------------------------------------------")
+                    continue
+                
+                print("Split candidates found, checking if valid")
+                # Se splitterebbe in due foglie con lo stesso valore di classe, non posso splittare
+                if not self.is_regression:
+                    counts_sx[:] = 0
+                    counts_dx[:] = 0
+                    for i in range(n_samples):
+                        if X[sample_indices[i], split_feature] <= split_value:
+                            counts_sx[y[sample_indices[i]]] += 1
+                        else:
+                            counts_dx[y[sample_indices[i]]] += 1
+                    # Controlla se i gli indici di np.counts_sx e counts_dx hanno lo stesso valore di classe
+                    if np.argmax(counts_sx) == np.argmax(counts_dx):
+                        # Non posso splittare, i figli avrebbero lo stesso valore di classe
+                        print("Split would produce two leaves with the same class, trying again")
+                        print("---------------------------------------------------------------")
+                        try_count += 1
+                        continue
+
+                # Split valido trovato
+                print(f"Valid split found: feature {split_feature}, value {split_value}")
+                break
+
+            if try_count >= 3:
+                # Non ho trovato uno split valido
+                # Provo a cambiare solo il valore di split
+                split_feature = node.feature_index
+                feature_values_np = np.asarray([X[sample_indices[i], split_feature] for i in range(n_samples)], dtype=np.float64)
+                feature_values_np.sort()
+                feature_values = feature_values_np
+                # Calcola split candidates (media tra valori adiacenti distinti)
+                n_candidates = 0
+                prev_val = feature_values[0]
+                for i in range(1, n_samples):
+                    if feature_values[i] != prev_val:
+                        split_candidates[n_candidates] = 0.5 * (feature_values[i] + prev_val)
+                        n_candidates += 1
+                        prev_val = feature_values[i]
+                # Se non ci sono candidati, non posso splittare
+                if n_candidates == 0:
+                    print("No split candidates found, returning original tree")
+                    print("---------------------------------------------------------------")
+                    return tree
+
+                try_count = 0
+                while try_count < 3:
+                    # Se siamo qui, ho almeno un candidato
+                    # Scegli uno split casuale tra i candidati
+                    idx = np.random.randint(0, n_candidates)
+                    split_value = split_candidates[idx]
+                    # Calcola maschere left/right e indici
+                    left_count = 0
+                    right_count = 0
+                    for i in range(n_samples):
+                        if X[sample_indices[i], split_feature] <= split_value:
+                            left_count += 1
+                        else:
+                            right_count += 1
+                    # Se uno dei due figli non ha campioni, non posso splittare
+                    if left_count == 0 or right_count == 0:
+                        try_count += 1
+                        continue
+
+                    # Se splitterebbe in due foglie con lo stesso valore di classe, non posso splittare
+                    if not self.is_regression:
+                        counts_sx[:] = 0
+                        counts_dx[:] = 0
+                        for i in range(n_samples):
+                            if X[sample_indices[i], split_feature] <= split_value:
+                                counts_sx[y[sample_indices[i]]] += 1
+                            else:
+                                counts_dx[y[sample_indices[i]]] += 1
+                        # Controlla se i gli indici di np.counts_sx e counts_dx hanno lo stesso valore di classe
+                        if np.argmax(counts_sx) == np.argmax(counts_dx):
+                            # Non posso splittare, i figli avrebbero lo stesso valore di classe
+                            try_count += 1
+                            continue
+
+                    # Split valido trovato
+                    break
+                
+                if try_count >= 3:
+                    print("No valid split found after trying to change feature and value, returning original tree")
+                    print("---------------------------------------------------------------")
+                    return tree   # Non ho trovato una feature e uno split validi, ritorno l'albero non mutato
+                
+                # Se siamo qui, ho trovato uno split valido ma sulla stessa feature
+                new_split = DecisionNode.make_split(split_feature, split_value, node.depth, node.left, node.right, node.leaf_samples)
+
+                if node.depth == 0:
+                    #non devo riassegnare il nodo al parent, è la radice
+                    d = new_split
+                else:
+                    # Riassegna il nodo al parent
+                    if left_child:
+                        parent.left = new_split
+                    else:
+                        parent.right = new_split
+                
+                print(f"Changed split feature to {split_feature} and value to {split_value} on node: {node.feature_index}, depth: {node.depth}, left child: {left_child}")
+                #Controllo dell'integrità dell'albero, devo ricontrollare se gli split dopo rimangono validi, altrimenti vanno prunati
+                fixed = self._fix_tree_integrity(d, X, y, np.arange(X.shape[0], dtype=np.int32))   #Non sono riuscito a cambiare la variabile di split, ma ho cambiato il valore di split
+                if fixed.depth == -1:
+                    # Se l'albero è stato potato completamente, ritorno None
+                    print("Tree has been pruned completely, returning original tree")
+                    return tree  # L'albero è stato potato completamente, ritorno l'albero originale
+                else:
+                    return fixed  # Ritorno l'albero modificato 
+            else:
+                # Ho trovato una feature e uno split validi
+                new_split = DecisionNode.make_split(split_feature, split_value, node.depth, node.left, node.right, node.leaf_samples)
+                if node.depth == 0:
+                    #non devo riassegnare il nodo al parent, è la radice
+                    d = new_split
+                else:
+                    # Riassegna il nodo al parent
+                    if left_child:
+                        parent.left = new_split
+                    else:
+                        parent.right = new_split
+                    
+                print(f"Changed split feature to {split_feature} and value to {split_value} on node: {node.feature_index}, depth: {node.depth}, left child: {left_child}")  
+                #Controllo dell'integrità dell'albero, devo ricontrollare se gli split dopo rimangono validi, altrimenti vanno prunati
+                fixed = self._fix_tree_integrity(d, X, y, np.arange(X.shape[0], dtype=np.int32))     #Ho cambiato sia la variabile di split che il valore di split
+                if fixed.depth == -1:
+                    # Se l'albero è stato potato completamente, ritorno None
+                    print("Tree has been pruned completely, returning original tree")
+                    return tree  # L'albero è stato potato completamente, ritorno l'albero originale
+                else:
+                    return fixed  # Ritorno l'albero modificato
+        else:
+            # 2.2 Cambio solo il valore di split
+            # Provo a cambiare solo il valore di split
+            print("CHANGING SPLIT VALUE")
+            split_feature = node.feature_index
+            feature_values_np = np.asarray([X[sample_indices[i], split_feature] for i in range(n_samples)], dtype=np.float64)
+            feature_values_np.sort()
+            feature_values = feature_values_np
+            # Calcola split candidates (media tra valori adiacenti distinti)
+            n_candidates = 0
+            prev_val = feature_values[0]
+            for i in range(1, n_samples):
+                if feature_values[i] != prev_val:
+                    split_candidates[n_candidates] = 0.5 * (feature_values[i] + prev_val)
+                    n_candidates += 1
+                    prev_val = feature_values[i]
+            # Se non ci sono candidati, non posso splittare  (in realtà ci deve essere per forza un candidato ma lascio lo stesso per sicurezza)
+            if n_candidates == 0:
+                print("No split candidates found, returning original tree")
+                print("---------------------------------------------------------------")
+                return tree
+
+            try_count = 0
+            while try_count < 3:
+                # Se siamo qui, ho almeno un candidato
+                # Scegli uno split casuale tra i candidati
+                idx = np.random.randint(0, n_candidates)
+                split_value = split_candidates[idx]
+                # Calcola maschere left/right e indici
+                left_count = 0
+                right_count = 0
+                for i in range(n_samples):
+                    if X[sample_indices[i], split_feature] <= split_value:
+                        left_count += 1
+                    else:
+                        right_count += 1
+                # Se uno dei due figli non ha campioni, non posso splittare
+                if left_count == 0 or right_count == 0:
+                    try_count += 1
+                    continue
+
+                # Se splitterebbe in due foglie con lo stesso valore di classe, non posso splittare
+                if not self.is_regression:
+                    counts_sx[:] = 0
+                    counts_dx[:] = 0
+                    for i in range(n_samples):
+                        if X[sample_indices[i], split_feature] <= split_value:
+                            counts_sx[y[sample_indices[i]]] += 1
+                        else:
+                            counts_dx[y[sample_indices[i]]] += 1
+                    # Controlla se i gli indici di np.counts_sx e counts_dx hanno lo stesso valore di classe
+                    if np.argmax(counts_sx) == np.argmax(counts_dx):
+                        # Non posso splittare, i figli avrebbero lo stesso valore di classe
+                        try_count += 1
+                        continue
+
+                # Split valido trovato
+                break
+            
+            if try_count >= 3:
+                print("No valid split found after trying to change value, returning original tree")
+                return tree   # Non ho trovato uno split valido, mutazione non riuscita, ritorno l'albero vero
+            
+            # Se siamo qui, ho trovato uno split valido
+            new_split = DecisionNode.make_split(split_feature, split_value, node.depth, node.left, node.right, node.leaf_samples)
+            if node.depth == 0:
+                #non devo riassegnare il nodo al parent, è la radice
+                d = new_split
+            else:
+                # Riassegna il nodo al parent
+                if left_child:
+                    parent.left = new_split
+                else:
+                    parent.right = new_split
+            
+            print(f"Changed split value to {split_value} on node: {node.feature_index}, depth: {node.depth}, left child: {left_child}")
+            #Controllo dell'integrità dell'albero, devo ricontrollare se gli split dopo rimangono validi, altrimenti vanno prunati
+            fixed = self._fix_tree_integrity(d, X, y, np.arange(X.shape[0], dtype=np.int32))   #Non sono riuscito a cambiare la variabile di split, ma ho cambiato il valore di split 
+            if fixed.depth == -1:
+                # Se l'albero è stato potato completamente, ritorno None
+                print("Tree has been pruned completely, returning original tree")
+                return tree  # L'albero è stato potato completamente, ritorno l'albero originale
+            else:
+                return fixed  # Ritorno l'albero modificato 
+
+    cdef _fix_tree_integrity(self, DecisionNode tree, double[:, :] X, int[:] y, np.ndarray[np.int32_t, ndim=1] sample_indices):
+        """
+        Dopo che un albero ha subito un cambiamentoo ad un nodo interno si controlla se gli split successivi sono ancora validi.
+        Se uno split non è più valido, lo pota.
+        """
+        cdef int n_samples = sample_indices.shape[0]
+        if self.is_regression:
+            n_classes = 1  # Per regressione, non serve
+        else:
+            n_classes = int(np.max(y)) + 1  #TODO: Da cambiare vorrei ussasse tutti i valori?
+
+        cdef np.ndarray[np.int32_t, ndim=1] counts = np.zeros(n_classes, dtype=np.int32)
+        cdef int split_feature = tree.feature_index
+        cdef double split_value = tree.threshold
+        print(f"Fixing tree integrity at node: {tree.feature_index}, depth: {tree.depth}, split value: {split_value}")
+        if tree.is_leaf:
+            print("Node is a leaf, returning leaf")
+            if self.is_regression:
+                mean = 0.0
+                for i in range(n_samples):
+                    mean += y[sample_indices[i]]
+                mean /= n_samples
+                return DecisionNode.make_leaf(mean, n_samples, 0, sample_indices)
+            else:
+                counts[:] = 0
+                for i in range(n_samples):
+                    counts[y[sample_indices[i]]] += 1
+                best_cls = 0
+                max_count = counts[0]
+                for i in range(1, n_classes):
+                    if counts[i] > max_count:
+                        max_count = counts[i]
+                        best_cls = i
+                return DecisionNode.make_leaf(best_cls, n_samples, 0, sample_indices)
+
+        #controllo se lo split è valido
+        left_count = 0
+        right_count = 0
+        for i in range(n_samples):
+            if X[sample_indices[i], split_feature] <= split_value:
+                left_count += 1
+            else:
+                right_count += 1
+        # Se uno dei due figli non ha campioni, non posso splittare
+        if left_count == 0 or right_count == 0:
+            print("Split is not valid, converting to leaf")
+            valid = False
+
+        if not self.is_regression:
+            # Controlla se i figli hanno lo stesso valore di classe
+            left_counts = np.zeros(n_classes, dtype=np.int32)
+            right_counts = np.zeros(n_classes, dtype=np.int32)
+            for idx in sample_indices:
+                if X[idx, split_feature] <= split_value:
+                    left_counts[y[idx]] += 1
+                else:
+                    right_counts[y[idx]] += 1
+            if np.argmax(left_counts) == np.argmax(right_counts):
+                print("Split would produce two leaves with the same class, not valid")
+                valid = False
+
+        if not valid and tree.depth == 0:
+            # Se lo split non è valido e siamo alla radice, non possiamo potare, l'albero non è più valido
+            # TODO: Potrei fare in modo che se fosse la radice allora deve essere comunque valido quando lo modifico?
+            print("Split is not valid at root, cannot prune, returning leaf with depth = -1")
+            return DecisionNode.make_leaf(0, 0, -1, sample_indices)
+
+        if not valid:
+            # Se lo split non è valido, converto il nodo in una foglia
+            print("Split is not valid, converting to leaf")
+            if self.is_regression:
+                mean = 0.0
+                for i in range(n_samples):
+                    mean += y[sample_indices[i]]
+                mean /= n_samples
+                return DecisionNode.make_leaf(mean, n_samples, 0, sample_indices)
+            else:
+                counts[:] = 0
+                for i in range(n_samples):
+                    counts[y[sample_indices[i]]] += 1
+                best_cls = 0
+                max_count = counts[0]
+                for i in range(1, n_classes):
+                    if counts[i] > max_count:
+                        max_count = counts[i]
+                        best_cls = i
+                return DecisionNode.make_leaf(best_cls, n_samples, 0, sample_indices)
+        
+        # Se siamo qui, lo split è valido, ma devo controllare i figli
+        cdef np.ndarray[np.int32_t, ndim=1] left_idx = np.empty(left_count, dtype=np.int32)
+        cdef np.ndarray[np.int32_t, ndim=1] right_idx = np.empty(right_count, dtype=np.int32)
+        cdef int l = 0      #servono per popolare gli indici
+        cdef int r = 0
+        for i in range(n_samples):
+            if X[sample_indices[i], split_feature] <= split_value:
+                left_idx[l] = sample_indices[i]
+                l += 1
+            else:
+                right_idx[r] = sample_indices[i]
+                r += 1
+        
+        tree.left = self._fix_tree_integrity(tree.left, X, y, left_idx)
+        tree.right = self._fix_tree_integrity(tree.right, X, y, right_idx)
+        return tree  # Ritorno l'albero modificato
+
+        # if tree.left.is_leaf or tree.right.is_leaf:
+        #     # cambia gli indici e la predizione
+        #     # controllo se va bene e ritorno il nodo con le nuove foglie e nuovi indici
+        #     tree.left = self._fix_tree_integrity(tree.left, X, y, left_idx)
+        #     tree.right = self._fix_tree_integrity(tree.right, X, y, right_idx)
+        #     return tree  # Ritorno l'albero modificato
+        # elif tree.left.is_leaf and not tree.right.is_leaf:
+        #     #Controllo se lo split fi puo fare, aggiorno la foglia sinistra e richiamo ricorsivamente su destra
+        #     # Se non va bene lo pruno
+        #     pass
+        # elif not tree.left.is_leaf and tree.right.is_leaf:
+        #     #Controllo se lo split fi puo fare, aggiorno la foglia destra e richiamo ricorsivamente su sinistra
+        #     # Se non va bene lo pruno
+        #     pass
+        # else:
+        #     #Controllo se lo split fi puo fare, aggiorno le foglie e richiamo ricorsivamente su sinistra e destra
+        #     # Se non va bene lo pruno
+        #     tree.left = self._fix_tree_integrity(tree.left, X, y, left_idx)
+        #     tree.right = self._fix_tree_integrity(tree.right, X, y, right_idx)
+            
+        #     #TODO: controllo se i due nodi sono della stessa classe? Lo devo fare oppure non serve?
+        #     return tree  # Ritorno l'albero modificato
+
+    cdef _is_valid_split(self, DecisionNode node, double[:, :] X, int[:] y, np.ndarray[np.int32_t, ndim=1] sample_indices, int n_classes):
+        """
+        Controlla se uno split è valido:
+        - Se il nodo ha meno di min_samples_leaf campioni, non è valido.
+        - Se il nodo ha profondità >= max_depth, non è valido.
+        - Se lo split produce due foglie con lo stesso valore di classe (per classificazione), non è valido.
+        """
+
+        cdef int n_samples = sample_indices.shape[0]
+        cdef int split_feature = node.feature_index
+        cdef double split_value = node.split_value
+
+        if node.leaf_samples < self.min_samples_leaf or node.depth >= self.max_depth:
+            return False
+
+        left_count = 0
+        right_count = 0
+        for i in range(n_samples):
+            if X[sample_indices[i], split_feature] <= split_value:
+                left_count += 1
+            else:
+                right_count += 1
+        # Se uno dei due figli non ha campioni, non posso splittare
+        if left_count == 0 or right_count == 0:
+            return False
+
+        if not self.is_regression:
+            # Controlla se i figli hanno lo stesso valore di classe
+            left_counts = np.zeros(n_classes, dtype=np.int32)
+            right_counts = np.zeros(n_classes, dtype=np.int32)
+            for idx in node.sample_indices:
+                if X[idx, node.feature_index] <= node.split_value:
+                    left_counts[y[idx]] += 1
+                else:
+                    right_counts[y[idx]] += 1
+            if np.argmax(left_counts) == np.argmax(right_counts):
+                return False
+
+        return True
+
+    cdef _crossover(self, DecisionNode a, DecisionNode b):
         """
         Esempio minimale di crossover:
         - Clona le due radici (rootA, rootB).
@@ -390,18 +1051,19 @@ cdef class genTree:
         e sostituendo rootA.right con clonedi rootB.left.
         - Altrimenti, child è copia di A.
         """
-        cdef genTree child = genTree(self.max_depth, self.min_samples_leaf)
-        cdef DecisionNode rootA = self.root.clone()
-        cdef DecisionNode rootB = other.root.clone()
+        # cdef genTree child = genTree(self.max_depth, self.min_samples_leaf)
+        # cdef DecisionNode rootA = self.root.clone()
+        # cdef DecisionNode rootB = other.root.clone()
 
-        if not rootA.is_leaf and not rootB.is_leaf:
-            child.root = rootA
-            if rootB.left is not None:
-                rootA.right = rootB.left.clone()
-        else:
-            child.root = rootA
+        # if not rootA.is_leaf and not rootB.is_leaf:
+        #     child.root = rootA
+        #     if rootB.left is not None:
+        #         rootA.right = rootB.left.clone()
+        # else:
+        #     child.root = rootA
 
-        return child
+        # return child
+        pass  # Placeholder, implementare crossover tra due alberi
 
     ########################################################
     # Fit and predict
@@ -483,9 +1145,37 @@ cdef class genTree:
         """
         return self._predict(X)
 
-    def split(self, tree, X, y):
+    def split_random_leaf(self, tree, X, y):
         """
         Wrapper Python per _split.
         Restituisce una nuova radice mutata (o l'albero originale se la mutazione fallisce).
         """
-        return self._split(tree, X, y)
+        return self._split_random_leaf(tree, X, y)
+    
+    def prune_random_leaf(self, tree, X, y):
+        """
+        Wrapper Python per _prune.
+        Restituisce una nuova radice potata (o l'albero originale se la potatura fallisce).
+        """
+        return self._prune_random_leaf(tree, X, y)
+
+    def prune_random_node(self, tree, X, y):
+        """
+        Wrapper Python per _prune_random_node.
+        Restituisce una nuova radice potata (o l'albero originale se la potatura fallisce).
+        """
+        return self._prune_random_node(tree, X, y)
+
+    def major_split(self, tree, X, y):
+        """
+        Wrapper Python per _major_split.
+        Restituisce una nuova radice mutata (o l'albero originale se la mutazione fallisce).
+        """
+        return self._major_split(tree, X, y)
+
+    def fix_tree_integrity(self, tree, X, y, sample_indices):
+        """
+        Wrapper Python per _fix_tree_integrity.
+        Controlla l'integrità dell'albero dopo una mutazione o potatura.
+        """
+        return self._fix_tree_integrity(tree, X, y, sample_indices)

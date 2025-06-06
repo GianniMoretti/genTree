@@ -25,15 +25,5 @@ fake_class_names = [f"Classe_{i}" for i in range(n_classes)]
 first_tree = tree.population[0].root if hasattr(tree.population[0], "root") else tree.population[0]
 plot_tree(first_tree, filename="graphs/population_tree", features_name=fake_feature_names, class_names=fake_class_names, is_regression=False)
 
-newtree = tree.split_random_leaf(first_tree, X, y)
-plot_tree(newtree, filename="graphs/population_tree_muted", features_name=fake_feature_names, class_names=fake_class_names, is_regression=False)
-
-pruned_leaf_tree = tree.prune_random_leaf(first_tree, X, y)
-plot_tree(pruned_leaf_tree, filename="graphs/population_leaf_pruned", features_name=fake_feature_names, class_names=fake_class_names, is_regression=False)
-
-pruned_tree = tree.prune_random_node(first_tree, X, y)
-plot_tree(pruned_tree, filename="graphs/population_tree_pruned_tree", features_name=fake_feature_names, class_names=fake_class_names, is_regression=False)
-
-# leaf = tree.tree_to_leaf(first_tree.left, X, y)
-# first_tree.left = leaf
-# plot_tree(first_tree, filename="graphs/population_tree_to_leaf", features_name=fake_feature_names, class_names=fake_class_names, is_regression=False)
+muted = tree.major_split(first_tree, X, y)
+plot_tree(muted, filename="graphs/population_tree_muted", features_name=fake_feature_names, class_names=fake_class_names, is_regression=False)
