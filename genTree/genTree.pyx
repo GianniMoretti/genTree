@@ -582,12 +582,14 @@ cdef class genTree:
         cdef np.ndarray[np.int32_t, ndim=1] counts_sx = np.zeros(n_classes, dtype=np.int32)
         cdef np.ndarray[np.int32_t, ndim=1] counts_dx = np.zeros(n_classes, dtype=np.int32)
         cdef DecisionNode new_split
+        cdef int i, split_feature, try_count, idx, left_count, right_count
+        cdef double split_value, mean
 
         # 1. Cerca una nodo randomico scendendo casualmente
         node = d
         parent = None
         left_child = 0
-        while (not node.left.is_leaf or not node.right.is_leaf) and np.random.rand() < 1.0:
+        while (not node.left.is_leaf or not node.right.is_leaf) and np.random.rand() < 0.7:
             parent = node
             if np.random.rand() < 0.5:
                 if node.left.is_leaf:
@@ -613,7 +615,7 @@ cdef class genTree:
         cdef double[::1] split_candidates = np.empty(n_samples, dtype=np.float64)
         
         #2. Cambio al variabile di split con una probabilità del 50%
-        if np.random.rand() < 1.0:                     #TODO: da cambiare una volta che funziona tutto
+        if np.random.rand() < 0.5:                     #TODO: da cambiare una volta che funziona tutto
             print("CHANGING SPLIT FEATURE")
             #2.1 Cambia la variabile di split e il valore di split
             try_count = 0
@@ -889,7 +891,13 @@ cdef class genTree:
         cdef np.ndarray[np.int32_t, ndim=1] counts = np.zeros(n_classes, dtype=np.int32)
         cdef int split_feature = tree.feature_index
         cdef double split_value = tree.threshold
-        print(f"Fixing tree integrity at node: {tree.feature_index}, depth: {tree.depth}, split value: {split_value}")
+        cdef int valid = True  # Indica se lo split è valido
+
+        cdef int i, idx, left_count, right_count
+        cdef double mean
+        cdef int best_cls = 0
+        cdef int max_count = 0
+
         if tree.is_leaf:
             print("Node is a leaf, returning leaf")
             if self.is_regression:
@@ -909,6 +917,8 @@ cdef class genTree:
                         max_count = counts[i]
                         best_cls = i
                 return DecisionNode.make_leaf(best_cls, n_samples, 0, sample_indices)
+        
+        print(f"Fixing tree integrity at node: {tree.feature_index}, depth: {tree.depth}, split value: {split_value}")
 
         #controllo se lo split è valido
         left_count = 0
@@ -938,7 +948,6 @@ cdef class genTree:
 
         if not valid and tree.depth == 0:
             # Se lo split non è valido e siamo alla radice, non possiamo potare, l'albero non è più valido
-            # TODO: Potrei fare in modo che se fosse la radice allora deve essere comunque valido quando lo modifico?
             print("Split is not valid at root, cannot prune, returning leaf with depth = -1")
             return DecisionNode.make_leaf(0, 0, -1, sample_indices)
 
@@ -976,6 +985,7 @@ cdef class genTree:
                 right_idx[r] = sample_indices[i]
                 r += 1
         
+        tree.leaf_samples = n_samples  # Aggiorno il numero di campioni nella foglia
         tree.left = self._fix_tree_integrity(tree.left, X, y, left_idx)
         tree.right = self._fix_tree_integrity(tree.right, X, y, right_idx)
         return tree  # Ritorno l'albero modificato
@@ -1002,46 +1012,6 @@ cdef class genTree:
             
         #     #TODO: controllo se i due nodi sono della stessa classe? Lo devo fare oppure non serve?
         #     return tree  # Ritorno l'albero modificato
-
-    cdef _is_valid_split(self, DecisionNode node, double[:, :] X, int[:] y, np.ndarray[np.int32_t, ndim=1] sample_indices, int n_classes):
-        """
-        Controlla se uno split è valido:
-        - Se il nodo ha meno di min_samples_leaf campioni, non è valido.
-        - Se il nodo ha profondità >= max_depth, non è valido.
-        - Se lo split produce due foglie con lo stesso valore di classe (per classificazione), non è valido.
-        """
-
-        cdef int n_samples = sample_indices.shape[0]
-        cdef int split_feature = node.feature_index
-        cdef double split_value = node.split_value
-
-        if node.leaf_samples < self.min_samples_leaf or node.depth >= self.max_depth:
-            return False
-
-        left_count = 0
-        right_count = 0
-        for i in range(n_samples):
-            if X[sample_indices[i], split_feature] <= split_value:
-                left_count += 1
-            else:
-                right_count += 1
-        # Se uno dei due figli non ha campioni, non posso splittare
-        if left_count == 0 or right_count == 0:
-            return False
-
-        if not self.is_regression:
-            # Controlla se i figli hanno lo stesso valore di classe
-            left_counts = np.zeros(n_classes, dtype=np.int32)
-            right_counts = np.zeros(n_classes, dtype=np.int32)
-            for idx in node.sample_indices:
-                if X[idx, node.feature_index] <= node.split_value:
-                    left_counts[y[idx]] += 1
-                else:
-                    right_counts[y[idx]] += 1
-            if np.argmax(left_counts) == np.argmax(right_counts):
-                return False
-
-        return True
 
     cdef _crossover(self, DecisionNode a, DecisionNode b):
         """
