@@ -78,7 +78,7 @@ cdef class genTree:
                 for i in range(n_samples):
                     mean += y[sample_indices[i]]
                 mean /= n_samples
-                return True, DecisionNode.make_leaf(mean, n_samples, 0, sample_indices)
+                return True, DecisionNode.make_leaf(mean, n_samples, -1, sample_indices)
             else:
                 counts[:] = 0
                 for i in range(n_samples):
@@ -89,7 +89,7 @@ cdef class genTree:
                     if counts[i] > max_count:
                         max_count = counts[i]
                         best_cls = i
-                return True, DecisionNode.make_leaf(best_cls, n_samples, 0, sample_indices)
+                return True, DecisionNode.make_leaf(best_cls, n_samples, -1, sample_indices)
 
         # Se è un problema di classificazione e gli elementi sono tutti della stessa classe, ritorna una foglia
         if not self.is_regression and n_samples > 0:
@@ -98,7 +98,7 @@ cdef class genTree:
                 counts[y[sample_indices[i]]] += 1
             if np.max(counts) == n_samples:
                 best_cls = np.argmax(counts)
-                return True, DecisionNode.make_leaf(best_cls, n_samples, 0, sample_indices)
+                return True, DecisionNode.make_leaf(best_cls, n_samples, -1, sample_indices)
 
         # Decide se espandere i figli o fermarsi (eccetto primo split)
         if not force_split and np.random.rand() > self.expand_prob:
@@ -107,7 +107,7 @@ cdef class genTree:
                 for i in range(n_samples):
                     mean += y[sample_indices[i]]
                 mean /= n_samples
-                return True, DecisionNode.make_leaf(mean, n_samples, 0, sample_indices)
+                return True, DecisionNode.make_leaf(mean, n_samples, -1, sample_indices)
             else:
                 counts[:] = 0
                 for i in range(n_samples):
@@ -118,7 +118,7 @@ cdef class genTree:
                     if counts[i] > max_count:
                         max_count = counts[i]
                         best_cls = i
-                return True, DecisionNode.make_leaf(best_cls, n_samples, 0, sample_indices)
+                return True, DecisionNode.make_leaf(best_cls, n_samples, -1, sample_indices)
 
         #TODO: Sarebbe da incapsulare in un metodo a parte
         # Split casuale, il primo split DEVE riuscire (force_split=True)
@@ -182,7 +182,7 @@ cdef class genTree:
             break
 
         if try_count >= 10:
-            return False, DecisionNode.make_leaf(0, n_samples, 0, sample_indices)
+            return False, DecisionNode.make_leaf(0, n_samples, -1, sample_indices)
 
         # Se siamo qui, abbiamo trovato uno split valido
         # Ricorsione su figli (costruzione indici left/right in Cython) e conteggio
@@ -288,7 +288,7 @@ cdef class genTree:
             for i in range(n_samples):
                 mean += y[all_sample_indices[i]]
             mean /= n_samples
-            return DecisionNode.make_leaf(mean, n_samples, 0, all_sample_indices)
+            return DecisionNode.make_leaf(mean, n_samples, -1, all_sample_indices)
         else:
             n_classes = int(np.max(y)) + 1  #TODO: Da cambiare vorrei ussasse tutti i valori?
             counts = np.zeros(n_classes, dtype=np.int32)
@@ -300,7 +300,7 @@ cdef class genTree:
                 if counts[i] > max_count:
                     max_count = counts[i]
                     best_cls = i
-            return DecisionNode.make_leaf(best_cls, n_samples, 0, all_sample_indices)
+            return DecisionNode.make_leaf(best_cls, n_samples, -1, all_sample_indices)
 
     cdef _split_random_leaf(self, DecisionNode tree, double[:, :] X, int[:] y):
         """
@@ -413,8 +413,8 @@ cdef class genTree:
                 right_mean /= right_count
                 left_indices_arr = np.array(left_indices, dtype=np.int32)
                 right_indices_arr = np.array(right_indices, dtype=np.int32)
-                left_node = DecisionNode.make_leaf(left_mean, left_count, 0, left_indices_arr)
-                right_node = DecisionNode.make_leaf(right_mean, right_count, 0, right_indices_arr)
+                left_node = DecisionNode.make_leaf(left_mean, left_count, -1, left_indices_arr)
+                right_node = DecisionNode.make_leaf(right_mean, right_count, -1, right_indices_arr)
             else:
                 n_classes = int(np.max(y_sub)) + 1   #TODO: Da cambiare vorrei ussasse tutti i valori?
                 left_counts = np.zeros(n_classes, dtype=np.int32)
@@ -436,8 +436,8 @@ cdef class genTree:
                     continue
                 left_indices_arr = np.array(left_indices, dtype=np.int32)
                 right_indices_arr = np.array(right_indices, dtype=np.int32)
-                left_node = DecisionNode.make_leaf(left_cls, left_count, 0, left_indices_arr)
-                right_node = DecisionNode.make_leaf(right_cls, right_count, 0, right_indices_arr)
+                left_node = DecisionNode.make_leaf(left_cls, left_count, -1, left_indices_arr)
+                right_node = DecisionNode.make_leaf(right_cls, right_count, -1, right_indices_arr)
 
             new_split = DecisionNode.make_split(split_feature, split_value, parent.depth + 1, left_node, right_node, n_samples)
 
@@ -1065,7 +1065,7 @@ cdef class genTree:
                 for i in range(n_samples):
                     mean += y[sample_indices[i]]
                 mean /= n_samples
-                return DecisionNode.make_leaf(mean, n_samples, 0, sample_indices)
+                return DecisionNode.make_leaf(mean, n_samples, -1, sample_indices)
             else:
                 counts[:] = 0
                 for i in range(n_samples):
@@ -1076,7 +1076,7 @@ cdef class genTree:
                     if counts[i] > max_count:
                         max_count = counts[i]
                         best_cls = i
-                return DecisionNode.make_leaf(best_cls, n_samples, 0, sample_indices)
+                return DecisionNode.make_leaf(best_cls, n_samples, -1, sample_indices)
         
         print(f"Fixing tree integrity at node: {tree.feature_index}, depth: {tree.depth}, split value: {split_value}")
 
@@ -1119,7 +1119,7 @@ cdef class genTree:
                 for i in range(n_samples):
                     mean += y[sample_indices[i]]
                 mean /= n_samples
-                return DecisionNode.make_leaf(mean, n_samples, 0, sample_indices)
+                return DecisionNode.make_leaf(mean, n_samples, -1, sample_indices)
             else:
                 counts[:] = 0
                 for i in range(n_samples):
@@ -1130,7 +1130,7 @@ cdef class genTree:
                     if counts[i] > max_count:
                         max_count = counts[i]
                         best_cls = i
-                return DecisionNode.make_leaf(best_cls, n_samples, 0, sample_indices)
+                return DecisionNode.make_leaf(best_cls, n_samples, -1, sample_indices)
         
         # Se siamo qui, lo split è valido, ma devo controllare i figli
         cdef np.ndarray[np.int32_t, ndim=1] left_idx = np.empty(left_count, dtype=np.int32)
@@ -1150,50 +1150,74 @@ cdef class genTree:
         tree.right = self._fix_tree_integrity(tree.right, X, y, right_idx)
         return tree  # Ritorno l'albero modificato
 
-        # if tree.left.is_leaf or tree.right.is_leaf:
-        #     # cambia gli indici e la predizione
-        #     # controllo se va bene e ritorno il nodo con le nuove foglie e nuovi indici
-        #     tree.left = self._fix_tree_integrity(tree.left, X, y, left_idx)
-        #     tree.right = self._fix_tree_integrity(tree.right, X, y, right_idx)
-        #     return tree  # Ritorno l'albero modificato
-        # elif tree.left.is_leaf and not tree.right.is_leaf:
-        #     #Controllo se lo split fi puo fare, aggiorno la foglia sinistra e richiamo ricorsivamente su destra
-        #     # Se non va bene lo pruno
-        #     pass
-        # elif not tree.left.is_leaf and tree.right.is_leaf:
-        #     #Controllo se lo split fi puo fare, aggiorno la foglia destra e richiamo ricorsivamente su sinistra
-        #     # Se non va bene lo pruno
-        #     pass
-        # else:
-        #     #Controllo se lo split fi puo fare, aggiorno le foglie e richiamo ricorsivamente su sinistra e destra
-        #     # Se non va bene lo pruno
-        #     tree.left = self._fix_tree_integrity(tree.left, X, y, left_idx)
-        #     tree.right = self._fix_tree_integrity(tree.right, X, y, right_idx)
-            
-        #     #TODO: controllo se i due nodi sono della stessa classe? Lo devo fare oppure non serve?
-        #     return tree  # Ritorno l'albero modificato
-
-    cdef _crossover(self, DecisionNode a, DecisionNode b):
+    cdef _crossover(self, DecisionNode a, DecisionNode b, double[:, :] X, int[:] y):
         """
-        Esempio minimale di crossover:
-        - Clona le due radici (rootA, rootB).
-        - Se entrambi non sono foglie, crea child radicando rootA,
-        e sostituendo rootA.right con clonedi rootB.left.
-        - Altrimenti, child è copia di A.
+        Crossover tra due alberi per generare un figlio.
+        si cerca due nodi interni casuali (che non sono foglie) in a e b e si scambiano i loro sottoalberi.
         """
-        # cdef genTree child = genTree(self.max_depth, self.min_samples_leaf)
-        # cdef DecisionNode rootA = self.root.clone()
-        # cdef DecisionNode rootB = other.root.clone()
 
-        # if not rootA.is_leaf and not rootB.is_leaf:
-        #     child.root = rootA
-        #     if rootB.left is not None:
-        #         rootA.right = rootB.left.clone()
-        # else:
-        #     child.root = rootA
+        if self.is_regression:
+            n_classes = 1  # Per regressione, non serve
+        else:
+            n_classes = int(np.max(y)) + 1  #TODO: Da cambiare vorrei ussasse tutti i valori?
 
-        # return child
-        pass  # Placeholder, implementare crossover tra due alberi
+        cdef DecisionNode a_clone = a.clone()  
+        cdef DecisionNode b_clone = b.clone()
+
+        cdef DecisionNode parent_a
+        cdef int left_child_a
+        cdef DecisionNode node_a
+        cdef DecisionNode node_b
+        cdef DecisionNode fixed
+
+        # 1. Cerca un nodo interno casuale scendendo casualmente in a
+        node_a = a_clone
+        parent_a = None
+        left_child_a = 0
+        while not node_a.is_leaf and (node_a.depth == 0 or np.random.rand() < 0.7):
+            parent_a = node_a
+            if np.random.rand() < 0.5:
+                left_child_a = 1
+                node_a = node_a.left
+            else:
+                left_child_a = 0
+                node_a = node_a.right
+        print(f"Crossover node A: {node_a.feature_index}, depth: {node_a.depth}, left child: {left_child_a}")
+        # 2. Cerca un nodo interno casuale scendendo casualmente in b
+        node_b = b_clone
+        while (not node_b.left.is_leaf or not node_b.right.is_leaf) and np.random.rand() < 0.7:
+            parent_b = node_b
+            if np.random.rand() < 0.5:
+                if node_b.left.is_leaf:
+                    node_b = node_b.right
+                else:
+                    node_b = node_b.left
+            else:
+                if node_b.right.is_leaf:
+                    node_b = node_b.left
+                else:
+                    node_b = node_b.right
+        print(f"Crossover node B: {node_b.feature_index}, depth: {node_b.depth}")
+        # 3. Scambia i sottoalberi di a e b
+        # Se i nodi sono uguali, non faccio nulla
+        if node_a == node_b:
+            print("Nodes are the same, no crossover performed")
+            return a_clone  # Ritorno l'albero clone di a, non ho fatto crossover
+        # Scambio i sottoalberi
+        if left_child_a:
+            parent_a.left = node_b
+        else:
+            parent_a.right = node_b
+
+        # 3. Aggiusto l'albero prima di ritornarlo
+        # Controllo l'integrità dell'albero dopo il crossover
+        fixed = self._fix_tree_integrity(a_clone, X, y, np.arange(X.shape[0], dtype=np.int32))   #Non sono riuscito a cambiare la variabile di split, ma ho cambiato il valore di split 
+        if fixed.depth == -1:
+            # Se l'albero è stato potato completamente, ritorno None
+            print("Tree has been pruned completely, returning original tree")
+            return a_clone  # L'albero è stato potato completamente, ritorno l'albero originale
+        else:
+            return fixed  # Ritorno l'albero modificato 
 
     ########################################################
     # Fit and predict
@@ -1316,4 +1340,13 @@ cdef class genTree:
         Restituisce una nuova radice mutata (o l'albero originale se la mutazione fallisce).
         """
         return self._minor_split(tree, X, y)
+
+    def crossover(self, a, b, X, y):
+        """
+        Wrapper Python per _crossover.
+        Restituisce un nuovo albero figlio generato dal crossover tra a e b.
+        """
+        return self._crossover(a, b, X, y)
     
+
+#TODO: Rendi n_classes unparametro della classe
