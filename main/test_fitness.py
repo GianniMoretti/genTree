@@ -24,9 +24,12 @@ fake_class_names = [f"Classe_{i}" for i in range(n_classes)]
 # Visualizza il primo albero della popolazione
 first_tree = tree.population[0]
 plot_tree(first_tree, filename="graphs/population_tree", features_name=fake_feature_names, class_names=fake_class_names, is_regression=False)
+print(f"First tree fitness: {tree.compute_fitness(first_tree, X, y)}")
 
 second_tree = tree.population[1]
 plot_tree(second_tree, filename="graphs/population_tree_2", features_name=fake_feature_names, class_names=fake_class_names, is_regression=False)
+print(f"Second tree fitness: {tree.compute_fitness(second_tree, X, y)}")
 
 child_tree = tree.crossover(first_tree, second_tree, X, y)
 plot_tree(child_tree, filename="graphs/crossover_tree", features_name=fake_feature_names, class_names=fake_class_names, is_regression=False)
+print(f"Child tree fitness: {tree.compute_fitness(child_tree, X, y)}")

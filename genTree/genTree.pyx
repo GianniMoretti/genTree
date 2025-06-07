@@ -31,10 +31,11 @@ cdef class genTree:
     cdef int pop_size
     cdef int n_generations
     cdef double alpha
+    cdef int n_classes  # aggiungi questo attributo
 
     # ——————————————————————————
     # Cambiare in modo che gli attributi non siano visibili da fuori della classe
-    def __cinit__(self, int max_depth=5, int min_samples_leaf=1, bint is_regression=False, double expand_prob=0.5, int pop_size=100, int n_generations=10, double alpha=0.01):
+    def __cinit__(self, int max_depth=5, int min_samples_leaf=1, bint is_regression=False, double expand_prob=0.5, int pop_size=100, int n_generations=10):
         self.max_depth = max_depth
         self.min_samples_leaf = min_samples_leaf
         self.population = []
@@ -43,13 +44,14 @@ cdef class genTree:
         self.expand_prob = expand_prob
         self.pop_size = pop_size
         self.n_generations = n_generations
-        self.alpha = alpha
+        self.alpha = 0.25
+        self.n_classes = 1  # default, verrà impostato in fit
 
     ########################################################
     # Initializzaztion
     ########################################################
 
-    cdef object _initialize_random(self, double[:, :] X, int[:] y, int n_classes, np.ndarray[np.int32_t, ndim=1] sample_indices, int depth=0, bint force_split=True):
+    cdef object _initialize_random(self, double[:, :] X, int[:] y, np.ndarray[np.int32_t, ndim=1] sample_indices, int depth=0, bint force_split=True):
         """
         Ricorsivamente genera un albero randomico:
         - Split casuale, espansione figli con probabilità self.expand_prob, max_depth.
@@ -62,6 +64,7 @@ cdef class genTree:
         cdef int n_total_samples = X.shape[0]
         cdef int n_samples = sample_indices.shape[0]
         cdef int n_features = X.shape[1]
+        cdef int n_classes = self.n_classes
         cdef int i, split_feature, try_count, idx, left_count, right_count
         cdef double split_value, mean
         cdef DecisionNode left_node, right_node
@@ -199,12 +202,12 @@ cdef class genTree:
                 r += 1
 
         # Chiamata ricorsiva passando solo gli indici
-        ok, left_node = self._initialize_random(X, y, n_classes, left_idx, depth + 1, False)
-        ok, right_node = self._initialize_random(X, y, n_classes, right_idx, depth + 1, False)
+        ok, left_node = self._initialize_random(X, y, left_idx, depth + 1, False)
+        ok, right_node = self._initialize_random(X, y, right_idx, depth + 1, False)
 
         return True, DecisionNode.make_split(split_feature, split_value, depth, left_node, right_node, n_samples)
 
-    cdef void _create_population(self, double[:, :] X, int[:] y, int n_classes):
+    cdef void _create_population(self, double[:, :] X, int[:] y):
         """
         Crea una popolazione di alberi randomici.
         """
@@ -213,7 +216,7 @@ cdef class genTree:
         cdef int actual_pop_size = 0
         while actual_pop_size < self.pop_size:
             # Prova a creare un albero randomico
-            ok, root = self._initialize_random(X, y, n_classes, np.arange(X.shape[0], dtype=np.int32), 0, True)
+            ok, root = self._initialize_random(X, y, np.arange(X.shape[0], dtype=np.int32), 0, True)
             if ok:
                 self.population.append(root)
                 actual_pop_size += 1
@@ -222,30 +225,32 @@ cdef class genTree:
     # Evaluation
     ########################################################
 
-    cdef double _compute_fitness(self, double[:, :] X, int[:] y, double alpha):
+    cdef double _compute_loss(self, DecisionNode tree,  double[:, :] X, int[:] y):
         """
-        Fitness = accuracy - alpha * (# foglie)
+        compute_loss calcola la loss function per l'albero dato.
         """
-        cdef int n_samples = X.shape[0]
+        cdef int N = X.shape[0]
+        cdef int M = tree._count_leaves()
+        cdef int n_classes = self.n_classes
         cdef int i
-        cdef double score = 0.0
-        cdef double err
-        cdef int correct
+        cdef double mse = 0.0
+        cdef int errors = 0
+
         if self.is_regression:
-            # MSE negativo come fitness
-            err = 0.0
-            for i in range(n_samples):
-                pred = self.root._predict_one(X[i])
-                err += (pred - y[i]) * (pred - y[i])
-            score = -err / n_samples
+            #Calcolo della loss function per la regressione
+            # loss(Y, f(X, theta)) = N * log(MSE(Y, f(X, theta))) + alfa * 4* (M + 1) * log(N)
+            for i in range(N):
+                pred = tree.predict(X[i, :])   #meglio usare _predict_one?
+                mse += (y[i] - pred) ** 2
+            return N * np.log(mse) + self.alpha * 4 * (M + 1) * np.log(N)
         else:
-            correct = 0
-            for i in range(n_samples):
-                if y[i] == self.root._predict_one(X[i]):
-                    correct += 1
-            score = correct / n_samples
-        cdef int n_leaves = self.root._count_leaves()
-        return score - alpha * n_leaves
+            # Calcolo della loss function per la classificazione
+            # loss(Y, f(X, theta)) = 2* N * missclassif(Y, f(X, theta)) + alfa * M * log(N)
+            for i in range(N):
+                pred = tree.predict(X[i, :])
+                if pred != y[i]:
+                    errors += 1
+            return 2 * errors + self.alpha * M * np.log(N)
 
     ########################################################
     # Mutation and crossover
@@ -272,7 +277,7 @@ cdef class genTree:
             return tree
 
         cdef int n_samples = X.shape[0]
-        cdef int n_classes = 1  # TODO: Metterlo come parametro?
+        cdef int n_classes = self.n_classes
         cdef int i
         cdef double mean
         cdef int best_cls = 0
@@ -290,7 +295,6 @@ cdef class genTree:
             mean /= n_samples
             return DecisionNode.make_leaf(mean, n_samples, -1, all_sample_indices)
         else:
-            n_classes = int(np.max(y)) + 1  #TODO: Da cambiare vorrei ussasse tutti i valori?
             counts = np.zeros(n_classes, dtype=np.int32)
             for i in range(n_samples):
                 counts[y[all_sample_indices[i]]] += 1
@@ -311,7 +315,7 @@ cdef class genTree:
         cdef int n_max_fail = 10
         cdef int fail_count = 0
         cdef int n_features = X.shape[1]
-        cdef int n_classes = 1  # default, verrà aggiornato sotto se serve
+        cdef int n_classes = self.n_classes
         cdef DecisionNode node
         cdef DecisionNode parent
         cdef DecisionNode left_node, right_node, split_node
@@ -353,7 +357,6 @@ cdef class genTree:
             sample_indices = node.sample_indices
             n_samples = sample_indices.shape[0]
 
-            #TODO: Non volgio estrarre gli array, voglio lavorare sui x e y originali
             # Ho forse per fare i controlli ha senso estrarli almeno sono meno elementi da ordnare?
             # 4. Estrai X_sub e y_sub usando np.take per compatibilità Cython
             X_sub = np.take(np.asarray(X), sample_indices, axis=0)
@@ -395,7 +398,6 @@ cdef class genTree:
                 fail_count += 1
                 continue
 
-            #TODO: Non torna gli indici sample indices adesso si riferiscono a X e y
             # 7. Trovare i valori di predizione per i figli
             if self.is_regression:
                 left_mean = 0.0
@@ -416,7 +418,7 @@ cdef class genTree:
                 left_node = DecisionNode.make_leaf(left_mean, left_count, -1, left_indices_arr)
                 right_node = DecisionNode.make_leaf(right_mean, right_count, -1, right_indices_arr)
             else:
-                n_classes = int(np.max(y_sub)) + 1   #TODO: Da cambiare vorrei ussasse tutti i valori?
+                counts = np.zeros(n_classes, dtype=np.int32)
                 left_counts = np.zeros(n_classes, dtype=np.int32)
                 right_counts = np.zeros(n_classes, dtype=np.int32)
                 left_indices = []
@@ -565,11 +567,7 @@ cdef class genTree:
         Sceglie un nodo casuale e con una probabilità del 50% cambia la sua variabile di split,
         dopo di che cambia il suo valore di split casualmente.
         """
-        if self.is_regression:
-            n_classes = 1  # Per regressione, non serve
-        else:
-            n_classes = int(np.max(y)) + 1  #TODO: Da cambiare vorrei ussasse tutti i valori?
-
+        cdef int n_classes = self.n_classes
         cdef DecisionNode d = tree.clone()  # Clona l'albero per non modificarlo direttamente
         cdef DecisionNode parent
         cdef DecisionNode node
@@ -589,7 +587,7 @@ cdef class genTree:
         node = d
         parent = None
         left_child = 0
-        while (not node.left.is_leaf or not node.right.is_leaf) and np.random.rand() < 0.7:
+        while (not node.left.is_leaf or not node.right.is_leaf) and np.random.rand() < self.expand_prob:
             parent = node
             if np.random.rand() < 0.5:
                 if node.left.is_leaf:
@@ -881,11 +879,7 @@ cdef class genTree:
         """
         Sceglie un nodo casuale e con una probabilità del 50% cambia il suo valore di split.
         """
-        if self.is_regression:
-            n_classes = 1  # Per regressione, non serve
-        else:
-            n_classes = int(np.max(y)) + 1  #TODO: Da cambiare vorrei ussasse tutti i valori?
-
+        cdef int n_classes = self.n_classes
         cdef DecisionNode d = tree.clone()  # Clona l'albero per non modificarlo direttamente
         cdef DecisionNode parent
         cdef DecisionNode node
@@ -905,7 +899,7 @@ cdef class genTree:
         node = d
         parent = None
         left_child = 0
-        while (not node.left.is_leaf or not node.right.is_leaf) and np.random.rand() < 0.7:
+        while (not node.left.is_leaf or not node.right.is_leaf) and np.random.rand() < self.expand_prob:
             parent = node
             if np.random.rand() < 0.5:
                 if node.left.is_leaf:
@@ -1043,13 +1037,10 @@ cdef class genTree:
         Se uno split non è più valido, lo pota.
         """
         cdef int n_samples = sample_indices.shape[0]
-        if self.is_regression:
-            n_classes = 1  # Per regressione, non serve
-        else:
-            n_classes = int(np.max(y)) + 1  #TODO: Da cambiare vorrei ussasse tutti i valori?
+        cdef int n_classes = self.n_classes
 
         cdef np.ndarray[np.int32_t, ndim=1] counts = np.zeros(n_classes, dtype=np.int32)
-        cdef int split_feature = tree.feature_index
+        #cdef int split_feature = tree.feature_index
         cdef double split_value = tree.threshold
         cdef int valid = True  # Indica se lo split è valido
 
@@ -1084,7 +1075,7 @@ cdef class genTree:
         left_count = 0
         right_count = 0
         for i in range(n_samples):
-            if X[sample_indices[i], split_feature] <= split_value:
+            if X[sample_indices[i], tree.feature_index] <= split_value:
                 left_count += 1
             else:
                 right_count += 1
@@ -1098,7 +1089,7 @@ cdef class genTree:
             left_counts = np.zeros(n_classes, dtype=np.int32)
             right_counts = np.zeros(n_classes, dtype=np.int32)
             for idx in sample_indices:
-                if X[idx, split_feature] <= split_value:
+                if X[idx, tree.feature_index] <= split_value:
                     left_counts[y[idx]] += 1
                 else:
                     right_counts[y[idx]] += 1
@@ -1138,7 +1129,7 @@ cdef class genTree:
         cdef int l = 0      #servono per popolare gli indici
         cdef int r = 0
         for i in range(n_samples):
-            if X[sample_indices[i], split_feature] <= split_value:
+            if X[sample_indices[i], tree.feature_index] <= split_value:
                 left_idx[l] = sample_indices[i]
                 l += 1
             else:
@@ -1156,11 +1147,7 @@ cdef class genTree:
         si cerca due nodi interni casuali (che non sono foglie) in a e b e si scambiano i loro sottoalberi.
         """
 
-        if self.is_regression:
-            n_classes = 1  # Per regressione, non serve
-        else:
-            n_classes = int(np.max(y)) + 1  #TODO: Da cambiare vorrei ussasse tutti i valori?
-
+        cdef int n_classes = self.n_classes
         cdef DecisionNode a_clone = a.clone()  
         cdef DecisionNode b_clone = b.clone()
 
@@ -1174,7 +1161,7 @@ cdef class genTree:
         node_a = a_clone
         parent_a = None
         left_child_a = 0
-        while not node_a.is_leaf and (node_a.depth == 0 or np.random.rand() < 0.7):
+        while not node_a.is_leaf and (node_a.depth == 0 or np.random.rand() < self.expand_prob):
             parent_a = node_a
             if np.random.rand() < 0.5:
                 left_child_a = 1
@@ -1185,7 +1172,7 @@ cdef class genTree:
         print(f"Crossover node A: {node_a.feature_index}, depth: {node_a.depth}, left child: {left_child_a}")
         # 2. Cerca un nodo interno casuale scendendo casualmente in b
         node_b = b_clone
-        while (not node_b.left.is_leaf or not node_b.right.is_leaf) and np.random.rand() < 0.7:
+        while (not node_b.left.is_leaf or not node_b.right.is_leaf) and np.random.rand() < self.expand_prob:
             parent_b = node_b
             if np.random.rand() < 0.5:
                 if node_b.left.is_leaf:
@@ -1223,15 +1210,21 @@ cdef class genTree:
     # Fit and predict
     ########################################################
 
-    cdef DecisionNode _fit(self, double[:, :] X, int[:] y, int n_classes):
+    cdef DecisionNode _fit(self, double[:, :] X, int[:] y, alpha=0.25):
         """
         Esegue la ricerca evolutiva per trovare il miglior albero.
         """
+        self.alpha = alpha
+        # Imposta n_classes in base a y e self.is_regression
+        if not self.is_regression:
+            self.n_classes = len(np.unique(y))
+        else:
+            self.n_classes = 1
         cdef int gen, i
         cdef double best_fitness, fitness
         cdef genTree best_individual
 
-        self._create_population(X, y, n_classes)
+        self._create_population(X, y)
 
         best_fitness = -1e9
         best_individual = None
@@ -1261,43 +1254,36 @@ cdef class genTree:
         self.best_tree = best_individual.root
         return self.best_tree
 
-    cdef np.ndarray[np.float64_t, ndim=1] _predict(self, double[:, :] X):
-        """
-        Predice i risultati usando il best_tree trovato da fit.
-        """
-        if self.best_tree is None:
-            raise ValueError("Devi chiamare fit prima di predict.")
-        cdef int n_samples = X.shape[0]
-        cdef np.ndarray[np.float64_t, ndim=1] out = np.empty(n_samples, dtype=np.float64)
-        cdef int i
-        for i in range(n_samples):
-            out[i] = self.best_tree._predict_one(X[i])
-        return out
+    # cdef np.ndarray[np.float64_t, ndim=1] _predict(self, double[:, :] X):
+    #     """
+    #     Predice i risultati usando il best_tree trovato da fit.
+    #     """
+    #     if self.best_tree is None:
+    #         raise ValueError("Devi chiamare fit prima di predict.")
+    #     cdef int n_samples = X.shape[0]
+    #     cdef np.ndarray[np.float64_t, ndim=1] out = np.empty(n_samples, dtype=np.float64)
+    #     cdef int i
+    #     for i in range(n_samples):
+    #         out[i] = self.best_tree._predict_one(X[i])
+    #     return out
 
     # --- Python wrappers ---
 
-    def create_population(self, X, y, n_classes):
+    def create_population(self, X, y):
         """
         Wrapper Python per _create_population.
         """
-        self._create_population(X, y, n_classes)
+        if not self.is_regression:
+            self.n_classes = len(np.unique(y))
+        else:
+            self.n_classes = 1
+        self._create_population(X, y)
 
     def fit(self, X, y):
         """
         Wrapper Python per _fit.
-        Se n_classes non è fornito e il problema è di classificazione, lo calcola da y come numero di valori unici.
         """
-        if not self.is_regression:
-            n_classes = len(np.unique(y))  #TODO: Cosi prende il numero ma forse sarebbe meglio che prendesse proprio le classi?
-        else:
-            n_classes = 1
-        return self._fit(X, y, n_classes)
-
-    def predict(self, X):
-        """
-        Wrapper Python per _predict.
-        """
-        return self._predict(X)
+        return self._fit(X, y)
 
     def split_random_leaf(self, tree, X, y):
         """
@@ -1348,5 +1334,9 @@ cdef class genTree:
         """
         return self._crossover(a, b, X, y)
     
-
-#TODO: Rendi n_classes unparametro della classe
+    def compute_fitness(self, DecisionNode Tree, X, y, alpha=0.25):
+        """
+        Calcola la fitness dell'albero.
+        """
+        self.alpha = alpha
+        return self._compute_loss(Tree, X, y)
