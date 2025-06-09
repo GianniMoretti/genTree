@@ -124,3 +124,9 @@ cdef class DecisionNode:
             tmp_arr = np.array(x, dtype=np.float64)
         arr = tmp_arr  # Assegna direttamente senza cast esplicito
         return self._predict_one(arr)
+
+    def count_leaves(self):
+        """
+        Wrapper Python-friendly per _count_leaves.
+        """
+        return self._count_leaves()

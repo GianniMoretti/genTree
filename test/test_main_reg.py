@@ -26,7 +26,7 @@ if __name__ == "__main__":
     X_train, X_test = X[train_idx], X[test_idx]
     y_train, y_test = y_reg[train_idx], y_reg[test_idx]
 
-    tree = genTree(is_regression=True, max_depth=3, min_samples_leaf=5, pop_size=300, n_generations=1000)
+    tree = genTree(is_regression=True, max_depth=3, min_samples_leaf=5, expand_prob = 0.6, pop_size=100, n_generations=1000)
     tree.fit(X_train, y_train, alpha=0.25, importance=2, mutation_prob=0.1, best_sel=0.1)
     y_pred = tree.predict(X_test)
     mse = np.mean((y_pred - y_test) ** 2)
@@ -36,7 +36,6 @@ if __name__ == "__main__":
     # Nomi fittizi per le feature e le classi
     fake_feature_names = [f"feat_{i}" for i in range(n)]
     plot_tree_genTree(tree.best_tree, filename="graphs/gentree", features_name=fake_feature_names, is_regression=True)
-
 
     # Baseline con DecisionTreeRegressor di sklearn
     dtree = DecisionTreeRegressor(max_depth=3, min_samples_leaf=5, random_state=42)
