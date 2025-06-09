@@ -107,7 +107,7 @@ bootstrap_oob_accuracy <- function(data, model_fun, n_iter = 100, ...) {
 # Wrapper per i modelli
 fit_rpart <- function(data, ...) as.party(rpart(Type ~ ., data = data, minbucket = 10), model = TRUE)
 fit_ctree <- function(data, ...) ctree(Type ~ ., data = data, minbucket = 10, mincriterion = 0.99)
-fit_evtree <- function(data, ...) evtree(Type ~ ., data = data, minbucket = 10, maxdepth = 2)
+fit_evtree <- function(data, ...) evtree(Type ~ ., data = data, minbucket = 10, maxdepth = 5)
 
 # Calcola accuracy OOB e complessità per ciascun modello
 res_rp_boot <- bootstrap_oob_accuracy(Glass, fit_rpart)

@@ -44,6 +44,7 @@ try:
 except Exception:
     M = np.nan
 N = len(X_train)
+print("Numero di foglie (M):", M)
 alpha = 1  # già usato nel fit
 comp = alpha * M * np.log(N) if not np.isnan(M) else np.nan
 print("Complessità (alpha * M * log(N)):", comp)

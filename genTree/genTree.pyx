@@ -1399,8 +1399,11 @@ cdef class genTree:
         cdef double best_fitness
         cdef DecisionNode best_individual
         survivors = []
-
+        
+        #appoggio = self.max_depth
+        #self.max_depth = 1  # Imposto un max_depth molto alto per la creazione della popolazione iniziale
         self._create_population(X, y)
+        # self.max_depth = appoggio  # Ripristino il max_depth originale
 
         best_fitness = -1e9
         best_individual = None

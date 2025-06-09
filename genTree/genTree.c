@@ -38151,7 +38151,7 @@ static PyObject *__pyx_f_7genTree_7genTree_7genTree__crossover(struct __pyx_obj_
   return __pyx_r;
 }
 
-/* "genTree/genTree.pyx":1417
+/* "genTree/genTree.pyx":1420
  * 
  *             # 2. Ordino la popolazione in base alla fitness
  *             sorted_pop = [(fit, x) for fit , x in sorted(zip(fitnesses, self.population), key=lambda pair: pair[0])]             # <<<<<<<<<<<<<<
@@ -38212,12 +38212,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1417, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1420, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "lambda") < 0)) __PYX_ERR(0, 1417, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "lambda") < 0)) __PYX_ERR(0, 1420, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -38228,7 +38228,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("lambda", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 1417, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("lambda", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 1420, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -38264,7 +38264,7 @@ static PyObject *__pyx_lambda_funcdef_lambda(CYTHON_UNUSED PyObject *__pyx_self,
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("lambda", 1);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_pair, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1417, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_pair, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1420, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -38472,24 +38472,24 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
  *         cdef DecisionNode best_individual
  *         survivors = []             # <<<<<<<<<<<<<<
  * 
- *         self._create_population(X, y)
+ *         #appoggio = self.max_depth
  */
   __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1401, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_v_survivors = ((PyObject*)__pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "genTree/genTree.pyx":1403
- *         survivors = []
- * 
- *         self._create_population(X, y)             # <<<<<<<<<<<<<<
- * 
- *         best_fitness = -1e9
- */
-  ((struct __pyx_vtabstruct_7genTree_7genTree_genTree *)__pyx_v_self->__pyx_vtab)->_create_population(__pyx_v_self, __pyx_v_X, __pyx_v_y); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1403, __pyx_L1_error)
-
   /* "genTree/genTree.pyx":1405
- *         self._create_population(X, y)
+ *         #appoggio = self.max_depth
+ *         #self.max_depth = 1  # Imposto un max_depth molto alto per la creazione della popolazione iniziale
+ *         self._create_population(X, y)             # <<<<<<<<<<<<<<
+ *         # self.max_depth = appoggio  # Ripristino il max_depth originale
+ * 
+ */
+  ((struct __pyx_vtabstruct_7genTree_7genTree_genTree *)__pyx_v_self->__pyx_vtab)->_create_population(__pyx_v_self, __pyx_v_X, __pyx_v_y); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1405, __pyx_L1_error)
+
+  /* "genTree/genTree.pyx":1408
+ *         # self.max_depth = appoggio  # Ripristino il max_depth originale
  * 
  *         best_fitness = -1e9             # <<<<<<<<<<<<<<
  *         best_individual = None
@@ -38497,7 +38497,7 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
  */
   __pyx_v_best_fitness = -1e9;
 
-  /* "genTree/genTree.pyx":1406
+  /* "genTree/genTree.pyx":1409
  * 
  *         best_fitness = -1e9
  *         best_individual = None             # <<<<<<<<<<<<<<
@@ -38507,7 +38507,7 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
   __Pyx_INCREF(Py_None);
   __pyx_v_best_individual = ((struct __pyx_obj_7genTree_12decisionNode_DecisionNode *)Py_None);
 
-  /* "genTree/genTree.pyx":1408
+  /* "genTree/genTree.pyx":1411
  *         best_individual = None
  * 
  *         for gen in range(self.n_generations):             # <<<<<<<<<<<<<<
@@ -38519,31 +38519,31 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
   for (__pyx_t_9 = 0; __pyx_t_9 < __pyx_t_8; __pyx_t_9+=1) {
     __pyx_v_gen = __pyx_t_9;
 
-    /* "genTree/genTree.pyx":1410
+    /* "genTree/genTree.pyx":1413
  *         for gen in range(self.n_generations):
  *             #1. Calcolo la fittness di ogni individuo della popolazione
  *             survivors = []  # Lista per i sopravvissuti della generazione corrente             # <<<<<<<<<<<<<<
  *             fitnesses = []
  *             for tree in self.population:
  */
-    __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1410, __pyx_L1_error)
+    __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1413, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF_SET(__pyx_v_survivors, ((PyObject*)__pyx_t_2));
     __pyx_t_2 = 0;
 
-    /* "genTree/genTree.pyx":1411
+    /* "genTree/genTree.pyx":1414
  *             #1. Calcolo la fittness di ogni individuo della popolazione
  *             survivors = []  # Lista per i sopravvissuti della generazione corrente
  *             fitnesses = []             # <<<<<<<<<<<<<<
  *             for tree in self.population:
  *                 fitness = self._compute_loss(tree, X, y)
  */
-    __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1411, __pyx_L1_error)
+    __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1414, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_XDECREF_SET(__pyx_v_fitnesses, ((PyObject*)__pyx_t_2));
     __pyx_t_2 = 0;
 
-    /* "genTree/genTree.pyx":1412
+    /* "genTree/genTree.pyx":1415
  *             survivors = []  # Lista per i sopravvissuti della generazione corrente
  *             fitnesses = []
  *             for tree in self.population:             # <<<<<<<<<<<<<<
@@ -38552,7 +38552,7 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
  */
     if (unlikely(__pyx_v_self->population == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
-      __PYX_ERR(0, 1412, __pyx_L1_error)
+      __PYX_ERR(0, 1415, __pyx_L1_error)
     }
     __pyx_t_2 = __pyx_v_self->population; __Pyx_INCREF(__pyx_t_2);
     __pyx_t_10 = 0;
@@ -38560,43 +38560,43 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
       {
         Py_ssize_t __pyx_temp = __Pyx_PyList_GET_SIZE(__pyx_t_2);
         #if !CYTHON_ASSUME_SAFE_MACROS
-        if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 1412, __pyx_L1_error)
+        if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 1415, __pyx_L1_error)
         #endif
         if (__pyx_t_10 >= __pyx_temp) break;
       }
       #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-      __pyx_t_4 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_10); __Pyx_INCREF(__pyx_t_4); __pyx_t_10++; if (unlikely((0 < 0))) __PYX_ERR(0, 1412, __pyx_L1_error)
+      __pyx_t_4 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_10); __Pyx_INCREF(__pyx_t_4); __pyx_t_10++; if (unlikely((0 < 0))) __PYX_ERR(0, 1415, __pyx_L1_error)
       #else
-      __pyx_t_4 = __Pyx_PySequence_ITEM(__pyx_t_2, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1412, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PySequence_ITEM(__pyx_t_2, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1415, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       #endif
       __Pyx_XDECREF_SET(__pyx_v_tree, __pyx_t_4);
       __pyx_t_4 = 0;
 
-      /* "genTree/genTree.pyx":1413
+      /* "genTree/genTree.pyx":1416
  *             fitnesses = []
  *             for tree in self.population:
  *                 fitness = self._compute_loss(tree, X, y)             # <<<<<<<<<<<<<<
  *                 fitnesses.append(fitness)
  * 
  */
-      if (!(likely(((__pyx_v_tree) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_tree, __pyx_ptype_7genTree_12decisionNode_DecisionNode))))) __PYX_ERR(0, 1413, __pyx_L1_error)
-      __pyx_t_11 = ((struct __pyx_vtabstruct_7genTree_7genTree_genTree *)__pyx_v_self->__pyx_vtab)->_compute_loss(__pyx_v_self, ((struct __pyx_obj_7genTree_12decisionNode_DecisionNode *)__pyx_v_tree), __pyx_v_X, __pyx_v_y); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1413, __pyx_L1_error)
+      if (!(likely(((__pyx_v_tree) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_tree, __pyx_ptype_7genTree_12decisionNode_DecisionNode))))) __PYX_ERR(0, 1416, __pyx_L1_error)
+      __pyx_t_11 = ((struct __pyx_vtabstruct_7genTree_7genTree_genTree *)__pyx_v_self->__pyx_vtab)->_compute_loss(__pyx_v_self, ((struct __pyx_obj_7genTree_12decisionNode_DecisionNode *)__pyx_v_tree), __pyx_v_X, __pyx_v_y); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1416, __pyx_L1_error)
       __pyx_v_fitness = __pyx_t_11;
 
-      /* "genTree/genTree.pyx":1414
+      /* "genTree/genTree.pyx":1417
  *             for tree in self.population:
  *                 fitness = self._compute_loss(tree, X, y)
  *                 fitnesses.append(fitness)             # <<<<<<<<<<<<<<
  * 
  *             # 2. Ordino la popolazione in base alla fitness
  */
-      __pyx_t_4 = PyFloat_FromDouble(__pyx_v_fitness); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1414, __pyx_L1_error)
+      __pyx_t_4 = PyFloat_FromDouble(__pyx_v_fitness); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1417, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_12 = __Pyx_PyList_Append(__pyx_v_fitnesses, __pyx_t_4); if (unlikely(__pyx_t_12 == ((int)-1))) __PYX_ERR(0, 1414, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_PyList_Append(__pyx_v_fitnesses, __pyx_t_4); if (unlikely(__pyx_t_12 == ((int)-1))) __PYX_ERR(0, 1417, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-      /* "genTree/genTree.pyx":1412
+      /* "genTree/genTree.pyx":1415
  *             survivors = []  # Lista per i sopravvissuti della generazione corrente
  *             fitnesses = []
  *             for tree in self.population:             # <<<<<<<<<<<<<<
@@ -38606,7 +38606,7 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
     }
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "genTree/genTree.pyx":1417
+    /* "genTree/genTree.pyx":1420
  * 
  *             # 2. Ordino la popolazione in base alla fitness
  *             sorted_pop = [(fit, x) for fit , x in sorted(zip(fitnesses, self.population), key=lambda pair: pair[0])]             # <<<<<<<<<<<<<<
@@ -38614,31 +38614,31 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
  *             best_fitness, best_individual = sorted_pop[0]
  */
     { /* enter inner scope */
-      __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1417, __pyx_L11_error)
+      __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1420, __pyx_L11_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1417, __pyx_L11_error)
+      __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1420, __pyx_L11_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_INCREF(__pyx_v_fitnesses);
       __Pyx_GIVEREF(__pyx_v_fitnesses);
-      if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_v_fitnesses)) __PYX_ERR(0, 1417, __pyx_L11_error);
+      if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_v_fitnesses)) __PYX_ERR(0, 1420, __pyx_L11_error);
       __Pyx_INCREF(__pyx_v_self->population);
       __Pyx_GIVEREF(__pyx_v_self->population);
-      if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_v_self->population)) __PYX_ERR(0, 1417, __pyx_L11_error);
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_zip, __pyx_t_4, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1417, __pyx_L11_error)
+      if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_v_self->population)) __PYX_ERR(0, 1420, __pyx_L11_error);
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_zip, __pyx_t_4, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1420, __pyx_L11_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1417, __pyx_L11_error)
+      __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1420, __pyx_L11_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_GIVEREF(__pyx_t_3);
-      if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3)) __PYX_ERR(0, 1417, __pyx_L11_error);
+      if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3)) __PYX_ERR(0, 1420, __pyx_L11_error);
       __pyx_t_3 = 0;
-      __pyx_t_3 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1417, __pyx_L11_error)
+      __pyx_t_3 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1420, __pyx_L11_error)
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_5 = __Pyx_CyFunction_New(&__pyx_mdef_7genTree_7genTree_7genTree_4_fit_lambda, 0, __pyx_n_s_genTree__fit_locals_lambda, NULL, __pyx_n_s_genTree_genTree, __pyx_d, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1417, __pyx_L11_error)
+      __pyx_t_5 = __Pyx_CyFunction_New(&__pyx_mdef_7genTree_7genTree_7genTree_4_fit_lambda, 0, __pyx_n_s_genTree__fit_locals_lambda, NULL, __pyx_n_s_genTree_genTree, __pyx_d, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1420, __pyx_L11_error)
       __Pyx_GOTREF(__pyx_t_5);
-      if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_key, __pyx_t_5) < 0) __PYX_ERR(0, 1417, __pyx_L11_error)
+      if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_key, __pyx_t_5) < 0) __PYX_ERR(0, 1420, __pyx_L11_error)
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-      __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_sorted, __pyx_t_4, __pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1417, __pyx_L11_error)
+      __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_sorted, __pyx_t_4, __pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1420, __pyx_L11_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -38647,9 +38647,9 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
         __pyx_t_10 = 0;
         __pyx_t_13 = NULL;
       } else {
-        __pyx_t_10 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1417, __pyx_L11_error)
+        __pyx_t_10 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1420, __pyx_L11_error)
         __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_13 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_3); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1417, __pyx_L11_error)
+        __pyx_t_13 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_3); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1420, __pyx_L11_error)
       }
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       for (;;) {
@@ -38658,28 +38658,28 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
             {
               Py_ssize_t __pyx_temp = __Pyx_PyList_GET_SIZE(__pyx_t_3);
               #if !CYTHON_ASSUME_SAFE_MACROS
-              if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 1417, __pyx_L11_error)
+              if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 1420, __pyx_L11_error)
               #endif
               if (__pyx_t_10 >= __pyx_temp) break;
             }
             #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-            __pyx_t_5 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_10); __Pyx_INCREF(__pyx_t_5); __pyx_t_10++; if (unlikely((0 < 0))) __PYX_ERR(0, 1417, __pyx_L11_error)
+            __pyx_t_5 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_10); __Pyx_INCREF(__pyx_t_5); __pyx_t_10++; if (unlikely((0 < 0))) __PYX_ERR(0, 1420, __pyx_L11_error)
             #else
-            __pyx_t_5 = __Pyx_PySequence_ITEM(__pyx_t_3, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1417, __pyx_L11_error)
+            __pyx_t_5 = __Pyx_PySequence_ITEM(__pyx_t_3, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1420, __pyx_L11_error)
             __Pyx_GOTREF(__pyx_t_5);
             #endif
           } else {
             {
               Py_ssize_t __pyx_temp = __Pyx_PyTuple_GET_SIZE(__pyx_t_3);
               #if !CYTHON_ASSUME_SAFE_MACROS
-              if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 1417, __pyx_L11_error)
+              if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 1420, __pyx_L11_error)
               #endif
               if (__pyx_t_10 >= __pyx_temp) break;
             }
             #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-            __pyx_t_5 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_10); __Pyx_INCREF(__pyx_t_5); __pyx_t_10++; if (unlikely((0 < 0))) __PYX_ERR(0, 1417, __pyx_L11_error)
+            __pyx_t_5 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_10); __Pyx_INCREF(__pyx_t_5); __pyx_t_10++; if (unlikely((0 < 0))) __PYX_ERR(0, 1420, __pyx_L11_error)
             #else
-            __pyx_t_5 = __Pyx_PySequence_ITEM(__pyx_t_3, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1417, __pyx_L11_error)
+            __pyx_t_5 = __Pyx_PySequence_ITEM(__pyx_t_3, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1420, __pyx_L11_error)
             __Pyx_GOTREF(__pyx_t_5);
             #endif
           }
@@ -38689,7 +38689,7 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
             PyObject* exc_type = PyErr_Occurred();
             if (exc_type) {
               if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-              else __PYX_ERR(0, 1417, __pyx_L11_error)
+              else __PYX_ERR(0, 1420, __pyx_L11_error)
             }
             break;
           }
@@ -38701,7 +38701,7 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
           if (unlikely(size != 2)) {
             if (size > 2) __Pyx_RaiseTooManyValuesError(2);
             else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-            __PYX_ERR(0, 1417, __pyx_L11_error)
+            __PYX_ERR(0, 1420, __pyx_L11_error)
           }
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
           if (likely(PyTuple_CheckExact(sequence))) {
@@ -38714,15 +38714,15 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
           __Pyx_INCREF(__pyx_t_4);
           __Pyx_INCREF(__pyx_t_14);
           #else
-          __pyx_t_4 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1417, __pyx_L11_error)
+          __pyx_t_4 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1420, __pyx_L11_error)
           __Pyx_GOTREF(__pyx_t_4);
-          __pyx_t_14 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1417, __pyx_L11_error)
+          __pyx_t_14 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1420, __pyx_L11_error)
           __Pyx_GOTREF(__pyx_t_14);
           #endif
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         } else {
           Py_ssize_t index = -1;
-          __pyx_t_15 = PyObject_GetIter(__pyx_t_5); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1417, __pyx_L11_error)
+          __pyx_t_15 = PyObject_GetIter(__pyx_t_5); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1420, __pyx_L11_error)
           __Pyx_GOTREF(__pyx_t_15);
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
           __pyx_t_16 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_15);
@@ -38730,7 +38730,7 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
           __Pyx_GOTREF(__pyx_t_4);
           index = 1; __pyx_t_14 = __pyx_t_16(__pyx_t_15); if (unlikely(!__pyx_t_14)) goto __pyx_L14_unpacking_failed;
           __Pyx_GOTREF(__pyx_t_14);
-          if (__Pyx_IternextUnpackEndCheck(__pyx_t_16(__pyx_t_15), 2) < 0) __PYX_ERR(0, 1417, __pyx_L11_error)
+          if (__Pyx_IternextUnpackEndCheck(__pyx_t_16(__pyx_t_15), 2) < 0) __PYX_ERR(0, 1420, __pyx_L11_error)
           __pyx_t_16 = NULL;
           __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
           goto __pyx_L15_unpacking_done;
@@ -38738,22 +38738,22 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
           __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
           __pyx_t_16 = NULL;
           if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-          __PYX_ERR(0, 1417, __pyx_L11_error)
+          __PYX_ERR(0, 1420, __pyx_L11_error)
           __pyx_L15_unpacking_done:;
         }
         __Pyx_XDECREF_SET(__pyx_8genexpr7__pyx_v_fit, __pyx_t_4);
         __pyx_t_4 = 0;
         __Pyx_XDECREF_SET(__pyx_8genexpr7__pyx_v_x, __pyx_t_14);
         __pyx_t_14 = 0;
-        __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1417, __pyx_L11_error)
+        __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1420, __pyx_L11_error)
         __Pyx_GOTREF(__pyx_t_5);
         __Pyx_INCREF(__pyx_8genexpr7__pyx_v_fit);
         __Pyx_GIVEREF(__pyx_8genexpr7__pyx_v_fit);
-        if (__Pyx_PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_8genexpr7__pyx_v_fit)) __PYX_ERR(0, 1417, __pyx_L11_error);
+        if (__Pyx_PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_8genexpr7__pyx_v_fit)) __PYX_ERR(0, 1420, __pyx_L11_error);
         __Pyx_INCREF(__pyx_8genexpr7__pyx_v_x);
         __Pyx_GIVEREF(__pyx_8genexpr7__pyx_v_x);
-        if (__Pyx_PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_8genexpr7__pyx_v_x)) __PYX_ERR(0, 1417, __pyx_L11_error);
-        if (unlikely(__Pyx_ListComp_Append(__pyx_t_2, (PyObject*)__pyx_t_5))) __PYX_ERR(0, 1417, __pyx_L11_error)
+        if (__Pyx_PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_8genexpr7__pyx_v_x)) __PYX_ERR(0, 1420, __pyx_L11_error);
+        if (unlikely(__Pyx_ListComp_Append(__pyx_t_2, (PyObject*)__pyx_t_5))) __PYX_ERR(0, 1420, __pyx_L11_error)
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       }
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -38769,14 +38769,14 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
     __Pyx_XDECREF_SET(__pyx_v_sorted_pop, ((PyObject*)__pyx_t_2));
     __pyx_t_2 = 0;
 
-    /* "genTree/genTree.pyx":1419
+    /* "genTree/genTree.pyx":1422
  *             sorted_pop = [(fit, x) for fit , x in sorted(zip(fitnesses, self.population), key=lambda pair: pair[0])]
  *             # 3. Trova il miglior individuo della generazione
  *             best_fitness, best_individual = sorted_pop[0]             # <<<<<<<<<<<<<<
  *             print(f"Generation {gen}: Best fitness = {best_fitness}")
  *             self.best_tree = best_individual  # Aggiorno il miglior albero trovato finora
  */
-    __pyx_t_2 = __Pyx_GetItemInt_List(__pyx_v_sorted_pop, 0, long, 1, __Pyx_PyInt_From_long, 1, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1419, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_GetItemInt_List(__pyx_v_sorted_pop, 0, long, 1, __Pyx_PyInt_From_long, 1, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1422, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     if ((likely(PyTuple_CheckExact(__pyx_t_2))) || (PyList_CheckExact(__pyx_t_2))) {
       PyObject* sequence = __pyx_t_2;
@@ -38784,7 +38784,7 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
       if (unlikely(size != 2)) {
         if (size > 2) __Pyx_RaiseTooManyValuesError(2);
         else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-        __PYX_ERR(0, 1419, __pyx_L1_error)
+        __PYX_ERR(0, 1422, __pyx_L1_error)
       }
       #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
       if (likely(PyTuple_CheckExact(sequence))) {
@@ -38797,15 +38797,15 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
       __Pyx_INCREF(__pyx_t_3);
       __Pyx_INCREF(__pyx_t_5);
       #else
-      __pyx_t_3 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1419, __pyx_L1_error)
+      __pyx_t_3 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1422, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_5 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1419, __pyx_L1_error)
+      __pyx_t_5 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1422, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       #endif
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     } else {
       Py_ssize_t index = -1;
-      __pyx_t_14 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1419, __pyx_L1_error)
+      __pyx_t_14 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1422, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_14);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __pyx_t_16 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_14);
@@ -38813,7 +38813,7 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
       __Pyx_GOTREF(__pyx_t_3);
       index = 1; __pyx_t_5 = __pyx_t_16(__pyx_t_14); if (unlikely(!__pyx_t_5)) goto __pyx_L18_unpacking_failed;
       __Pyx_GOTREF(__pyx_t_5);
-      if (__Pyx_IternextUnpackEndCheck(__pyx_t_16(__pyx_t_14), 2) < 0) __PYX_ERR(0, 1419, __pyx_L1_error)
+      if (__Pyx_IternextUnpackEndCheck(__pyx_t_16(__pyx_t_14), 2) < 0) __PYX_ERR(0, 1422, __pyx_L1_error)
       __pyx_t_16 = NULL;
       __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
       goto __pyx_L19_unpacking_done;
@@ -38821,24 +38821,24 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
       __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
       __pyx_t_16 = NULL;
       if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-      __PYX_ERR(0, 1419, __pyx_L1_error)
+      __PYX_ERR(0, 1422, __pyx_L1_error)
       __pyx_L19_unpacking_done:;
     }
-    __pyx_t_11 = __pyx_PyFloat_AsDouble(__pyx_t_3); if (unlikely((__pyx_t_11 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 1419, __pyx_L1_error)
+    __pyx_t_11 = __pyx_PyFloat_AsDouble(__pyx_t_3); if (unlikely((__pyx_t_11 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 1422, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (!(likely(((__pyx_t_5) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_5, __pyx_ptype_7genTree_12decisionNode_DecisionNode))))) __PYX_ERR(0, 1419, __pyx_L1_error)
+    if (!(likely(((__pyx_t_5) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_5, __pyx_ptype_7genTree_12decisionNode_DecisionNode))))) __PYX_ERR(0, 1422, __pyx_L1_error)
     __pyx_v_best_fitness = __pyx_t_11;
     __Pyx_DECREF_SET(__pyx_v_best_individual, ((struct __pyx_obj_7genTree_12decisionNode_DecisionNode *)__pyx_t_5));
     __pyx_t_5 = 0;
 
-    /* "genTree/genTree.pyx":1420
+    /* "genTree/genTree.pyx":1423
  *             # 3. Trova il miglior individuo della generazione
  *             best_fitness, best_individual = sorted_pop[0]
  *             print(f"Generation {gen}: Best fitness = {best_fitness}")             # <<<<<<<<<<<<<<
  *             self.best_tree = best_individual  # Aggiorno il miglior albero trovato finora
  *             #Print delle prime 20 fitness una dopo l'altra
  */
-    __pyx_t_2 = PyTuple_New(4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1420, __pyx_L1_error)
+    __pyx_t_2 = PyTuple_New(4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1423, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_10 = 0;
     __pyx_t_17 = 127;
@@ -38846,7 +38846,7 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
     __pyx_t_10 += 11;
     __Pyx_GIVEREF(__pyx_kp_u_Generation);
     PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_kp_u_Generation);
-    __pyx_t_5 = __Pyx_PyUnicode_From_int(__pyx_v_gen, 0, ' ', 'd'); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1420, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyUnicode_From_int(__pyx_v_gen, 0, ' ', 'd'); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1423, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __pyx_t_10 += __Pyx_PyUnicode_GET_LENGTH(__pyx_t_5);
     __Pyx_GIVEREF(__pyx_t_5);
@@ -38856,9 +38856,9 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
     __pyx_t_10 += 17;
     __Pyx_GIVEREF(__pyx_kp_u_Best_fitness);
     PyTuple_SET_ITEM(__pyx_t_2, 2, __pyx_kp_u_Best_fitness);
-    __pyx_t_5 = PyFloat_FromDouble(__pyx_v_best_fitness); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1420, __pyx_L1_error)
+    __pyx_t_5 = PyFloat_FromDouble(__pyx_v_best_fitness); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1423, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_3 = __Pyx_PyObject_FormatSimple(__pyx_t_5, __pyx_empty_unicode); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1420, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_FormatSimple(__pyx_t_5, __pyx_empty_unicode); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1423, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __pyx_t_17 = (__Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_3) > __pyx_t_17) ? __Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_3) : __pyx_t_17;
@@ -38866,15 +38866,15 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
     __Pyx_GIVEREF(__pyx_t_3);
     PyTuple_SET_ITEM(__pyx_t_2, 3, __pyx_t_3);
     __pyx_t_3 = 0;
-    __pyx_t_3 = __Pyx_PyUnicode_Join(__pyx_t_2, 4, __pyx_t_10, __pyx_t_17); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1420, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyUnicode_Join(__pyx_t_2, 4, __pyx_t_10, __pyx_t_17); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1423, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1420, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1423, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "genTree/genTree.pyx":1421
+    /* "genTree/genTree.pyx":1424
  *             best_fitness, best_individual = sorted_pop[0]
  *             print(f"Generation {gen}: Best fitness = {best_fitness}")
  *             self.best_tree = best_individual  # Aggiorno il miglior albero trovato finora             # <<<<<<<<<<<<<<
@@ -38887,7 +38887,7 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
     __Pyx_DECREF((PyObject *)__pyx_v_self->best_tree);
     __pyx_v_self->best_tree = __pyx_v_best_individual;
 
-    /* "genTree/genTree.pyx":1430
+    /* "genTree/genTree.pyx":1433
  * 
  *             # 4. I primi 1/3 della popolazione sopravvive inalterata
  *             sorted_tree = [tree for _, tree in sorted_pop]             # <<<<<<<<<<<<<<
@@ -38895,7 +38895,7 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
  * 
  */
     { /* enter inner scope */
-      __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1430, __pyx_L22_error)
+      __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1433, __pyx_L22_error)
       __Pyx_GOTREF(__pyx_t_2);
       __pyx_t_3 = __pyx_v_sorted_pop; __Pyx_INCREF(__pyx_t_3);
       __pyx_t_10 = 0;
@@ -38903,14 +38903,14 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
         {
           Py_ssize_t __pyx_temp = __Pyx_PyList_GET_SIZE(__pyx_t_3);
           #if !CYTHON_ASSUME_SAFE_MACROS
-          if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 1430, __pyx_L22_error)
+          if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 1433, __pyx_L22_error)
           #endif
           if (__pyx_t_10 >= __pyx_temp) break;
         }
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_5 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_10); __Pyx_INCREF(__pyx_t_5); __pyx_t_10++; if (unlikely((0 < 0))) __PYX_ERR(0, 1430, __pyx_L22_error)
+        __pyx_t_5 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_10); __Pyx_INCREF(__pyx_t_5); __pyx_t_10++; if (unlikely((0 < 0))) __PYX_ERR(0, 1433, __pyx_L22_error)
         #else
-        __pyx_t_5 = __Pyx_PySequence_ITEM(__pyx_t_3, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1430, __pyx_L22_error)
+        __pyx_t_5 = __Pyx_PySequence_ITEM(__pyx_t_3, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1433, __pyx_L22_error)
         __Pyx_GOTREF(__pyx_t_5);
         #endif
         if ((likely(PyTuple_CheckExact(__pyx_t_5))) || (PyList_CheckExact(__pyx_t_5))) {
@@ -38919,7 +38919,7 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
           if (unlikely(size != 2)) {
             if (size > 2) __Pyx_RaiseTooManyValuesError(2);
             else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-            __PYX_ERR(0, 1430, __pyx_L22_error)
+            __PYX_ERR(0, 1433, __pyx_L22_error)
           }
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
           if (likely(PyTuple_CheckExact(sequence))) {
@@ -38932,15 +38932,15 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
           __Pyx_INCREF(__pyx_t_14);
           __Pyx_INCREF(__pyx_t_4);
           #else
-          __pyx_t_14 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1430, __pyx_L22_error)
+          __pyx_t_14 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1433, __pyx_L22_error)
           __Pyx_GOTREF(__pyx_t_14);
-          __pyx_t_4 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1430, __pyx_L22_error)
+          __pyx_t_4 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1433, __pyx_L22_error)
           __Pyx_GOTREF(__pyx_t_4);
           #endif
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         } else {
           Py_ssize_t index = -1;
-          __pyx_t_15 = PyObject_GetIter(__pyx_t_5); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1430, __pyx_L22_error)
+          __pyx_t_15 = PyObject_GetIter(__pyx_t_5); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1433, __pyx_L22_error)
           __Pyx_GOTREF(__pyx_t_15);
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
           __pyx_t_16 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_15);
@@ -38948,7 +38948,7 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
           __Pyx_GOTREF(__pyx_t_14);
           index = 1; __pyx_t_4 = __pyx_t_16(__pyx_t_15); if (unlikely(!__pyx_t_4)) goto __pyx_L25_unpacking_failed;
           __Pyx_GOTREF(__pyx_t_4);
-          if (__Pyx_IternextUnpackEndCheck(__pyx_t_16(__pyx_t_15), 2) < 0) __PYX_ERR(0, 1430, __pyx_L22_error)
+          if (__Pyx_IternextUnpackEndCheck(__pyx_t_16(__pyx_t_15), 2) < 0) __PYX_ERR(0, 1433, __pyx_L22_error)
           __pyx_t_16 = NULL;
           __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
           goto __pyx_L26_unpacking_done;
@@ -38956,14 +38956,14 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
           __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
           __pyx_t_16 = NULL;
           if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-          __PYX_ERR(0, 1430, __pyx_L22_error)
+          __PYX_ERR(0, 1433, __pyx_L22_error)
           __pyx_L26_unpacking_done:;
         }
         __Pyx_XDECREF_SET(__pyx_8genexpr8__pyx_v__, __pyx_t_14);
         __pyx_t_14 = 0;
         __Pyx_XDECREF_SET(__pyx_8genexpr8__pyx_v_tree, __pyx_t_4);
         __pyx_t_4 = 0;
-        if (unlikely(__Pyx_ListComp_Append(__pyx_t_2, (PyObject*)__pyx_8genexpr8__pyx_v_tree))) __PYX_ERR(0, 1430, __pyx_L22_error)
+        if (unlikely(__Pyx_ListComp_Append(__pyx_t_2, (PyObject*)__pyx_8genexpr8__pyx_v_tree))) __PYX_ERR(0, 1433, __pyx_L22_error)
       }
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_XDECREF(__pyx_8genexpr8__pyx_v__); __pyx_8genexpr8__pyx_v__ = 0;
@@ -38978,64 +38978,64 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
     __Pyx_XDECREF_SET(__pyx_v_sorted_tree, ((PyObject*)__pyx_t_2));
     __pyx_t_2 = 0;
 
-    /* "genTree/genTree.pyx":1431
+    /* "genTree/genTree.pyx":1434
  *             # 4. I primi 1/3 della popolazione sopravvive inalterata
  *             sorted_tree = [tree for _, tree in sorted_pop]
  *             survivors[:int(self.pop_size * best_sel)] = sorted_tree[:int(self.pop_size * best_sel)]             # <<<<<<<<<<<<<<
  * 
  *             # 5. Gli altri 2/3 della popolazione vengono generati tramite crossover e mutazione
  */
-    __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_self->pop_size); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1431, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_self->pop_size); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1434, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_3 = PyNumber_Multiply(__pyx_t_2, __pyx_v_best_sel); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1431, __pyx_L1_error)
+    __pyx_t_3 = PyNumber_Multiply(__pyx_t_2, __pyx_v_best_sel); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1434, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_PyNumber_Int(__pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1431, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyNumber_Int(__pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1434, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_1 = (__pyx_t_2 == Py_None);
     if (__pyx_t_1) {
       __pyx_t_10 = PY_SSIZE_T_MAX;
     } else {
-      __pyx_t_18 = __Pyx_PyIndex_AsSsize_t(__pyx_t_2); if (unlikely((__pyx_t_18 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 1431, __pyx_L1_error)
+      __pyx_t_18 = __Pyx_PyIndex_AsSsize_t(__pyx_t_2); if (unlikely((__pyx_t_18 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 1434, __pyx_L1_error)
       __pyx_t_10 = __pyx_t_18;
     }
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_PyList_GetSlice(__pyx_v_sorted_tree, 0, __pyx_t_10); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1431, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyList_GetSlice(__pyx_v_sorted_tree, 0, __pyx_t_10); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1434, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_self->pop_size); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1431, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_self->pop_size); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1434, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_5 = PyNumber_Multiply(__pyx_t_3, __pyx_v_best_sel); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1431, __pyx_L1_error)
+    __pyx_t_5 = PyNumber_Multiply(__pyx_t_3, __pyx_v_best_sel); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1434, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = __Pyx_PyNumber_Int(__pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1431, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyNumber_Int(__pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1434, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __pyx_t_1 = (__pyx_t_3 == Py_None);
     if (__pyx_t_1) {
       __pyx_t_10 = PY_SSIZE_T_MAX;
     } else {
-      __pyx_t_18 = __Pyx_PyIndex_AsSsize_t(__pyx_t_3); if (unlikely((__pyx_t_18 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 1431, __pyx_L1_error)
+      __pyx_t_18 = __Pyx_PyIndex_AsSsize_t(__pyx_t_3); if (unlikely((__pyx_t_18 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 1434, __pyx_L1_error)
       __pyx_t_10 = __pyx_t_18;
     }
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (__Pyx_PyObject_SetSlice(__pyx_v_survivors, __pyx_t_2, 0, __pyx_t_10, NULL, NULL, NULL, 0, 1, 1) < 0) __PYX_ERR(0, 1431, __pyx_L1_error)
+    if (__Pyx_PyObject_SetSlice(__pyx_v_survivors, __pyx_t_2, 0, __pyx_t_10, NULL, NULL, NULL, 0, 1, 1) < 0) __PYX_ERR(0, 1434, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "genTree/genTree.pyx":1435
+    /* "genTree/genTree.pyx":1438
  *             # 5. Gli altri 2/3 della popolazione vengono generati tramite crossover e mutazione
  *             # 5.1 creao un peso per il choise in base alla fitness (weights(i) = 1 / (fitnesses[i] + 1e-9) ^ 2)
  *             fitness_sorted = np.array([fit for fit, _ in sorted_pop])             # <<<<<<<<<<<<<<
  * 
  *             weights = np.array([1 / (fitness + 1e-9) ** importance for fitness in fitness_sorted])
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1435, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1438, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_array); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1435, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_array); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1438, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     { /* enter inner scope */
-      __pyx_t_3 = PyList_New(0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1435, __pyx_L31_error)
+      __pyx_t_3 = PyList_New(0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1438, __pyx_L31_error)
       __Pyx_GOTREF(__pyx_t_3);
       __pyx_t_4 = __pyx_v_sorted_pop; __Pyx_INCREF(__pyx_t_4);
       __pyx_t_10 = 0;
@@ -39043,14 +39043,14 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
         {
           Py_ssize_t __pyx_temp = __Pyx_PyList_GET_SIZE(__pyx_t_4);
           #if !CYTHON_ASSUME_SAFE_MACROS
-          if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 1435, __pyx_L31_error)
+          if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 1438, __pyx_L31_error)
           #endif
           if (__pyx_t_10 >= __pyx_temp) break;
         }
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_14 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_10); __Pyx_INCREF(__pyx_t_14); __pyx_t_10++; if (unlikely((0 < 0))) __PYX_ERR(0, 1435, __pyx_L31_error)
+        __pyx_t_14 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_10); __Pyx_INCREF(__pyx_t_14); __pyx_t_10++; if (unlikely((0 < 0))) __PYX_ERR(0, 1438, __pyx_L31_error)
         #else
-        __pyx_t_14 = __Pyx_PySequence_ITEM(__pyx_t_4, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1435, __pyx_L31_error)
+        __pyx_t_14 = __Pyx_PySequence_ITEM(__pyx_t_4, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1438, __pyx_L31_error)
         __Pyx_GOTREF(__pyx_t_14);
         #endif
         if ((likely(PyTuple_CheckExact(__pyx_t_14))) || (PyList_CheckExact(__pyx_t_14))) {
@@ -39059,7 +39059,7 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
           if (unlikely(size != 2)) {
             if (size > 2) __Pyx_RaiseTooManyValuesError(2);
             else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-            __PYX_ERR(0, 1435, __pyx_L31_error)
+            __PYX_ERR(0, 1438, __pyx_L31_error)
           }
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
           if (likely(PyTuple_CheckExact(sequence))) {
@@ -39072,15 +39072,15 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
           __Pyx_INCREF(__pyx_t_15);
           __Pyx_INCREF(__pyx_t_19);
           #else
-          __pyx_t_15 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1435, __pyx_L31_error)
+          __pyx_t_15 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1438, __pyx_L31_error)
           __Pyx_GOTREF(__pyx_t_15);
-          __pyx_t_19 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 1435, __pyx_L31_error)
+          __pyx_t_19 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 1438, __pyx_L31_error)
           __Pyx_GOTREF(__pyx_t_19);
           #endif
           __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
         } else {
           Py_ssize_t index = -1;
-          __pyx_t_20 = PyObject_GetIter(__pyx_t_14); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 1435, __pyx_L31_error)
+          __pyx_t_20 = PyObject_GetIter(__pyx_t_14); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 1438, __pyx_L31_error)
           __Pyx_GOTREF(__pyx_t_20);
           __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
           __pyx_t_16 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_20);
@@ -39088,7 +39088,7 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
           __Pyx_GOTREF(__pyx_t_15);
           index = 1; __pyx_t_19 = __pyx_t_16(__pyx_t_20); if (unlikely(!__pyx_t_19)) goto __pyx_L34_unpacking_failed;
           __Pyx_GOTREF(__pyx_t_19);
-          if (__Pyx_IternextUnpackEndCheck(__pyx_t_16(__pyx_t_20), 2) < 0) __PYX_ERR(0, 1435, __pyx_L31_error)
+          if (__Pyx_IternextUnpackEndCheck(__pyx_t_16(__pyx_t_20), 2) < 0) __PYX_ERR(0, 1438, __pyx_L31_error)
           __pyx_t_16 = NULL;
           __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
           goto __pyx_L35_unpacking_done;
@@ -39096,14 +39096,14 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
           __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
           __pyx_t_16 = NULL;
           if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-          __PYX_ERR(0, 1435, __pyx_L31_error)
+          __PYX_ERR(0, 1438, __pyx_L31_error)
           __pyx_L35_unpacking_done:;
         }
         __Pyx_XDECREF_SET(__pyx_8genexpr9__pyx_v_fit, __pyx_t_15);
         __pyx_t_15 = 0;
         __Pyx_XDECREF_SET(__pyx_8genexpr9__pyx_v__, __pyx_t_19);
         __pyx_t_19 = 0;
-        if (unlikely(__Pyx_ListComp_Append(__pyx_t_3, (PyObject*)__pyx_8genexpr9__pyx_v_fit))) __PYX_ERR(0, 1435, __pyx_L31_error)
+        if (unlikely(__Pyx_ListComp_Append(__pyx_t_3, (PyObject*)__pyx_8genexpr9__pyx_v_fit))) __PYX_ERR(0, 1438, __pyx_L31_error)
       }
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_XDECREF(__pyx_8genexpr9__pyx_v__); __pyx_8genexpr9__pyx_v__ = 0;
@@ -39134,36 +39134,36 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
       __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_5, __pyx_callargs+1-__pyx_t_6, 1+__pyx_t_6);
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1435, __pyx_L1_error)
+      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1438, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     }
     __Pyx_XDECREF_SET(__pyx_v_fitness_sorted, __pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "genTree/genTree.pyx":1437
+    /* "genTree/genTree.pyx":1440
  *             fitness_sorted = np.array([fit for fit, _ in sorted_pop])
  * 
  *             weights = np.array([1 / (fitness + 1e-9) ** importance for fitness in fitness_sorted])             # <<<<<<<<<<<<<<
  *             weights /= np.sum(weights)  # Normalizzo i pesi
  *             # Prima applico il crossover e poi la mutazione
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1437, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1440, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_array); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1437, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_array); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1440, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     { /* enter inner scope */
-      __pyx_t_5 = PyList_New(0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1437, __pyx_L40_error)
+      __pyx_t_5 = PyList_New(0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1440, __pyx_L40_error)
       __Pyx_GOTREF(__pyx_t_5);
       if (likely(PyList_CheckExact(__pyx_v_fitness_sorted)) || PyTuple_CheckExact(__pyx_v_fitness_sorted)) {
         __pyx_t_4 = __pyx_v_fitness_sorted; __Pyx_INCREF(__pyx_t_4);
         __pyx_t_10 = 0;
         __pyx_t_13 = NULL;
       } else {
-        __pyx_t_10 = -1; __pyx_t_4 = PyObject_GetIter(__pyx_v_fitness_sorted); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1437, __pyx_L40_error)
+        __pyx_t_10 = -1; __pyx_t_4 = PyObject_GetIter(__pyx_v_fitness_sorted); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1440, __pyx_L40_error)
         __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_13 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_4); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1437, __pyx_L40_error)
+        __pyx_t_13 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_4); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1440, __pyx_L40_error)
       }
       for (;;) {
         if (likely(!__pyx_t_13)) {
@@ -39171,28 +39171,28 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
             {
               Py_ssize_t __pyx_temp = __Pyx_PyList_GET_SIZE(__pyx_t_4);
               #if !CYTHON_ASSUME_SAFE_MACROS
-              if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 1437, __pyx_L40_error)
+              if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 1440, __pyx_L40_error)
               #endif
               if (__pyx_t_10 >= __pyx_temp) break;
             }
             #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-            __pyx_t_14 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_10); __Pyx_INCREF(__pyx_t_14); __pyx_t_10++; if (unlikely((0 < 0))) __PYX_ERR(0, 1437, __pyx_L40_error)
+            __pyx_t_14 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_10); __Pyx_INCREF(__pyx_t_14); __pyx_t_10++; if (unlikely((0 < 0))) __PYX_ERR(0, 1440, __pyx_L40_error)
             #else
-            __pyx_t_14 = __Pyx_PySequence_ITEM(__pyx_t_4, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1437, __pyx_L40_error)
+            __pyx_t_14 = __Pyx_PySequence_ITEM(__pyx_t_4, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1440, __pyx_L40_error)
             __Pyx_GOTREF(__pyx_t_14);
             #endif
           } else {
             {
               Py_ssize_t __pyx_temp = __Pyx_PyTuple_GET_SIZE(__pyx_t_4);
               #if !CYTHON_ASSUME_SAFE_MACROS
-              if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 1437, __pyx_L40_error)
+              if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 1440, __pyx_L40_error)
               #endif
               if (__pyx_t_10 >= __pyx_temp) break;
             }
             #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-            __pyx_t_14 = PyTuple_GET_ITEM(__pyx_t_4, __pyx_t_10); __Pyx_INCREF(__pyx_t_14); __pyx_t_10++; if (unlikely((0 < 0))) __PYX_ERR(0, 1437, __pyx_L40_error)
+            __pyx_t_14 = PyTuple_GET_ITEM(__pyx_t_4, __pyx_t_10); __Pyx_INCREF(__pyx_t_14); __pyx_t_10++; if (unlikely((0 < 0))) __PYX_ERR(0, 1440, __pyx_L40_error)
             #else
-            __pyx_t_14 = __Pyx_PySequence_ITEM(__pyx_t_4, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1437, __pyx_L40_error)
+            __pyx_t_14 = __Pyx_PySequence_ITEM(__pyx_t_4, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1440, __pyx_L40_error)
             __Pyx_GOTREF(__pyx_t_14);
             #endif
           }
@@ -39202,7 +39202,7 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
             PyObject* exc_type = PyErr_Occurred();
             if (exc_type) {
               if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-              else __PYX_ERR(0, 1437, __pyx_L40_error)
+              else __PYX_ERR(0, 1440, __pyx_L40_error)
             }
             break;
           }
@@ -39210,18 +39210,18 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
         }
         __Pyx_XDECREF_SET(__pyx_9genexpr10__pyx_v_fitness, __pyx_t_14);
         __pyx_t_14 = 0;
-        __pyx_t_14 = __Pyx_PyFloat_AddObjC(__pyx_9genexpr10__pyx_v_fitness, __pyx_float_1eneg_9, 1e-9, 0, 0); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1437, __pyx_L40_error)
+        __pyx_t_14 = __Pyx_PyFloat_AddObjC(__pyx_9genexpr10__pyx_v_fitness, __pyx_float_1eneg_9, 1e-9, 0, 0); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1440, __pyx_L40_error)
         __Pyx_GOTREF(__pyx_t_14);
-        __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_importance); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 1437, __pyx_L40_error)
+        __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_importance); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 1440, __pyx_L40_error)
         __Pyx_GOTREF(__pyx_t_19);
-        __pyx_t_15 = PyNumber_Power(__pyx_t_14, __pyx_t_19, Py_None); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1437, __pyx_L40_error)
+        __pyx_t_15 = PyNumber_Power(__pyx_t_14, __pyx_t_19, Py_None); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1440, __pyx_L40_error)
         __Pyx_GOTREF(__pyx_t_15);
         __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
         __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-        __pyx_t_19 = __Pyx_PyNumber_Divide(__pyx_int_1, __pyx_t_15); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 1437, __pyx_L40_error)
+        __pyx_t_19 = __Pyx_PyNumber_Divide(__pyx_int_1, __pyx_t_15); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 1440, __pyx_L40_error)
         __Pyx_GOTREF(__pyx_t_19);
         __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
-        if (unlikely(__Pyx_ListComp_Append(__pyx_t_5, (PyObject*)__pyx_t_19))) __PYX_ERR(0, 1437, __pyx_L40_error)
+        if (unlikely(__Pyx_ListComp_Append(__pyx_t_5, (PyObject*)__pyx_t_19))) __PYX_ERR(0, 1440, __pyx_L40_error)
         __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
       }
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -39251,23 +39251,23 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
       __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_6, 1+__pyx_t_6);
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1437, __pyx_L1_error)
+      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1440, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     }
     __Pyx_XDECREF_SET(__pyx_v_weights, __pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "genTree/genTree.pyx":1438
+    /* "genTree/genTree.pyx":1441
  * 
  *             weights = np.array([1 / (fitness + 1e-9) ** importance for fitness in fitness_sorted])
  *             weights /= np.sum(weights)  # Normalizzo i pesi             # <<<<<<<<<<<<<<
  *             # Prima applico il crossover e poi la mutazione
  *             for i in range(int(self.pop_size * best_sel), self.pop_size):
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1438, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1441, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_sum); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1438, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_sum); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1441, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_3 = NULL;
@@ -39288,17 +39288,17 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
       PyObject *__pyx_callargs[2] = {__pyx_t_3, __pyx_v_weights};
       __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_5, __pyx_callargs+1-__pyx_t_6, 1+__pyx_t_6);
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1438, __pyx_L1_error)
+      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1441, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     }
-    __pyx_t_5 = __Pyx_PyNumber_InPlaceDivide(__pyx_v_weights, __pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1438, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyNumber_InPlaceDivide(__pyx_v_weights, __pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1441, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF_SET(__pyx_v_weights, __pyx_t_5);
     __pyx_t_5 = 0;
 
-    /* "genTree/genTree.pyx":1440
+    /* "genTree/genTree.pyx":1443
  *             weights /= np.sum(weights)  # Normalizzo i pesi
  *             # Prima applico il crossover e poi la mutazione
  *             for i in range(int(self.pop_size * best_sel), self.pop_size):             # <<<<<<<<<<<<<<
@@ -39306,44 +39306,44 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
  *                 # (pi  alta la fitness, pi  probabile che venga scelto)
  */
     __pyx_t_21 = __pyx_v_self->pop_size;
-    __pyx_t_5 = __Pyx_PyInt_From_int(__pyx_v_self->pop_size); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1440, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyInt_From_int(__pyx_v_self->pop_size); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1443, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_2 = PyNumber_Multiply(__pyx_t_5, __pyx_v_best_sel); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1440, __pyx_L1_error)
+    __pyx_t_2 = PyNumber_Multiply(__pyx_t_5, __pyx_v_best_sel); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1443, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = __Pyx_PyNumber_Int(__pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1440, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyNumber_Int(__pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1443, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_22 = __Pyx_PyInt_As_long(__pyx_t_5); if (unlikely((__pyx_t_22 == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 1440, __pyx_L1_error)
+    __pyx_t_22 = __Pyx_PyInt_As_long(__pyx_t_5); if (unlikely((__pyx_t_22 == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 1443, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __pyx_t_23 = __pyx_t_21;
     for (__pyx_t_24 = __pyx_t_22; __pyx_t_24 < __pyx_t_23; __pyx_t_24+=1) {
       __pyx_v_i = __pyx_t_24;
 
-      /* "genTree/genTree.pyx":1443
+      /* "genTree/genTree.pyx":1446
  *                 # 5.2 Seleziono due genitori con probabilit proporzionale alla loro fitness
  *                 # (pi  alta la fitness, pi  probabile che venga scelto)
  *                 parent_a = np.random.choice(self.population, p=weights)             # <<<<<<<<<<<<<<
  *                 parent_b = np.random.choice(self.population, p=weights)
  *                 # 5.3 Eseguo il crossover tra i due genitori
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1443, __pyx_L1_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1446, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
-      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_random); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1443, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_random); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1446, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_choice); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1443, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_choice); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1446, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1443, __pyx_L1_error)
+      __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1446, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_INCREF(__pyx_v_self->population);
       __Pyx_GIVEREF(__pyx_v_self->population);
-      if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_v_self->population)) __PYX_ERR(0, 1443, __pyx_L1_error);
-      __pyx_t_3 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1443, __pyx_L1_error)
+      if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_v_self->population)) __PYX_ERR(0, 1446, __pyx_L1_error);
+      __pyx_t_3 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1446, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
-      if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_p, __pyx_v_weights) < 0) __PYX_ERR(0, 1443, __pyx_L1_error)
-      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1443, __pyx_L1_error)
+      if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_p, __pyx_v_weights) < 0) __PYX_ERR(0, 1446, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1446, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -39351,30 +39351,30 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
       __Pyx_XDECREF_SET(__pyx_v_parent_a, __pyx_t_4);
       __pyx_t_4 = 0;
 
-      /* "genTree/genTree.pyx":1444
+      /* "genTree/genTree.pyx":1447
  *                 # (pi  alta la fitness, pi  probabile che venga scelto)
  *                 parent_a = np.random.choice(self.population, p=weights)
  *                 parent_b = np.random.choice(self.population, p=weights)             # <<<<<<<<<<<<<<
  *                 # 5.3 Eseguo il crossover tra i due genitori
  *                 child = self._crossover(parent_a, parent_b, X, y)
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1444, __pyx_L1_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1447, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_random); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1444, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_random); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1447, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_choice); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1444, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_choice); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1447, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1444, __pyx_L1_error)
+      __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1447, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_INCREF(__pyx_v_self->population);
       __Pyx_GIVEREF(__pyx_v_self->population);
-      if (__Pyx_PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_v_self->population)) __PYX_ERR(0, 1444, __pyx_L1_error);
-      __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1444, __pyx_L1_error)
+      if (__Pyx_PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_v_self->population)) __PYX_ERR(0, 1447, __pyx_L1_error);
+      __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1447, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_p, __pyx_v_weights) < 0) __PYX_ERR(0, 1444, __pyx_L1_error)
-      __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1444, __pyx_L1_error)
+      if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_p, __pyx_v_weights) < 0) __PYX_ERR(0, 1447, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1447, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -39382,33 +39382,33 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
       __Pyx_XDECREF_SET(__pyx_v_parent_b, __pyx_t_5);
       __pyx_t_5 = 0;
 
-      /* "genTree/genTree.pyx":1446
+      /* "genTree/genTree.pyx":1449
  *                 parent_b = np.random.choice(self.population, p=weights)
  *                 # 5.3 Eseguo il crossover tra i due genitori
  *                 child = self._crossover(parent_a, parent_b, X, y)             # <<<<<<<<<<<<<<
  *                 if np.random.rand() < 0.5:
  *                     child = self._change_root_split(child, X, y)
  */
-      if (!(likely(((__pyx_v_parent_a) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_parent_a, __pyx_ptype_7genTree_12decisionNode_DecisionNode))))) __PYX_ERR(0, 1446, __pyx_L1_error)
-      if (!(likely(((__pyx_v_parent_b) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_parent_b, __pyx_ptype_7genTree_12decisionNode_DecisionNode))))) __PYX_ERR(0, 1446, __pyx_L1_error)
-      __pyx_t_5 = ((struct __pyx_vtabstruct_7genTree_7genTree_genTree *)__pyx_v_self->__pyx_vtab)->_crossover(__pyx_v_self, ((struct __pyx_obj_7genTree_12decisionNode_DecisionNode *)__pyx_v_parent_a), ((struct __pyx_obj_7genTree_12decisionNode_DecisionNode *)__pyx_v_parent_b), __pyx_v_X, __pyx_v_y); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1446, __pyx_L1_error)
+      if (!(likely(((__pyx_v_parent_a) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_parent_a, __pyx_ptype_7genTree_12decisionNode_DecisionNode))))) __PYX_ERR(0, 1449, __pyx_L1_error)
+      if (!(likely(((__pyx_v_parent_b) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_parent_b, __pyx_ptype_7genTree_12decisionNode_DecisionNode))))) __PYX_ERR(0, 1449, __pyx_L1_error)
+      __pyx_t_5 = ((struct __pyx_vtabstruct_7genTree_7genTree_genTree *)__pyx_v_self->__pyx_vtab)->_crossover(__pyx_v_self, ((struct __pyx_obj_7genTree_12decisionNode_DecisionNode *)__pyx_v_parent_a), ((struct __pyx_obj_7genTree_12decisionNode_DecisionNode *)__pyx_v_parent_b), __pyx_v_X, __pyx_v_y); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1449, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_XDECREF_SET(__pyx_v_child, __pyx_t_5);
       __pyx_t_5 = 0;
 
-      /* "genTree/genTree.pyx":1447
+      /* "genTree/genTree.pyx":1450
  *                 # 5.3 Eseguo il crossover tra i due genitori
  *                 child = self._crossover(parent_a, parent_b, X, y)
  *                 if np.random.rand() < 0.5:             # <<<<<<<<<<<<<<
  *                     child = self._change_root_split(child, X, y)
  *                 # 5.4 Eseguo la mutazione sul figlio
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1447, __pyx_L1_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1450, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_random); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1447, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_random); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1450, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_rand); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1447, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_rand); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1450, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __pyx_t_3 = NULL;
@@ -39429,30 +39429,30 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
         PyObject *__pyx_callargs[2] = {__pyx_t_3, NULL};
         __pyx_t_5 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_6, 0+__pyx_t_6);
         __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-        if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1447, __pyx_L1_error)
+        if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1450, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       }
-      __pyx_t_2 = PyObject_RichCompare(__pyx_t_5, __pyx_float_0_5, Py_LT); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1447, __pyx_L1_error)
+      __pyx_t_2 = PyObject_RichCompare(__pyx_t_5, __pyx_float_0_5, Py_LT); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1450, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-      __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_1 < 0))) __PYX_ERR(0, 1447, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_1 < 0))) __PYX_ERR(0, 1450, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       if (__pyx_t_1) {
 
-        /* "genTree/genTree.pyx":1448
+        /* "genTree/genTree.pyx":1451
  *                 child = self._crossover(parent_a, parent_b, X, y)
  *                 if np.random.rand() < 0.5:
  *                     child = self._change_root_split(child, X, y)             # <<<<<<<<<<<<<<
  *                 # 5.4 Eseguo la mutazione sul figlio
  *                 # Con probabilit self.mutation_prob scelgo di mutare il figlio
  */
-        if (!(likely(((__pyx_v_child) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_child, __pyx_ptype_7genTree_12decisionNode_DecisionNode))))) __PYX_ERR(0, 1448, __pyx_L1_error)
-        __pyx_t_2 = ((struct __pyx_vtabstruct_7genTree_7genTree_genTree *)__pyx_v_self->__pyx_vtab)->_change_root_split(__pyx_v_self, ((struct __pyx_obj_7genTree_12decisionNode_DecisionNode *)__pyx_v_child), __pyx_v_X, __pyx_v_y); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1448, __pyx_L1_error)
+        if (!(likely(((__pyx_v_child) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_child, __pyx_ptype_7genTree_12decisionNode_DecisionNode))))) __PYX_ERR(0, 1451, __pyx_L1_error)
+        __pyx_t_2 = ((struct __pyx_vtabstruct_7genTree_7genTree_genTree *)__pyx_v_self->__pyx_vtab)->_change_root_split(__pyx_v_self, ((struct __pyx_obj_7genTree_12decisionNode_DecisionNode *)__pyx_v_child), __pyx_v_X, __pyx_v_y); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1451, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF_SET(__pyx_v_child, __pyx_t_2);
         __pyx_t_2 = 0;
 
-        /* "genTree/genTree.pyx":1447
+        /* "genTree/genTree.pyx":1450
  *                 # 5.3 Eseguo il crossover tra i due genitori
  *                 child = self._crossover(parent_a, parent_b, X, y)
  *                 if np.random.rand() < 0.5:             # <<<<<<<<<<<<<<
@@ -39461,19 +39461,19 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
  */
       }
 
-      /* "genTree/genTree.pyx":1452
+      /* "genTree/genTree.pyx":1455
  *                 # Con probabilit self.mutation_prob scelgo di mutare il figlio
  *                 # poi con probabilit equa scelgo una tra le possibili mutazioni e la applico
  *                 if np.random.rand() < mutation_prob:             # <<<<<<<<<<<<<<
  *                     mutation_choice = np.random.choice(['split_random_leaf', 'prune_random_leaf', 'prune_random_node', 'major_split', 'minor_split', 'change_root_split'])
  *                     if mutation_choice == 'split_random_leaf':
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1452, __pyx_L1_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1455, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
-      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_random); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1452, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_random); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1455, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_rand); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1452, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_rand); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1455, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __pyx_t_3 = NULL;
@@ -39494,54 +39494,54 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
         PyObject *__pyx_callargs[2] = {__pyx_t_3, NULL};
         __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_5, __pyx_callargs+1-__pyx_t_6, 0+__pyx_t_6);
         __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-        if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1452, __pyx_L1_error)
+        if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1455, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       }
-      __pyx_t_5 = PyFloat_FromDouble(__pyx_v_mutation_prob); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1452, __pyx_L1_error)
+      __pyx_t_5 = PyFloat_FromDouble(__pyx_v_mutation_prob); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1455, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
-      __pyx_t_3 = PyObject_RichCompare(__pyx_t_2, __pyx_t_5, Py_LT); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1452, __pyx_L1_error)
+      __pyx_t_3 = PyObject_RichCompare(__pyx_t_2, __pyx_t_5, Py_LT); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1455, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-      __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely((__pyx_t_1 < 0))) __PYX_ERR(0, 1452, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely((__pyx_t_1 < 0))) __PYX_ERR(0, 1455, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       if (__pyx_t_1) {
 
-        /* "genTree/genTree.pyx":1453
+        /* "genTree/genTree.pyx":1456
  *                 # poi con probabilit equa scelgo una tra le possibili mutazioni e la applico
  *                 if np.random.rand() < mutation_prob:
  *                     mutation_choice = np.random.choice(['split_random_leaf', 'prune_random_leaf', 'prune_random_node', 'major_split', 'minor_split', 'change_root_split'])             # <<<<<<<<<<<<<<
  *                     if mutation_choice == 'split_random_leaf':
  *                         child = self._split_random_leaf(child, X, y)
  */
-        __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1453, __pyx_L1_error)
+        __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1456, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
-        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_random); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1453, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_random); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1456, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-        __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_choice); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1453, __pyx_L1_error)
+        __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_choice); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1456, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        __pyx_t_2 = PyList_New(6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1453, __pyx_L1_error)
+        __pyx_t_2 = PyList_New(6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1456, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_INCREF(__pyx_n_u_split_random_leaf);
         __Pyx_GIVEREF(__pyx_n_u_split_random_leaf);
-        if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_u_split_random_leaf)) __PYX_ERR(0, 1453, __pyx_L1_error);
+        if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_u_split_random_leaf)) __PYX_ERR(0, 1456, __pyx_L1_error);
         __Pyx_INCREF(__pyx_n_u_prune_random_leaf);
         __Pyx_GIVEREF(__pyx_n_u_prune_random_leaf);
-        if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 1, __pyx_n_u_prune_random_leaf)) __PYX_ERR(0, 1453, __pyx_L1_error);
+        if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 1, __pyx_n_u_prune_random_leaf)) __PYX_ERR(0, 1456, __pyx_L1_error);
         __Pyx_INCREF(__pyx_n_u_prune_random_node);
         __Pyx_GIVEREF(__pyx_n_u_prune_random_node);
-        if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 2, __pyx_n_u_prune_random_node)) __PYX_ERR(0, 1453, __pyx_L1_error);
+        if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 2, __pyx_n_u_prune_random_node)) __PYX_ERR(0, 1456, __pyx_L1_error);
         __Pyx_INCREF(__pyx_n_u_major_split);
         __Pyx_GIVEREF(__pyx_n_u_major_split);
-        if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 3, __pyx_n_u_major_split)) __PYX_ERR(0, 1453, __pyx_L1_error);
+        if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 3, __pyx_n_u_major_split)) __PYX_ERR(0, 1456, __pyx_L1_error);
         __Pyx_INCREF(__pyx_n_u_minor_split);
         __Pyx_GIVEREF(__pyx_n_u_minor_split);
-        if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 4, __pyx_n_u_minor_split)) __PYX_ERR(0, 1453, __pyx_L1_error);
+        if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 4, __pyx_n_u_minor_split)) __PYX_ERR(0, 1456, __pyx_L1_error);
         __Pyx_INCREF(__pyx_n_u_change_root_split);
         __Pyx_GIVEREF(__pyx_n_u_change_root_split);
-        if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 5, __pyx_n_u_change_root_split)) __PYX_ERR(0, 1453, __pyx_L1_error);
+        if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 5, __pyx_n_u_change_root_split)) __PYX_ERR(0, 1456, __pyx_L1_error);
         __pyx_t_4 = NULL;
         __pyx_t_6 = 0;
         #if CYTHON_UNPACK_METHODS
@@ -39561,37 +39561,37 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
           __pyx_t_3 = __Pyx_PyObject_FastCall(__pyx_t_5, __pyx_callargs+1-__pyx_t_6, 1+__pyx_t_6);
           __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-          if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1453, __pyx_L1_error)
+          if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1456, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_3);
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         }
         __Pyx_XDECREF_SET(__pyx_v_mutation_choice, __pyx_t_3);
         __pyx_t_3 = 0;
 
-        /* "genTree/genTree.pyx":1454
+        /* "genTree/genTree.pyx":1457
  *                 if np.random.rand() < mutation_prob:
  *                     mutation_choice = np.random.choice(['split_random_leaf', 'prune_random_leaf', 'prune_random_node', 'major_split', 'minor_split', 'change_root_split'])
  *                     if mutation_choice == 'split_random_leaf':             # <<<<<<<<<<<<<<
  *                         child = self._split_random_leaf(child, X, y)
  *                     elif mutation_choice == 'prune_random_leaf':
  */
-        __pyx_t_1 = (__Pyx_PyUnicode_Equals(__pyx_v_mutation_choice, __pyx_n_u_split_random_leaf, Py_EQ)); if (unlikely((__pyx_t_1 < 0))) __PYX_ERR(0, 1454, __pyx_L1_error)
+        __pyx_t_1 = (__Pyx_PyUnicode_Equals(__pyx_v_mutation_choice, __pyx_n_u_split_random_leaf, Py_EQ)); if (unlikely((__pyx_t_1 < 0))) __PYX_ERR(0, 1457, __pyx_L1_error)
         if (__pyx_t_1) {
 
-          /* "genTree/genTree.pyx":1455
+          /* "genTree/genTree.pyx":1458
  *                     mutation_choice = np.random.choice(['split_random_leaf', 'prune_random_leaf', 'prune_random_node', 'major_split', 'minor_split', 'change_root_split'])
  *                     if mutation_choice == 'split_random_leaf':
  *                         child = self._split_random_leaf(child, X, y)             # <<<<<<<<<<<<<<
  *                     elif mutation_choice == 'prune_random_leaf':
  *                         child = self._prune_random_leaf(child, X, y)
  */
-          if (!(likely(((__pyx_v_child) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_child, __pyx_ptype_7genTree_12decisionNode_DecisionNode))))) __PYX_ERR(0, 1455, __pyx_L1_error)
-          __pyx_t_3 = ((struct __pyx_vtabstruct_7genTree_7genTree_genTree *)__pyx_v_self->__pyx_vtab)->_split_random_leaf(__pyx_v_self, ((struct __pyx_obj_7genTree_12decisionNode_DecisionNode *)__pyx_v_child), __pyx_v_X, __pyx_v_y); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1455, __pyx_L1_error)
+          if (!(likely(((__pyx_v_child) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_child, __pyx_ptype_7genTree_12decisionNode_DecisionNode))))) __PYX_ERR(0, 1458, __pyx_L1_error)
+          __pyx_t_3 = ((struct __pyx_vtabstruct_7genTree_7genTree_genTree *)__pyx_v_self->__pyx_vtab)->_split_random_leaf(__pyx_v_self, ((struct __pyx_obj_7genTree_12decisionNode_DecisionNode *)__pyx_v_child), __pyx_v_X, __pyx_v_y); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1458, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_3);
           __Pyx_DECREF_SET(__pyx_v_child, __pyx_t_3);
           __pyx_t_3 = 0;
 
-          /* "genTree/genTree.pyx":1454
+          /* "genTree/genTree.pyx":1457
  *                 if np.random.rand() < mutation_prob:
  *                     mutation_choice = np.random.choice(['split_random_leaf', 'prune_random_leaf', 'prune_random_node', 'major_split', 'minor_split', 'change_root_split'])
  *                     if mutation_choice == 'split_random_leaf':             # <<<<<<<<<<<<<<
@@ -39601,30 +39601,30 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
           goto __pyx_L49;
         }
 
-        /* "genTree/genTree.pyx":1456
+        /* "genTree/genTree.pyx":1459
  *                     if mutation_choice == 'split_random_leaf':
  *                         child = self._split_random_leaf(child, X, y)
  *                     elif mutation_choice == 'prune_random_leaf':             # <<<<<<<<<<<<<<
  *                         child = self._prune_random_leaf(child, X, y)
  *                     elif mutation_choice == 'prune_random_node':
  */
-        __pyx_t_1 = (__Pyx_PyUnicode_Equals(__pyx_v_mutation_choice, __pyx_n_u_prune_random_leaf, Py_EQ)); if (unlikely((__pyx_t_1 < 0))) __PYX_ERR(0, 1456, __pyx_L1_error)
+        __pyx_t_1 = (__Pyx_PyUnicode_Equals(__pyx_v_mutation_choice, __pyx_n_u_prune_random_leaf, Py_EQ)); if (unlikely((__pyx_t_1 < 0))) __PYX_ERR(0, 1459, __pyx_L1_error)
         if (__pyx_t_1) {
 
-          /* "genTree/genTree.pyx":1457
+          /* "genTree/genTree.pyx":1460
  *                         child = self._split_random_leaf(child, X, y)
  *                     elif mutation_choice == 'prune_random_leaf':
  *                         child = self._prune_random_leaf(child, X, y)             # <<<<<<<<<<<<<<
  *                     elif mutation_choice == 'prune_random_node':
  *                         child = self._prune_random_node(child, X, y)
  */
-          if (!(likely(((__pyx_v_child) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_child, __pyx_ptype_7genTree_12decisionNode_DecisionNode))))) __PYX_ERR(0, 1457, __pyx_L1_error)
-          __pyx_t_3 = ((struct __pyx_vtabstruct_7genTree_7genTree_genTree *)__pyx_v_self->__pyx_vtab)->_prune_random_leaf(__pyx_v_self, ((struct __pyx_obj_7genTree_12decisionNode_DecisionNode *)__pyx_v_child), __pyx_v_X, __pyx_v_y); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1457, __pyx_L1_error)
+          if (!(likely(((__pyx_v_child) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_child, __pyx_ptype_7genTree_12decisionNode_DecisionNode))))) __PYX_ERR(0, 1460, __pyx_L1_error)
+          __pyx_t_3 = ((struct __pyx_vtabstruct_7genTree_7genTree_genTree *)__pyx_v_self->__pyx_vtab)->_prune_random_leaf(__pyx_v_self, ((struct __pyx_obj_7genTree_12decisionNode_DecisionNode *)__pyx_v_child), __pyx_v_X, __pyx_v_y); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1460, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_3);
           __Pyx_DECREF_SET(__pyx_v_child, __pyx_t_3);
           __pyx_t_3 = 0;
 
-          /* "genTree/genTree.pyx":1456
+          /* "genTree/genTree.pyx":1459
  *                     if mutation_choice == 'split_random_leaf':
  *                         child = self._split_random_leaf(child, X, y)
  *                     elif mutation_choice == 'prune_random_leaf':             # <<<<<<<<<<<<<<
@@ -39634,30 +39634,30 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
           goto __pyx_L49;
         }
 
-        /* "genTree/genTree.pyx":1458
+        /* "genTree/genTree.pyx":1461
  *                     elif mutation_choice == 'prune_random_leaf':
  *                         child = self._prune_random_leaf(child, X, y)
  *                     elif mutation_choice == 'prune_random_node':             # <<<<<<<<<<<<<<
  *                         child = self._prune_random_node(child, X, y)
  *                     elif mutation_choice == 'major_split':
  */
-        __pyx_t_1 = (__Pyx_PyUnicode_Equals(__pyx_v_mutation_choice, __pyx_n_u_prune_random_node, Py_EQ)); if (unlikely((__pyx_t_1 < 0))) __PYX_ERR(0, 1458, __pyx_L1_error)
+        __pyx_t_1 = (__Pyx_PyUnicode_Equals(__pyx_v_mutation_choice, __pyx_n_u_prune_random_node, Py_EQ)); if (unlikely((__pyx_t_1 < 0))) __PYX_ERR(0, 1461, __pyx_L1_error)
         if (__pyx_t_1) {
 
-          /* "genTree/genTree.pyx":1459
+          /* "genTree/genTree.pyx":1462
  *                         child = self._prune_random_leaf(child, X, y)
  *                     elif mutation_choice == 'prune_random_node':
  *                         child = self._prune_random_node(child, X, y)             # <<<<<<<<<<<<<<
  *                     elif mutation_choice == 'major_split':
  *                         child = self._major_split(child, X, y)
  */
-          if (!(likely(((__pyx_v_child) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_child, __pyx_ptype_7genTree_12decisionNode_DecisionNode))))) __PYX_ERR(0, 1459, __pyx_L1_error)
-          __pyx_t_3 = ((struct __pyx_vtabstruct_7genTree_7genTree_genTree *)__pyx_v_self->__pyx_vtab)->_prune_random_node(__pyx_v_self, ((struct __pyx_obj_7genTree_12decisionNode_DecisionNode *)__pyx_v_child), __pyx_v_X, __pyx_v_y); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1459, __pyx_L1_error)
+          if (!(likely(((__pyx_v_child) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_child, __pyx_ptype_7genTree_12decisionNode_DecisionNode))))) __PYX_ERR(0, 1462, __pyx_L1_error)
+          __pyx_t_3 = ((struct __pyx_vtabstruct_7genTree_7genTree_genTree *)__pyx_v_self->__pyx_vtab)->_prune_random_node(__pyx_v_self, ((struct __pyx_obj_7genTree_12decisionNode_DecisionNode *)__pyx_v_child), __pyx_v_X, __pyx_v_y); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1462, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_3);
           __Pyx_DECREF_SET(__pyx_v_child, __pyx_t_3);
           __pyx_t_3 = 0;
 
-          /* "genTree/genTree.pyx":1458
+          /* "genTree/genTree.pyx":1461
  *                     elif mutation_choice == 'prune_random_leaf':
  *                         child = self._prune_random_leaf(child, X, y)
  *                     elif mutation_choice == 'prune_random_node':             # <<<<<<<<<<<<<<
@@ -39667,30 +39667,30 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
           goto __pyx_L49;
         }
 
-        /* "genTree/genTree.pyx":1460
+        /* "genTree/genTree.pyx":1463
  *                     elif mutation_choice == 'prune_random_node':
  *                         child = self._prune_random_node(child, X, y)
  *                     elif mutation_choice == 'major_split':             # <<<<<<<<<<<<<<
  *                         child = self._major_split(child, X, y)
  *                     elif mutation_choice == 'minor_split':
  */
-        __pyx_t_1 = (__Pyx_PyUnicode_Equals(__pyx_v_mutation_choice, __pyx_n_u_major_split, Py_EQ)); if (unlikely((__pyx_t_1 < 0))) __PYX_ERR(0, 1460, __pyx_L1_error)
+        __pyx_t_1 = (__Pyx_PyUnicode_Equals(__pyx_v_mutation_choice, __pyx_n_u_major_split, Py_EQ)); if (unlikely((__pyx_t_1 < 0))) __PYX_ERR(0, 1463, __pyx_L1_error)
         if (__pyx_t_1) {
 
-          /* "genTree/genTree.pyx":1461
+          /* "genTree/genTree.pyx":1464
  *                         child = self._prune_random_node(child, X, y)
  *                     elif mutation_choice == 'major_split':
  *                         child = self._major_split(child, X, y)             # <<<<<<<<<<<<<<
  *                     elif mutation_choice == 'minor_split':
  *                         child = self._minor_split(child, X, y)
  */
-          if (!(likely(((__pyx_v_child) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_child, __pyx_ptype_7genTree_12decisionNode_DecisionNode))))) __PYX_ERR(0, 1461, __pyx_L1_error)
-          __pyx_t_3 = ((struct __pyx_vtabstruct_7genTree_7genTree_genTree *)__pyx_v_self->__pyx_vtab)->_major_split(__pyx_v_self, ((struct __pyx_obj_7genTree_12decisionNode_DecisionNode *)__pyx_v_child), __pyx_v_X, __pyx_v_y); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1461, __pyx_L1_error)
+          if (!(likely(((__pyx_v_child) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_child, __pyx_ptype_7genTree_12decisionNode_DecisionNode))))) __PYX_ERR(0, 1464, __pyx_L1_error)
+          __pyx_t_3 = ((struct __pyx_vtabstruct_7genTree_7genTree_genTree *)__pyx_v_self->__pyx_vtab)->_major_split(__pyx_v_self, ((struct __pyx_obj_7genTree_12decisionNode_DecisionNode *)__pyx_v_child), __pyx_v_X, __pyx_v_y); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1464, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_3);
           __Pyx_DECREF_SET(__pyx_v_child, __pyx_t_3);
           __pyx_t_3 = 0;
 
-          /* "genTree/genTree.pyx":1460
+          /* "genTree/genTree.pyx":1463
  *                     elif mutation_choice == 'prune_random_node':
  *                         child = self._prune_random_node(child, X, y)
  *                     elif mutation_choice == 'major_split':             # <<<<<<<<<<<<<<
@@ -39700,30 +39700,30 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
           goto __pyx_L49;
         }
 
-        /* "genTree/genTree.pyx":1462
+        /* "genTree/genTree.pyx":1465
  *                     elif mutation_choice == 'major_split':
  *                         child = self._major_split(child, X, y)
  *                     elif mutation_choice == 'minor_split':             # <<<<<<<<<<<<<<
  *                         child = self._minor_split(child, X, y)
  *                     # elif mutation_choice == 'change_root_split':
  */
-        __pyx_t_1 = (__Pyx_PyUnicode_Equals(__pyx_v_mutation_choice, __pyx_n_u_minor_split, Py_EQ)); if (unlikely((__pyx_t_1 < 0))) __PYX_ERR(0, 1462, __pyx_L1_error)
+        __pyx_t_1 = (__Pyx_PyUnicode_Equals(__pyx_v_mutation_choice, __pyx_n_u_minor_split, Py_EQ)); if (unlikely((__pyx_t_1 < 0))) __PYX_ERR(0, 1465, __pyx_L1_error)
         if (__pyx_t_1) {
 
-          /* "genTree/genTree.pyx":1463
+          /* "genTree/genTree.pyx":1466
  *                         child = self._major_split(child, X, y)
  *                     elif mutation_choice == 'minor_split':
  *                         child = self._minor_split(child, X, y)             # <<<<<<<<<<<<<<
  *                     # elif mutation_choice == 'change_root_split':
  *                     #     child = self._change_root_split(child, X, y)
  */
-          if (!(likely(((__pyx_v_child) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_child, __pyx_ptype_7genTree_12decisionNode_DecisionNode))))) __PYX_ERR(0, 1463, __pyx_L1_error)
-          __pyx_t_3 = ((struct __pyx_vtabstruct_7genTree_7genTree_genTree *)__pyx_v_self->__pyx_vtab)->_minor_split(__pyx_v_self, ((struct __pyx_obj_7genTree_12decisionNode_DecisionNode *)__pyx_v_child), __pyx_v_X, __pyx_v_y); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1463, __pyx_L1_error)
+          if (!(likely(((__pyx_v_child) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_child, __pyx_ptype_7genTree_12decisionNode_DecisionNode))))) __PYX_ERR(0, 1466, __pyx_L1_error)
+          __pyx_t_3 = ((struct __pyx_vtabstruct_7genTree_7genTree_genTree *)__pyx_v_self->__pyx_vtab)->_minor_split(__pyx_v_self, ((struct __pyx_obj_7genTree_12decisionNode_DecisionNode *)__pyx_v_child), __pyx_v_X, __pyx_v_y); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1466, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_3);
           __Pyx_DECREF_SET(__pyx_v_child, __pyx_t_3);
           __pyx_t_3 = 0;
 
-          /* "genTree/genTree.pyx":1462
+          /* "genTree/genTree.pyx":1465
  *                     elif mutation_choice == 'major_split':
  *                         child = self._major_split(child, X, y)
  *                     elif mutation_choice == 'minor_split':             # <<<<<<<<<<<<<<
@@ -39733,7 +39733,7 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
         }
         __pyx_L49:;
 
-        /* "genTree/genTree.pyx":1452
+        /* "genTree/genTree.pyx":1455
  *                 # Con probabilit self.mutation_prob scelgo di mutare il figlio
  *                 # poi con probabilit equa scelgo una tra le possibili mutazioni e la applico
  *                 if np.random.rand() < mutation_prob:             # <<<<<<<<<<<<<<
@@ -39742,17 +39742,17 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
  */
       }
 
-      /* "genTree/genTree.pyx":1467
+      /* "genTree/genTree.pyx":1470
  *                     #     child = self._change_root_split(child, X, y)
  *                 # 5.5 Aggiungo il figlio alla popolazione
  *                 survivors.append(child)             # <<<<<<<<<<<<<<
  *             # 6. Aggiorno la popolazione con i sopravvissuti
  *             self.population = survivors
  */
-      __pyx_t_12 = __Pyx_PyList_Append(__pyx_v_survivors, __pyx_v_child); if (unlikely(__pyx_t_12 == ((int)-1))) __PYX_ERR(0, 1467, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_PyList_Append(__pyx_v_survivors, __pyx_v_child); if (unlikely(__pyx_t_12 == ((int)-1))) __PYX_ERR(0, 1470, __pyx_L1_error)
     }
 
-    /* "genTree/genTree.pyx":1469
+    /* "genTree/genTree.pyx":1472
  *                 survivors.append(child)
  *             # 6. Aggiorno la popolazione con i sopravvissuti
  *             self.population = survivors             # <<<<<<<<<<<<<<
@@ -39766,7 +39766,7 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
     __pyx_v_self->population = __pyx_v_survivors;
   }
 
-  /* "genTree/genTree.pyx":1471
+  /* "genTree/genTree.pyx":1474
  *             self.population = survivors
  * 
  *         self.best_tree = best_individual             # <<<<<<<<<<<<<<
@@ -39779,14 +39779,14 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
   __Pyx_DECREF((PyObject *)__pyx_v_self->best_tree);
   __pyx_v_self->best_tree = __pyx_v_best_individual;
 
-  /* "genTree/genTree.pyx":1472
+  /* "genTree/genTree.pyx":1475
  * 
  *         self.best_tree = best_individual
  *         print(f"Best tree found after {self.n_generations} generations with fitness {best_fitness}")             # <<<<<<<<<<<<<<
  *         return self.best_tree
  * 
  */
-  __pyx_t_3 = PyTuple_New(4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1472, __pyx_L1_error)
+  __pyx_t_3 = PyTuple_New(4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1475, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_10 = 0;
   __pyx_t_17 = 127;
@@ -39794,7 +39794,7 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
   __pyx_t_10 += 22;
   __Pyx_GIVEREF(__pyx_kp_u_Best_tree_found_after);
   PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_kp_u_Best_tree_found_after);
-  __pyx_t_5 = __Pyx_PyUnicode_From_int(__pyx_v_self->n_generations, 0, ' ', 'd'); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1472, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyUnicode_From_int(__pyx_v_self->n_generations, 0, ' ', 'd'); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1475, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_t_10 += __Pyx_PyUnicode_GET_LENGTH(__pyx_t_5);
   __Pyx_GIVEREF(__pyx_t_5);
@@ -39804,9 +39804,9 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
   __pyx_t_10 += 26;
   __Pyx_GIVEREF(__pyx_kp_u_generations_with_fitness);
   PyTuple_SET_ITEM(__pyx_t_3, 2, __pyx_kp_u_generations_with_fitness);
-  __pyx_t_5 = PyFloat_FromDouble(__pyx_v_best_fitness); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1472, __pyx_L1_error)
+  __pyx_t_5 = PyFloat_FromDouble(__pyx_v_best_fitness); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1475, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_2 = __Pyx_PyObject_FormatSimple(__pyx_t_5, __pyx_empty_unicode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1472, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_FormatSimple(__pyx_t_5, __pyx_empty_unicode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1475, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __pyx_t_17 = (__Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_2) > __pyx_t_17) ? __Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_2) : __pyx_t_17;
@@ -39814,15 +39814,15 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
   __Pyx_GIVEREF(__pyx_t_2);
   PyTuple_SET_ITEM(__pyx_t_3, 3, __pyx_t_2);
   __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyUnicode_Join(__pyx_t_3, 4, __pyx_t_10, __pyx_t_17); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1472, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyUnicode_Join(__pyx_t_3, 4, __pyx_t_10, __pyx_t_17); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1475, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1472, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1475, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "genTree/genTree.pyx":1473
+  /* "genTree/genTree.pyx":1476
  *         self.best_tree = best_individual
  *         print(f"Best tree found after {self.n_generations} generations with fitness {best_fitness}")
  *         return self.best_tree             # <<<<<<<<<<<<<<
@@ -39879,7 +39879,7 @@ static struct __pyx_obj_7genTree_12decisionNode_DecisionNode *__pyx_f_7genTree_7
   return __pyx_r;
 }
 
-/* "genTree/genTree.pyx":1475
+/* "genTree/genTree.pyx":1478
  *         return self.best_tree
  * 
  *     cdef np.ndarray[np.float64_t, ndim=1] _predict(self, double[:, :] X):             # <<<<<<<<<<<<<<
@@ -39918,7 +39918,7 @@ static PyArrayObject *__pyx_f_7genTree_7genTree_7genTree__predict(struct __pyx_o
   __pyx_pybuffernd_out.data = NULL;
   __pyx_pybuffernd_out.rcbuffer = &__pyx_pybuffer_out;
 
-  /* "genTree/genTree.pyx":1479
+  /* "genTree/genTree.pyx":1482
  *         Predice i risultati usando il best_tree trovato da fit.
  *         """
  *         if self.best_tree is None:             # <<<<<<<<<<<<<<
@@ -39928,20 +39928,20 @@ static PyArrayObject *__pyx_f_7genTree_7genTree_7genTree__predict(struct __pyx_o
   __pyx_t_1 = (((PyObject *)__pyx_v_self->best_tree) == Py_None);
   if (unlikely(__pyx_t_1)) {
 
-    /* "genTree/genTree.pyx":1480
+    /* "genTree/genTree.pyx":1483
  *         """
  *         if self.best_tree is None:
  *             raise ValueError("Devi chiamare fit prima di predict.")             # <<<<<<<<<<<<<<
  *         cdef int n_samples = X.shape[0]
  *         cdef np.ndarray[np.float64_t, ndim=1] out = np.empty(n_samples, dtype=np.float64)
  */
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__11, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1480, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__11, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1483, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_Raise(__pyx_t_2, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __PYX_ERR(0, 1480, __pyx_L1_error)
+    __PYX_ERR(0, 1483, __pyx_L1_error)
 
-    /* "genTree/genTree.pyx":1479
+    /* "genTree/genTree.pyx":1482
  *         Predice i risultati usando il best_tree trovato da fit.
  *         """
  *         if self.best_tree is None:             # <<<<<<<<<<<<<<
@@ -39950,7 +39950,7 @@ static PyArrayObject *__pyx_f_7genTree_7genTree_7genTree__predict(struct __pyx_o
  */
   }
 
-  /* "genTree/genTree.pyx":1481
+  /* "genTree/genTree.pyx":1484
  *         if self.best_tree is None:
  *             raise ValueError("Devi chiamare fit prima di predict.")
  *         cdef int n_samples = X.shape[0]             # <<<<<<<<<<<<<<
@@ -39959,46 +39959,46 @@ static PyArrayObject *__pyx_f_7genTree_7genTree_7genTree__predict(struct __pyx_o
  */
   __pyx_v_n_samples = (__pyx_v_X.shape[0]);
 
-  /* "genTree/genTree.pyx":1482
+  /* "genTree/genTree.pyx":1485
  *             raise ValueError("Devi chiamare fit prima di predict.")
  *         cdef int n_samples = X.shape[0]
  *         cdef np.ndarray[np.float64_t, ndim=1] out = np.empty(n_samples, dtype=np.float64)             # <<<<<<<<<<<<<<
  *         cdef int i
  *         for i in range(n_samples):
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1482, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1485, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_empty); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1482, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_empty); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1485, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_n_samples); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1482, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_n_samples); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1485, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1482, __pyx_L1_error)
+  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1485, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_2);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_2)) __PYX_ERR(0, 1482, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_2)) __PYX_ERR(0, 1485, __pyx_L1_error);
   __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1482, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1485, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1482, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1485, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_float64); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1482, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_float64); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1485, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_dtype, __pyx_t_6) < 0) __PYX_ERR(0, 1482, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_dtype, __pyx_t_6) < 0) __PYX_ERR(0, 1485, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, __pyx_t_2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1482, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, __pyx_t_2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1485, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (!(likely(((__pyx_t_6) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_6, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1482, __pyx_L1_error)
+  if (!(likely(((__pyx_t_6) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_6, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1485, __pyx_L1_error)
   __pyx_t_7 = ((PyArrayObject *)__pyx_t_6);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_out.rcbuffer->pybuffer, (PyObject*)__pyx_t_7, &__Pyx_TypeInfo_nn___pyx_t_5numpy_float64_t, PyBUF_FORMAT| PyBUF_STRIDES| PyBUF_WRITABLE, 1, 0, __pyx_stack) == -1)) {
       __pyx_v_out = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_out.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(0, 1482, __pyx_L1_error)
+      __PYX_ERR(0, 1485, __pyx_L1_error)
     } else {__pyx_pybuffernd_out.diminfo[0].strides = __pyx_pybuffernd_out.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_out.diminfo[0].shape = __pyx_pybuffernd_out.rcbuffer->pybuffer.shape[0];
     }
   }
@@ -40006,7 +40006,7 @@ static PyArrayObject *__pyx_f_7genTree_7genTree_7genTree__predict(struct __pyx_o
   __pyx_v_out = ((PyArrayObject *)__pyx_t_6);
   __pyx_t_6 = 0;
 
-  /* "genTree/genTree.pyx":1484
+  /* "genTree/genTree.pyx":1487
  *         cdef np.ndarray[np.float64_t, ndim=1] out = np.empty(n_samples, dtype=np.float64)
  *         cdef int i
  *         for i in range(n_samples):             # <<<<<<<<<<<<<<
@@ -40018,7 +40018,7 @@ static PyArrayObject *__pyx_f_7genTree_7genTree_7genTree__predict(struct __pyx_o
   for (__pyx_t_10 = 0; __pyx_t_10 < __pyx_t_9; __pyx_t_10+=1) {
     __pyx_v_i = __pyx_t_10;
 
-    /* "genTree/genTree.pyx":1485
+    /* "genTree/genTree.pyx":1488
  *         cdef int i
  *         for i in range(n_samples):
  *             out[i] = self.best_tree._predict_one(X[i])             # <<<<<<<<<<<<<<
@@ -40037,7 +40037,7 @@ static PyArrayObject *__pyx_f_7genTree_7genTree_7genTree__predict(struct __pyx_o
         if (unlikely(!__Pyx_is_valid_index(__pyx_tmp_idx, __pyx_tmp_shape))) {
             PyErr_SetString(PyExc_IndexError,
                             "Index out of bounds (axis 0)");
-            __PYX_ERR(0, 1485, __pyx_L1_error)
+            __PYX_ERR(0, 1488, __pyx_L1_error)
         }
         __pyx_t_11.data += __pyx_tmp_idx * __pyx_tmp_stride;
 }
@@ -40046,7 +40046,7 @@ __pyx_t_11.shape[0] = __pyx_v_X.shape[1];
 __pyx_t_11.strides[0] = __pyx_v_X.strides[1];
     __pyx_t_11.suboffsets[0] = -1;
 
-__pyx_t_12 = ((struct __pyx_vtabstruct_7genTree_12decisionNode_DecisionNode *)__pyx_v_self->best_tree->__pyx_vtab)->_predict_one(__pyx_v_self->best_tree, __pyx_t_11); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1485, __pyx_L1_error)
+__pyx_t_12 = ((struct __pyx_vtabstruct_7genTree_12decisionNode_DecisionNode *)__pyx_v_self->best_tree->__pyx_vtab)->_predict_one(__pyx_v_self->best_tree, __pyx_t_11); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1488, __pyx_L1_error)
     __PYX_XCLEAR_MEMVIEW(&__pyx_t_11, 1);
     __pyx_t_11.memview = NULL; __pyx_t_11.data = NULL;
     __pyx_t_13 = __pyx_v_i;
@@ -40057,12 +40057,12 @@ __pyx_t_12 = ((struct __pyx_vtabstruct_7genTree_12decisionNode_DecisionNode *)__
     } else if (unlikely(__pyx_t_13 >= __pyx_pybuffernd_out.diminfo[0].shape)) __pyx_t_14 = 0;
     if (unlikely(__pyx_t_14 != -1)) {
       __Pyx_RaiseBufferIndexError(__pyx_t_14);
-      __PYX_ERR(0, 1485, __pyx_L1_error)
+      __PYX_ERR(0, 1488, __pyx_L1_error)
     }
     *__Pyx_BufPtrStrided1d(__pyx_t_5numpy_float64_t *, __pyx_pybuffernd_out.rcbuffer->pybuffer.buf, __pyx_t_13, __pyx_pybuffernd_out.diminfo[0].strides) = __pyx_t_12;
   }
 
-  /* "genTree/genTree.pyx":1486
+  /* "genTree/genTree.pyx":1489
  *         for i in range(n_samples):
  *             out[i] = self.best_tree._predict_one(X[i])
  *         return out             # <<<<<<<<<<<<<<
@@ -40074,7 +40074,7 @@ __pyx_t_12 = ((struct __pyx_vtabstruct_7genTree_12decisionNode_DecisionNode *)__
   __pyx_r = ((PyArrayObject *)__pyx_v_out);
   goto __pyx_L0;
 
-  /* "genTree/genTree.pyx":1475
+  /* "genTree/genTree.pyx":1478
  *         return self.best_tree
  * 
  *     cdef np.ndarray[np.float64_t, ndim=1] _predict(self, double[:, :] X):             # <<<<<<<<<<<<<<
@@ -40108,7 +40108,7 @@ __pyx_t_12 = ((struct __pyx_vtabstruct_7genTree_12decisionNode_DecisionNode *)__
   return __pyx_r;
 }
 
-/* "genTree/genTree.pyx":1490
+/* "genTree/genTree.pyx":1493
  *     # --- Python wrappers ---
  * 
  *     def fit(self, X, y, alpha=0.25, importance=1, mutation_prob=0.1, best_sel=0.1):             # <<<<<<<<<<<<<<
@@ -40189,7 +40189,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1490, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1493, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -40197,42 +40197,42 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1490, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1493, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("fit", 0, 2, 6, 1); __PYX_ERR(0, 1490, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("fit", 0, 2, 6, 1); __PYX_ERR(0, 1493, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (kw_args > 0) {
           PyObject* value = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_alpha);
           if (value) { values[2] = __Pyx_Arg_NewRef_FASTCALL(value); kw_args--; }
-          else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1490, __pyx_L3_error)
+          else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1493, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (kw_args > 0) {
           PyObject* value = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_importance);
           if (value) { values[3] = __Pyx_Arg_NewRef_FASTCALL(value); kw_args--; }
-          else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1490, __pyx_L3_error)
+          else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1493, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  4:
         if (kw_args > 0) {
           PyObject* value = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_mutation_prob);
           if (value) { values[4] = __Pyx_Arg_NewRef_FASTCALL(value); kw_args--; }
-          else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1490, __pyx_L3_error)
+          else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1493, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  5:
         if (kw_args > 0) {
           PyObject* value = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_best_sel);
           if (value) { values[5] = __Pyx_Arg_NewRef_FASTCALL(value); kw_args--; }
-          else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1490, __pyx_L3_error)
+          else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1493, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "fit") < 0)) __PYX_ERR(0, 1490, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "fit") < 0)) __PYX_ERR(0, 1493, __pyx_L3_error)
       }
     } else {
       switch (__pyx_nargs) {
@@ -40259,7 +40259,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("fit", 0, 2, 6, __pyx_nargs); __PYX_ERR(0, 1490, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("fit", 0, 2, 6, __pyx_nargs); __PYX_ERR(0, 1493, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -40306,33 +40306,33 @@ static PyObject *__pyx_pf_7genTree_7genTree_7genTree_2fit(struct __pyx_obj_7genT
   __Pyx_RefNannySetupContext("fit", 0);
   __Pyx_INCREF(__pyx_v_y);
 
-  /* "genTree/genTree.pyx":1494
+  /* "genTree/genTree.pyx":1497
  *         Wrapper Python per _fit.
  *         """
  *         y = np.asarray(y, dtype=np.float64)             # <<<<<<<<<<<<<<
  *         return self._fit(X, y, alpha, importance, mutation_prob, best_sel)
  * 
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1494, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1497, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_asarray); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1494, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_asarray); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1497, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1494, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1497, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_v_y);
   __Pyx_GIVEREF(__pyx_v_y);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_v_y)) __PYX_ERR(0, 1494, __pyx_L1_error);
-  __pyx_t_3 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1494, __pyx_L1_error)
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_v_y)) __PYX_ERR(0, 1497, __pyx_L1_error);
+  __pyx_t_3 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1497, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1494, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1497, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_float64); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1494, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_float64); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1497, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_dtype, __pyx_t_5) < 0) __PYX_ERR(0, 1494, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_dtype, __pyx_t_5) < 0) __PYX_ERR(0, 1497, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1494, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1497, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -40340,7 +40340,7 @@ static PyObject *__pyx_pf_7genTree_7genTree_7genTree_2fit(struct __pyx_obj_7genT
   __Pyx_DECREF_SET(__pyx_v_y, __pyx_t_5);
   __pyx_t_5 = 0;
 
-  /* "genTree/genTree.pyx":1495
+  /* "genTree/genTree.pyx":1498
  *         """
  *         y = np.asarray(y, dtype=np.float64)
  *         return self._fit(X, y, alpha, importance, mutation_prob, best_sel)             # <<<<<<<<<<<<<<
@@ -40348,17 +40348,17 @@ static PyObject *__pyx_pf_7genTree_7genTree_7genTree_2fit(struct __pyx_obj_7genT
  *     def predict(self, X):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_6 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(__pyx_v_X, PyBUF_WRITABLE); if (unlikely(!__pyx_t_6.memview)) __PYX_ERR(0, 1495, __pyx_L1_error)
-  __pyx_t_7 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_v_y, PyBUF_WRITABLE); if (unlikely(!__pyx_t_7.memview)) __PYX_ERR(0, 1495, __pyx_L1_error)
-  __pyx_t_8 = __pyx_PyFloat_AsDouble(__pyx_v_alpha); if (unlikely((__pyx_t_8 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 1495, __pyx_L1_error)
-  __pyx_t_9 = __Pyx_PyInt_As_int(__pyx_v_importance); if (unlikely((__pyx_t_9 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 1495, __pyx_L1_error)
-  __pyx_t_10 = __pyx_PyFloat_AsDouble(__pyx_v_mutation_prob); if (unlikely((__pyx_t_10 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 1495, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(__pyx_v_X, PyBUF_WRITABLE); if (unlikely(!__pyx_t_6.memview)) __PYX_ERR(0, 1498, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_v_y, PyBUF_WRITABLE); if (unlikely(!__pyx_t_7.memview)) __PYX_ERR(0, 1498, __pyx_L1_error)
+  __pyx_t_8 = __pyx_PyFloat_AsDouble(__pyx_v_alpha); if (unlikely((__pyx_t_8 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 1498, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyInt_As_int(__pyx_v_importance); if (unlikely((__pyx_t_9 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 1498, __pyx_L1_error)
+  __pyx_t_10 = __pyx_PyFloat_AsDouble(__pyx_v_mutation_prob); if (unlikely((__pyx_t_10 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 1498, __pyx_L1_error)
   __pyx_t_11.__pyx_n = 4;
   __pyx_t_11.alpha = __pyx_t_8;
   __pyx_t_11.importance = __pyx_t_9;
   __pyx_t_11.mutation_prob = __pyx_t_10;
   __pyx_t_11.best_sel = __pyx_v_best_sel;
-  __pyx_t_5 = ((PyObject *)((struct __pyx_vtabstruct_7genTree_7genTree_genTree *)__pyx_v_self->__pyx_vtab)->_fit(__pyx_v_self, __pyx_t_6, __pyx_t_7, &__pyx_t_11)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1495, __pyx_L1_error)
+  __pyx_t_5 = ((PyObject *)((struct __pyx_vtabstruct_7genTree_7genTree_genTree *)__pyx_v_self->__pyx_vtab)->_fit(__pyx_v_self, __pyx_t_6, __pyx_t_7, &__pyx_t_11)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1498, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __PYX_XCLEAR_MEMVIEW(&__pyx_t_6, 1);
   __pyx_t_6.memview = NULL; __pyx_t_6.data = NULL;
@@ -40368,7 +40368,7 @@ static PyObject *__pyx_pf_7genTree_7genTree_7genTree_2fit(struct __pyx_obj_7genT
   __pyx_t_5 = 0;
   goto __pyx_L0;
 
-  /* "genTree/genTree.pyx":1490
+  /* "genTree/genTree.pyx":1493
  *     # --- Python wrappers ---
  * 
  *     def fit(self, X, y, alpha=0.25, importance=1, mutation_prob=0.1, best_sel=0.1):             # <<<<<<<<<<<<<<
@@ -40394,7 +40394,7 @@ static PyObject *__pyx_pf_7genTree_7genTree_7genTree_2fit(struct __pyx_obj_7genT
   return __pyx_r;
 }
 
-/* "genTree/genTree.pyx":1497
+/* "genTree/genTree.pyx":1500
  *         return self._fit(X, y, alpha, importance, mutation_prob, best_sel)
  * 
  *     def predict(self, X):             # <<<<<<<<<<<<<<
@@ -40456,12 +40456,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1497, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1500, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "predict") < 0)) __PYX_ERR(0, 1497, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "predict") < 0)) __PYX_ERR(0, 1500, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -40472,7 +40472,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("predict", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 1497, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("predict", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 1500, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -40509,7 +40509,7 @@ static PyObject *__pyx_pf_7genTree_7genTree_7genTree_4predict(struct __pyx_obj_7
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("predict", 1);
 
-  /* "genTree/genTree.pyx":1501
+  /* "genTree/genTree.pyx":1504
  *         Wrapper Python per _predict.
  *         """
  *         return self._predict(X)             # <<<<<<<<<<<<<<
@@ -40517,8 +40517,8 @@ static PyObject *__pyx_pf_7genTree_7genTree_7genTree_4predict(struct __pyx_obj_7
  *     def split_random_leaf(self, tree, X, y):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(__pyx_v_X, PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 1501, __pyx_L1_error)
-  __pyx_t_2 = ((PyObject *)((struct __pyx_vtabstruct_7genTree_7genTree_genTree *)__pyx_v_self->__pyx_vtab)->_predict(__pyx_v_self, __pyx_t_1)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1501, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(__pyx_v_X, PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 1504, __pyx_L1_error)
+  __pyx_t_2 = ((PyObject *)((struct __pyx_vtabstruct_7genTree_7genTree_genTree *)__pyx_v_self->__pyx_vtab)->_predict(__pyx_v_self, __pyx_t_1)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1504, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __PYX_XCLEAR_MEMVIEW(&__pyx_t_1, 1);
   __pyx_t_1.memview = NULL; __pyx_t_1.data = NULL;
@@ -40526,7 +40526,7 @@ static PyObject *__pyx_pf_7genTree_7genTree_7genTree_4predict(struct __pyx_obj_7
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "genTree/genTree.pyx":1497
+  /* "genTree/genTree.pyx":1500
  *         return self._fit(X, y, alpha, importance, mutation_prob, best_sel)
  * 
  *     def predict(self, X):             # <<<<<<<<<<<<<<
@@ -40546,7 +40546,7 @@ static PyObject *__pyx_pf_7genTree_7genTree_7genTree_4predict(struct __pyx_obj_7
   return __pyx_r;
 }
 
-/* "genTree/genTree.pyx":1503
+/* "genTree/genTree.pyx":1506
  *         return self._predict(X)
  * 
  *     def split_random_leaf(self, tree, X, y):             # <<<<<<<<<<<<<<
@@ -40614,7 +40614,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1503, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1506, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -40622,9 +40622,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1503, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1506, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("split_random_leaf", 1, 3, 3, 1); __PYX_ERR(0, 1503, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("split_random_leaf", 1, 3, 3, 1); __PYX_ERR(0, 1506, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -40632,14 +40632,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[2]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1503, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1506, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("split_random_leaf", 1, 3, 3, 2); __PYX_ERR(0, 1503, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("split_random_leaf", 1, 3, 3, 2); __PYX_ERR(0, 1506, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "split_random_leaf") < 0)) __PYX_ERR(0, 1503, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "split_random_leaf") < 0)) __PYX_ERR(0, 1506, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 3)) {
       goto __pyx_L5_argtuple_error;
@@ -40654,7 +40654,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("split_random_leaf", 1, 3, 3, __pyx_nargs); __PYX_ERR(0, 1503, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("split_random_leaf", 1, 3, 3, __pyx_nargs); __PYX_ERR(0, 1506, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -40692,7 +40692,7 @@ static PyObject *__pyx_pf_7genTree_7genTree_7genTree_6split_random_leaf(struct _
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("split_random_leaf", 1);
 
-  /* "genTree/genTree.pyx":1508
+  /* "genTree/genTree.pyx":1511
  *         Restituisce una nuova radice mutata (o l'albero originale se la mutazione fallisce).
  *         """
  *         return self._split_random_leaf(tree, X, y)             # <<<<<<<<<<<<<<
@@ -40700,10 +40700,10 @@ static PyObject *__pyx_pf_7genTree_7genTree_7genTree_6split_random_leaf(struct _
  *     def prune_random_leaf(self, tree, X, y):
  */
   __Pyx_XDECREF(__pyx_r);
-  if (!(likely(((__pyx_v_tree) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_tree, __pyx_ptype_7genTree_12decisionNode_DecisionNode))))) __PYX_ERR(0, 1508, __pyx_L1_error)
-  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(__pyx_v_X, PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 1508, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_v_y, PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1508, __pyx_L1_error)
-  __pyx_t_3 = ((struct __pyx_vtabstruct_7genTree_7genTree_genTree *)__pyx_v_self->__pyx_vtab)->_split_random_leaf(__pyx_v_self, ((struct __pyx_obj_7genTree_12decisionNode_DecisionNode *)__pyx_v_tree), __pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1508, __pyx_L1_error)
+  if (!(likely(((__pyx_v_tree) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_tree, __pyx_ptype_7genTree_12decisionNode_DecisionNode))))) __PYX_ERR(0, 1511, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(__pyx_v_X, PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 1511, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_v_y, PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1511, __pyx_L1_error)
+  __pyx_t_3 = ((struct __pyx_vtabstruct_7genTree_7genTree_genTree *)__pyx_v_self->__pyx_vtab)->_split_random_leaf(__pyx_v_self, ((struct __pyx_obj_7genTree_12decisionNode_DecisionNode *)__pyx_v_tree), __pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1511, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __PYX_XCLEAR_MEMVIEW(&__pyx_t_1, 1);
   __pyx_t_1.memview = NULL; __pyx_t_1.data = NULL;
@@ -40713,7 +40713,7 @@ static PyObject *__pyx_pf_7genTree_7genTree_7genTree_6split_random_leaf(struct _
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "genTree/genTree.pyx":1503
+  /* "genTree/genTree.pyx":1506
  *         return self._predict(X)
  * 
  *     def split_random_leaf(self, tree, X, y):             # <<<<<<<<<<<<<<
@@ -40734,7 +40734,7 @@ static PyObject *__pyx_pf_7genTree_7genTree_7genTree_6split_random_leaf(struct _
   return __pyx_r;
 }
 
-/* "genTree/genTree.pyx":1510
+/* "genTree/genTree.pyx":1513
  *         return self._split_random_leaf(tree, X, y)
  * 
  *     def prune_random_leaf(self, tree, X, y):             # <<<<<<<<<<<<<<
@@ -40802,7 +40802,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1510, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1513, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -40810,9 +40810,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1510, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1513, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("prune_random_leaf", 1, 3, 3, 1); __PYX_ERR(0, 1510, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("prune_random_leaf", 1, 3, 3, 1); __PYX_ERR(0, 1513, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -40820,14 +40820,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[2]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1510, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1513, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("prune_random_leaf", 1, 3, 3, 2); __PYX_ERR(0, 1510, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("prune_random_leaf", 1, 3, 3, 2); __PYX_ERR(0, 1513, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "prune_random_leaf") < 0)) __PYX_ERR(0, 1510, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "prune_random_leaf") < 0)) __PYX_ERR(0, 1513, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 3)) {
       goto __pyx_L5_argtuple_error;
@@ -40842,7 +40842,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("prune_random_leaf", 1, 3, 3, __pyx_nargs); __PYX_ERR(0, 1510, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("prune_random_leaf", 1, 3, 3, __pyx_nargs); __PYX_ERR(0, 1513, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -40880,7 +40880,7 @@ static PyObject *__pyx_pf_7genTree_7genTree_7genTree_8prune_random_leaf(struct _
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("prune_random_leaf", 1);
 
-  /* "genTree/genTree.pyx":1515
+  /* "genTree/genTree.pyx":1518
  *         Restituisce una nuova radice potata (o l'albero originale se la potatura fallisce).
  *         """
  *         return self._prune_random_leaf(tree, X, y)             # <<<<<<<<<<<<<<
@@ -40888,10 +40888,10 @@ static PyObject *__pyx_pf_7genTree_7genTree_7genTree_8prune_random_leaf(struct _
  *     def prune_random_node(self, tree, X, y):
  */
   __Pyx_XDECREF(__pyx_r);
-  if (!(likely(((__pyx_v_tree) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_tree, __pyx_ptype_7genTree_12decisionNode_DecisionNode))))) __PYX_ERR(0, 1515, __pyx_L1_error)
-  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(__pyx_v_X, PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 1515, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_v_y, PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1515, __pyx_L1_error)
-  __pyx_t_3 = ((struct __pyx_vtabstruct_7genTree_7genTree_genTree *)__pyx_v_self->__pyx_vtab)->_prune_random_leaf(__pyx_v_self, ((struct __pyx_obj_7genTree_12decisionNode_DecisionNode *)__pyx_v_tree), __pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1515, __pyx_L1_error)
+  if (!(likely(((__pyx_v_tree) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_tree, __pyx_ptype_7genTree_12decisionNode_DecisionNode))))) __PYX_ERR(0, 1518, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(__pyx_v_X, PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 1518, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_v_y, PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1518, __pyx_L1_error)
+  __pyx_t_3 = ((struct __pyx_vtabstruct_7genTree_7genTree_genTree *)__pyx_v_self->__pyx_vtab)->_prune_random_leaf(__pyx_v_self, ((struct __pyx_obj_7genTree_12decisionNode_DecisionNode *)__pyx_v_tree), __pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1518, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __PYX_XCLEAR_MEMVIEW(&__pyx_t_1, 1);
   __pyx_t_1.memview = NULL; __pyx_t_1.data = NULL;
@@ -40901,7 +40901,7 @@ static PyObject *__pyx_pf_7genTree_7genTree_7genTree_8prune_random_leaf(struct _
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "genTree/genTree.pyx":1510
+  /* "genTree/genTree.pyx":1513
  *         return self._split_random_leaf(tree, X, y)
  * 
  *     def prune_random_leaf(self, tree, X, y):             # <<<<<<<<<<<<<<
@@ -40922,7 +40922,7 @@ static PyObject *__pyx_pf_7genTree_7genTree_7genTree_8prune_random_leaf(struct _
   return __pyx_r;
 }
 
-/* "genTree/genTree.pyx":1517
+/* "genTree/genTree.pyx":1520
  *         return self._prune_random_leaf(tree, X, y)
  * 
  *     def prune_random_node(self, tree, X, y):             # <<<<<<<<<<<<<<
@@ -40990,7 +40990,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1517, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1520, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -40998,9 +40998,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1517, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1520, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("prune_random_node", 1, 3, 3, 1); __PYX_ERR(0, 1517, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("prune_random_node", 1, 3, 3, 1); __PYX_ERR(0, 1520, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -41008,14 +41008,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[2]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1517, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1520, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("prune_random_node", 1, 3, 3, 2); __PYX_ERR(0, 1517, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("prune_random_node", 1, 3, 3, 2); __PYX_ERR(0, 1520, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "prune_random_node") < 0)) __PYX_ERR(0, 1517, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "prune_random_node") < 0)) __PYX_ERR(0, 1520, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 3)) {
       goto __pyx_L5_argtuple_error;
@@ -41030,7 +41030,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("prune_random_node", 1, 3, 3, __pyx_nargs); __PYX_ERR(0, 1517, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("prune_random_node", 1, 3, 3, __pyx_nargs); __PYX_ERR(0, 1520, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -41068,7 +41068,7 @@ static PyObject *__pyx_pf_7genTree_7genTree_7genTree_10prune_random_node(struct 
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("prune_random_node", 1);
 
-  /* "genTree/genTree.pyx":1522
+  /* "genTree/genTree.pyx":1525
  *         Restituisce una nuova radice potata (o l'albero originale se la potatura fallisce).
  *         """
  *         return self._prune_random_node(tree, X, y)             # <<<<<<<<<<<<<<
@@ -41076,10 +41076,10 @@ static PyObject *__pyx_pf_7genTree_7genTree_7genTree_10prune_random_node(struct 
  *     def major_split(self, tree, X, y):
  */
   __Pyx_XDECREF(__pyx_r);
-  if (!(likely(((__pyx_v_tree) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_tree, __pyx_ptype_7genTree_12decisionNode_DecisionNode))))) __PYX_ERR(0, 1522, __pyx_L1_error)
-  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(__pyx_v_X, PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 1522, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_v_y, PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1522, __pyx_L1_error)
-  __pyx_t_3 = ((struct __pyx_vtabstruct_7genTree_7genTree_genTree *)__pyx_v_self->__pyx_vtab)->_prune_random_node(__pyx_v_self, ((struct __pyx_obj_7genTree_12decisionNode_DecisionNode *)__pyx_v_tree), __pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1522, __pyx_L1_error)
+  if (!(likely(((__pyx_v_tree) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_tree, __pyx_ptype_7genTree_12decisionNode_DecisionNode))))) __PYX_ERR(0, 1525, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(__pyx_v_X, PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 1525, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_v_y, PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1525, __pyx_L1_error)
+  __pyx_t_3 = ((struct __pyx_vtabstruct_7genTree_7genTree_genTree *)__pyx_v_self->__pyx_vtab)->_prune_random_node(__pyx_v_self, ((struct __pyx_obj_7genTree_12decisionNode_DecisionNode *)__pyx_v_tree), __pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1525, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __PYX_XCLEAR_MEMVIEW(&__pyx_t_1, 1);
   __pyx_t_1.memview = NULL; __pyx_t_1.data = NULL;
@@ -41089,7 +41089,7 @@ static PyObject *__pyx_pf_7genTree_7genTree_7genTree_10prune_random_node(struct 
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "genTree/genTree.pyx":1517
+  /* "genTree/genTree.pyx":1520
  *         return self._prune_random_leaf(tree, X, y)
  * 
  *     def prune_random_node(self, tree, X, y):             # <<<<<<<<<<<<<<
@@ -41110,7 +41110,7 @@ static PyObject *__pyx_pf_7genTree_7genTree_7genTree_10prune_random_node(struct 
   return __pyx_r;
 }
 
-/* "genTree/genTree.pyx":1524
+/* "genTree/genTree.pyx":1527
  *         return self._prune_random_node(tree, X, y)
  * 
  *     def major_split(self, tree, X, y):             # <<<<<<<<<<<<<<
@@ -41178,7 +41178,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1524, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1527, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -41186,9 +41186,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1524, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1527, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("major_split", 1, 3, 3, 1); __PYX_ERR(0, 1524, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("major_split", 1, 3, 3, 1); __PYX_ERR(0, 1527, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -41196,14 +41196,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[2]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1524, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1527, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("major_split", 1, 3, 3, 2); __PYX_ERR(0, 1524, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("major_split", 1, 3, 3, 2); __PYX_ERR(0, 1527, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "major_split") < 0)) __PYX_ERR(0, 1524, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "major_split") < 0)) __PYX_ERR(0, 1527, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 3)) {
       goto __pyx_L5_argtuple_error;
@@ -41218,7 +41218,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("major_split", 1, 3, 3, __pyx_nargs); __PYX_ERR(0, 1524, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("major_split", 1, 3, 3, __pyx_nargs); __PYX_ERR(0, 1527, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -41256,7 +41256,7 @@ static PyObject *__pyx_pf_7genTree_7genTree_7genTree_12major_split(struct __pyx_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("major_split", 1);
 
-  /* "genTree/genTree.pyx":1529
+  /* "genTree/genTree.pyx":1532
  *         Restituisce una nuova radice mutata (o l'albero originale se la mutazione fallisce).
  *         """
  *         return self._major_split(tree, X, y)             # <<<<<<<<<<<<<<
@@ -41264,10 +41264,10 @@ static PyObject *__pyx_pf_7genTree_7genTree_7genTree_12major_split(struct __pyx_
  *     def fix_tree_integrity(self, tree, X, y, sample_indices):
  */
   __Pyx_XDECREF(__pyx_r);
-  if (!(likely(((__pyx_v_tree) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_tree, __pyx_ptype_7genTree_12decisionNode_DecisionNode))))) __PYX_ERR(0, 1529, __pyx_L1_error)
-  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(__pyx_v_X, PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 1529, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_v_y, PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1529, __pyx_L1_error)
-  __pyx_t_3 = ((struct __pyx_vtabstruct_7genTree_7genTree_genTree *)__pyx_v_self->__pyx_vtab)->_major_split(__pyx_v_self, ((struct __pyx_obj_7genTree_12decisionNode_DecisionNode *)__pyx_v_tree), __pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1529, __pyx_L1_error)
+  if (!(likely(((__pyx_v_tree) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_tree, __pyx_ptype_7genTree_12decisionNode_DecisionNode))))) __PYX_ERR(0, 1532, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(__pyx_v_X, PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 1532, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_v_y, PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1532, __pyx_L1_error)
+  __pyx_t_3 = ((struct __pyx_vtabstruct_7genTree_7genTree_genTree *)__pyx_v_self->__pyx_vtab)->_major_split(__pyx_v_self, ((struct __pyx_obj_7genTree_12decisionNode_DecisionNode *)__pyx_v_tree), __pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1532, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __PYX_XCLEAR_MEMVIEW(&__pyx_t_1, 1);
   __pyx_t_1.memview = NULL; __pyx_t_1.data = NULL;
@@ -41277,7 +41277,7 @@ static PyObject *__pyx_pf_7genTree_7genTree_7genTree_12major_split(struct __pyx_
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "genTree/genTree.pyx":1524
+  /* "genTree/genTree.pyx":1527
  *         return self._prune_random_node(tree, X, y)
  * 
  *     def major_split(self, tree, X, y):             # <<<<<<<<<<<<<<
@@ -41298,7 +41298,7 @@ static PyObject *__pyx_pf_7genTree_7genTree_7genTree_12major_split(struct __pyx_
   return __pyx_r;
 }
 
-/* "genTree/genTree.pyx":1531
+/* "genTree/genTree.pyx":1534
  *         return self._major_split(tree, X, y)
  * 
  *     def fix_tree_integrity(self, tree, X, y, sample_indices):             # <<<<<<<<<<<<<<
@@ -41369,7 +41369,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1531, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1534, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -41377,9 +41377,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1531, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1534, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("fix_tree_integrity", 1, 4, 4, 1); __PYX_ERR(0, 1531, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("fix_tree_integrity", 1, 4, 4, 1); __PYX_ERR(0, 1534, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -41387,9 +41387,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[2]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1531, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1534, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("fix_tree_integrity", 1, 4, 4, 2); __PYX_ERR(0, 1531, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("fix_tree_integrity", 1, 4, 4, 2); __PYX_ERR(0, 1534, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
@@ -41397,14 +41397,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[3]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1531, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1534, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("fix_tree_integrity", 1, 4, 4, 3); __PYX_ERR(0, 1531, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("fix_tree_integrity", 1, 4, 4, 3); __PYX_ERR(0, 1534, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "fix_tree_integrity") < 0)) __PYX_ERR(0, 1531, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "fix_tree_integrity") < 0)) __PYX_ERR(0, 1534, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 4)) {
       goto __pyx_L5_argtuple_error;
@@ -41421,7 +41421,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("fix_tree_integrity", 1, 4, 4, __pyx_nargs); __PYX_ERR(0, 1531, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("fix_tree_integrity", 1, 4, 4, __pyx_nargs); __PYX_ERR(0, 1534, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -41459,7 +41459,7 @@ static PyObject *__pyx_pf_7genTree_7genTree_7genTree_14fix_tree_integrity(struct
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("fix_tree_integrity", 1);
 
-  /* "genTree/genTree.pyx":1536
+  /* "genTree/genTree.pyx":1539
  *         Controlla l'integrit dell'albero dopo una mutazione o potatura.
  *         """
  *         return self._fix_tree_integrity(tree, X, y, sample_indices)             # <<<<<<<<<<<<<<
@@ -41467,11 +41467,11 @@ static PyObject *__pyx_pf_7genTree_7genTree_7genTree_14fix_tree_integrity(struct
  *     def minor_split(self, tree, X, y):
  */
   __Pyx_XDECREF(__pyx_r);
-  if (!(likely(((__pyx_v_tree) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_tree, __pyx_ptype_7genTree_12decisionNode_DecisionNode))))) __PYX_ERR(0, 1536, __pyx_L1_error)
-  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(__pyx_v_X, PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 1536, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_v_y, PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1536, __pyx_L1_error)
-  if (!(likely(((__pyx_v_sample_indices) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_sample_indices, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1536, __pyx_L1_error)
-  __pyx_t_3 = ((struct __pyx_vtabstruct_7genTree_7genTree_genTree *)__pyx_v_self->__pyx_vtab)->_fix_tree_integrity(__pyx_v_self, ((struct __pyx_obj_7genTree_12decisionNode_DecisionNode *)__pyx_v_tree), __pyx_t_1, __pyx_t_2, ((PyArrayObject *)__pyx_v_sample_indices), NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1536, __pyx_L1_error)
+  if (!(likely(((__pyx_v_tree) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_tree, __pyx_ptype_7genTree_12decisionNode_DecisionNode))))) __PYX_ERR(0, 1539, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(__pyx_v_X, PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 1539, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_v_y, PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1539, __pyx_L1_error)
+  if (!(likely(((__pyx_v_sample_indices) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_sample_indices, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1539, __pyx_L1_error)
+  __pyx_t_3 = ((struct __pyx_vtabstruct_7genTree_7genTree_genTree *)__pyx_v_self->__pyx_vtab)->_fix_tree_integrity(__pyx_v_self, ((struct __pyx_obj_7genTree_12decisionNode_DecisionNode *)__pyx_v_tree), __pyx_t_1, __pyx_t_2, ((PyArrayObject *)__pyx_v_sample_indices), NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1539, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __PYX_XCLEAR_MEMVIEW(&__pyx_t_1, 1);
   __pyx_t_1.memview = NULL; __pyx_t_1.data = NULL;
@@ -41481,7 +41481,7 @@ static PyObject *__pyx_pf_7genTree_7genTree_7genTree_14fix_tree_integrity(struct
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "genTree/genTree.pyx":1531
+  /* "genTree/genTree.pyx":1534
  *         return self._major_split(tree, X, y)
  * 
  *     def fix_tree_integrity(self, tree, X, y, sample_indices):             # <<<<<<<<<<<<<<
@@ -41502,7 +41502,7 @@ static PyObject *__pyx_pf_7genTree_7genTree_7genTree_14fix_tree_integrity(struct
   return __pyx_r;
 }
 
-/* "genTree/genTree.pyx":1538
+/* "genTree/genTree.pyx":1541
  *         return self._fix_tree_integrity(tree, X, y, sample_indices)
  * 
  *     def minor_split(self, tree, X, y):             # <<<<<<<<<<<<<<
@@ -41570,7 +41570,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1538, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1541, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -41578,9 +41578,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1538, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1541, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("minor_split", 1, 3, 3, 1); __PYX_ERR(0, 1538, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("minor_split", 1, 3, 3, 1); __PYX_ERR(0, 1541, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -41588,14 +41588,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[2]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1538, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1541, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("minor_split", 1, 3, 3, 2); __PYX_ERR(0, 1538, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("minor_split", 1, 3, 3, 2); __PYX_ERR(0, 1541, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "minor_split") < 0)) __PYX_ERR(0, 1538, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "minor_split") < 0)) __PYX_ERR(0, 1541, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 3)) {
       goto __pyx_L5_argtuple_error;
@@ -41610,7 +41610,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("minor_split", 1, 3, 3, __pyx_nargs); __PYX_ERR(0, 1538, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("minor_split", 1, 3, 3, __pyx_nargs); __PYX_ERR(0, 1541, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -41648,7 +41648,7 @@ static PyObject *__pyx_pf_7genTree_7genTree_7genTree_16minor_split(struct __pyx_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("minor_split", 1);
 
-  /* "genTree/genTree.pyx":1543
+  /* "genTree/genTree.pyx":1546
  *         Restituisce una nuova radice mutata (o l'albero originale se la mutazione fallisce).
  *         """
  *         return self._minor_split(tree, X, y)             # <<<<<<<<<<<<<<
@@ -41656,10 +41656,10 @@ static PyObject *__pyx_pf_7genTree_7genTree_7genTree_16minor_split(struct __pyx_
  *     def crossover(self, a, b, X, y):
  */
   __Pyx_XDECREF(__pyx_r);
-  if (!(likely(((__pyx_v_tree) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_tree, __pyx_ptype_7genTree_12decisionNode_DecisionNode))))) __PYX_ERR(0, 1543, __pyx_L1_error)
-  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(__pyx_v_X, PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 1543, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_v_y, PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1543, __pyx_L1_error)
-  __pyx_t_3 = ((struct __pyx_vtabstruct_7genTree_7genTree_genTree *)__pyx_v_self->__pyx_vtab)->_minor_split(__pyx_v_self, ((struct __pyx_obj_7genTree_12decisionNode_DecisionNode *)__pyx_v_tree), __pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1543, __pyx_L1_error)
+  if (!(likely(((__pyx_v_tree) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_tree, __pyx_ptype_7genTree_12decisionNode_DecisionNode))))) __PYX_ERR(0, 1546, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(__pyx_v_X, PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 1546, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_v_y, PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1546, __pyx_L1_error)
+  __pyx_t_3 = ((struct __pyx_vtabstruct_7genTree_7genTree_genTree *)__pyx_v_self->__pyx_vtab)->_minor_split(__pyx_v_self, ((struct __pyx_obj_7genTree_12decisionNode_DecisionNode *)__pyx_v_tree), __pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1546, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __PYX_XCLEAR_MEMVIEW(&__pyx_t_1, 1);
   __pyx_t_1.memview = NULL; __pyx_t_1.data = NULL;
@@ -41669,7 +41669,7 @@ static PyObject *__pyx_pf_7genTree_7genTree_7genTree_16minor_split(struct __pyx_
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "genTree/genTree.pyx":1538
+  /* "genTree/genTree.pyx":1541
  *         return self._fix_tree_integrity(tree, X, y, sample_indices)
  * 
  *     def minor_split(self, tree, X, y):             # <<<<<<<<<<<<<<
@@ -41690,7 +41690,7 @@ static PyObject *__pyx_pf_7genTree_7genTree_7genTree_16minor_split(struct __pyx_
   return __pyx_r;
 }
 
-/* "genTree/genTree.pyx":1545
+/* "genTree/genTree.pyx":1548
  *         return self._minor_split(tree, X, y)
  * 
  *     def crossover(self, a, b, X, y):             # <<<<<<<<<<<<<<
@@ -41761,7 +41761,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1545, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1548, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -41769,9 +41769,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1545, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1548, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("crossover", 1, 4, 4, 1); __PYX_ERR(0, 1545, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("crossover", 1, 4, 4, 1); __PYX_ERR(0, 1548, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -41779,9 +41779,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[2]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1545, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1548, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("crossover", 1, 4, 4, 2); __PYX_ERR(0, 1545, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("crossover", 1, 4, 4, 2); __PYX_ERR(0, 1548, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
@@ -41789,14 +41789,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[3]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1545, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1548, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("crossover", 1, 4, 4, 3); __PYX_ERR(0, 1545, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("crossover", 1, 4, 4, 3); __PYX_ERR(0, 1548, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "crossover") < 0)) __PYX_ERR(0, 1545, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "crossover") < 0)) __PYX_ERR(0, 1548, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 4)) {
       goto __pyx_L5_argtuple_error;
@@ -41813,7 +41813,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("crossover", 1, 4, 4, __pyx_nargs); __PYX_ERR(0, 1545, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("crossover", 1, 4, 4, __pyx_nargs); __PYX_ERR(0, 1548, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -41851,7 +41851,7 @@ static PyObject *__pyx_pf_7genTree_7genTree_7genTree_18crossover(struct __pyx_ob
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("crossover", 1);
 
-  /* "genTree/genTree.pyx":1550
+  /* "genTree/genTree.pyx":1553
  *         Restituisce un nuovo albero figlio generato dal crossover tra a e b.
  *         """
  *         return self._crossover(a, b, X, y)             # <<<<<<<<<<<<<<
@@ -41859,11 +41859,11 @@ static PyObject *__pyx_pf_7genTree_7genTree_7genTree_18crossover(struct __pyx_ob
  *     def compute_fitness(self, DecisionNode Tree, X, y, alpha=0.25):
  */
   __Pyx_XDECREF(__pyx_r);
-  if (!(likely(((__pyx_v_a) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_a, __pyx_ptype_7genTree_12decisionNode_DecisionNode))))) __PYX_ERR(0, 1550, __pyx_L1_error)
-  if (!(likely(((__pyx_v_b) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_b, __pyx_ptype_7genTree_12decisionNode_DecisionNode))))) __PYX_ERR(0, 1550, __pyx_L1_error)
-  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(__pyx_v_X, PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 1550, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_v_y, PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1550, __pyx_L1_error)
-  __pyx_t_3 = ((struct __pyx_vtabstruct_7genTree_7genTree_genTree *)__pyx_v_self->__pyx_vtab)->_crossover(__pyx_v_self, ((struct __pyx_obj_7genTree_12decisionNode_DecisionNode *)__pyx_v_a), ((struct __pyx_obj_7genTree_12decisionNode_DecisionNode *)__pyx_v_b), __pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1550, __pyx_L1_error)
+  if (!(likely(((__pyx_v_a) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_a, __pyx_ptype_7genTree_12decisionNode_DecisionNode))))) __PYX_ERR(0, 1553, __pyx_L1_error)
+  if (!(likely(((__pyx_v_b) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_b, __pyx_ptype_7genTree_12decisionNode_DecisionNode))))) __PYX_ERR(0, 1553, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(__pyx_v_X, PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 1553, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_v_y, PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1553, __pyx_L1_error)
+  __pyx_t_3 = ((struct __pyx_vtabstruct_7genTree_7genTree_genTree *)__pyx_v_self->__pyx_vtab)->_crossover(__pyx_v_self, ((struct __pyx_obj_7genTree_12decisionNode_DecisionNode *)__pyx_v_a), ((struct __pyx_obj_7genTree_12decisionNode_DecisionNode *)__pyx_v_b), __pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1553, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __PYX_XCLEAR_MEMVIEW(&__pyx_t_1, 1);
   __pyx_t_1.memview = NULL; __pyx_t_1.data = NULL;
@@ -41873,7 +41873,7 @@ static PyObject *__pyx_pf_7genTree_7genTree_7genTree_18crossover(struct __pyx_ob
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "genTree/genTree.pyx":1545
+  /* "genTree/genTree.pyx":1548
  *         return self._minor_split(tree, X, y)
  * 
  *     def crossover(self, a, b, X, y):             # <<<<<<<<<<<<<<
@@ -41894,7 +41894,7 @@ static PyObject *__pyx_pf_7genTree_7genTree_7genTree_18crossover(struct __pyx_ob
   return __pyx_r;
 }
 
-/* "genTree/genTree.pyx":1552
+/* "genTree/genTree.pyx":1555
  *         return self._crossover(a, b, X, y)
  * 
  *     def compute_fitness(self, DecisionNode Tree, X, y, alpha=0.25):             # <<<<<<<<<<<<<<
@@ -41966,7 +41966,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1552, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1555, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -41974,9 +41974,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1552, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1555, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("compute_fitness", 0, 3, 4, 1); __PYX_ERR(0, 1552, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("compute_fitness", 0, 3, 4, 1); __PYX_ERR(0, 1555, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -41984,21 +41984,21 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[2]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1552, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1555, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("compute_fitness", 0, 3, 4, 2); __PYX_ERR(0, 1552, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("compute_fitness", 0, 3, 4, 2); __PYX_ERR(0, 1555, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (kw_args > 0) {
           PyObject* value = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_alpha);
           if (value) { values[3] = __Pyx_Arg_NewRef_FASTCALL(value); kw_args--; }
-          else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1552, __pyx_L3_error)
+          else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1555, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "compute_fitness") < 0)) __PYX_ERR(0, 1552, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "compute_fitness") < 0)) __PYX_ERR(0, 1555, __pyx_L3_error)
       }
     } else {
       switch (__pyx_nargs) {
@@ -42018,7 +42018,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("compute_fitness", 0, 3, 4, __pyx_nargs); __PYX_ERR(0, 1552, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("compute_fitness", 0, 3, 4, __pyx_nargs); __PYX_ERR(0, 1555, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -42032,7 +42032,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_Tree), __pyx_ptype_7genTree_12decisionNode_DecisionNode, 1, "Tree", 0))) __PYX_ERR(0, 1552, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_Tree), __pyx_ptype_7genTree_12decisionNode_DecisionNode, 1, "Tree", 0))) __PYX_ERR(0, 1555, __pyx_L1_error)
   __pyx_r = __pyx_pf_7genTree_7genTree_7genTree_20compute_fitness(((struct __pyx_obj_7genTree_7genTree_genTree *)__pyx_v_self), __pyx_v_Tree, __pyx_v_X, __pyx_v_y, __pyx_v_alpha);
 
   /* function exit code */
@@ -42062,17 +42062,17 @@ static PyObject *__pyx_pf_7genTree_7genTree_7genTree_20compute_fitness(struct __
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("compute_fitness", 1);
 
-  /* "genTree/genTree.pyx":1556
+  /* "genTree/genTree.pyx":1559
  *         Calcola la fitness dell'albero.
  *         """
  *         self.alpha = alpha             # <<<<<<<<<<<<<<
  *         return self._compute_loss(Tree, X, y)
  * 
  */
-  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_alpha); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 1556, __pyx_L1_error)
+  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_alpha); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 1559, __pyx_L1_error)
   __pyx_v_self->alpha = __pyx_t_1;
 
-  /* "genTree/genTree.pyx":1557
+  /* "genTree/genTree.pyx":1560
  *         """
  *         self.alpha = alpha
  *         return self._compute_loss(Tree, X, y)             # <<<<<<<<<<<<<<
@@ -42080,20 +42080,20 @@ static PyObject *__pyx_pf_7genTree_7genTree_7genTree_20compute_fitness(struct __
  *     def create_population(self, X, y):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(__pyx_v_X, PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1557, __pyx_L1_error)
-  __pyx_t_3 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_v_y, PyBUF_WRITABLE); if (unlikely(!__pyx_t_3.memview)) __PYX_ERR(0, 1557, __pyx_L1_error)
-  __pyx_t_1 = ((struct __pyx_vtabstruct_7genTree_7genTree_genTree *)__pyx_v_self->__pyx_vtab)->_compute_loss(__pyx_v_self, __pyx_v_Tree, __pyx_t_2, __pyx_t_3); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1557, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(__pyx_v_X, PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 1560, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_v_y, PyBUF_WRITABLE); if (unlikely(!__pyx_t_3.memview)) __PYX_ERR(0, 1560, __pyx_L1_error)
+  __pyx_t_1 = ((struct __pyx_vtabstruct_7genTree_7genTree_genTree *)__pyx_v_self->__pyx_vtab)->_compute_loss(__pyx_v_self, __pyx_v_Tree, __pyx_t_2, __pyx_t_3); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1560, __pyx_L1_error)
   __PYX_XCLEAR_MEMVIEW(&__pyx_t_2, 1);
   __pyx_t_2.memview = NULL; __pyx_t_2.data = NULL;
   __PYX_XCLEAR_MEMVIEW(&__pyx_t_3, 1);
   __pyx_t_3.memview = NULL; __pyx_t_3.data = NULL;
-  __pyx_t_4 = PyFloat_FromDouble(__pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1557, __pyx_L1_error)
+  __pyx_t_4 = PyFloat_FromDouble(__pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1560, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_r = __pyx_t_4;
   __pyx_t_4 = 0;
   goto __pyx_L0;
 
-  /* "genTree/genTree.pyx":1552
+  /* "genTree/genTree.pyx":1555
  *         return self._crossover(a, b, X, y)
  * 
  *     def compute_fitness(self, DecisionNode Tree, X, y, alpha=0.25):             # <<<<<<<<<<<<<<
@@ -42114,7 +42114,7 @@ static PyObject *__pyx_pf_7genTree_7genTree_7genTree_20compute_fitness(struct __
   return __pyx_r;
 }
 
-/* "genTree/genTree.pyx":1559
+/* "genTree/genTree.pyx":1562
  *         return self._compute_loss(Tree, X, y)
  * 
  *     def create_population(self, X, y):             # <<<<<<<<<<<<<<
@@ -42179,7 +42179,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1559, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1562, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -42187,14 +42187,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1559, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1562, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("create_population", 1, 2, 2, 1); __PYX_ERR(0, 1559, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("create_population", 1, 2, 2, 1); __PYX_ERR(0, 1562, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "create_population") < 0)) __PYX_ERR(0, 1559, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "create_population") < 0)) __PYX_ERR(0, 1562, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 2)) {
       goto __pyx_L5_argtuple_error;
@@ -42207,7 +42207,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("create_population", 1, 2, 2, __pyx_nargs); __PYX_ERR(0, 1559, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("create_population", 1, 2, 2, __pyx_nargs); __PYX_ERR(0, 1562, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -42250,7 +42250,7 @@ static PyObject *__pyx_pf_7genTree_7genTree_7genTree_22create_population(struct 
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("create_population", 1);
 
-  /* "genTree/genTree.pyx":1563
+  /* "genTree/genTree.pyx":1566
  *         Wrapper Python per _create_population.
  *         """
  *         if not self.is_regression:             # <<<<<<<<<<<<<<
@@ -42260,16 +42260,16 @@ static PyObject *__pyx_pf_7genTree_7genTree_7genTree_22create_population(struct 
   __pyx_t_1 = (!__pyx_v_self->is_regression);
   if (__pyx_t_1) {
 
-    /* "genTree/genTree.pyx":1564
+    /* "genTree/genTree.pyx":1567
  *         """
  *         if not self.is_regression:
  *             self.n_classes = len(np.unique(y))             # <<<<<<<<<<<<<<
  *         else:
  *             self.n_classes = 1
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1564, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1567, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_unique); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1564, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_unique); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1567, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_3 = NULL;
@@ -42290,15 +42290,15 @@ static PyObject *__pyx_pf_7genTree_7genTree_7genTree_22create_population(struct 
       PyObject *__pyx_callargs[2] = {__pyx_t_3, __pyx_v_y};
       __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+1-__pyx_t_5, 1+__pyx_t_5);
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1564, __pyx_L1_error)
+      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1567, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     }
-    __pyx_t_6 = PyObject_Length(__pyx_t_2); if (unlikely(__pyx_t_6 == ((Py_ssize_t)-1))) __PYX_ERR(0, 1564, __pyx_L1_error)
+    __pyx_t_6 = PyObject_Length(__pyx_t_2); if (unlikely(__pyx_t_6 == ((Py_ssize_t)-1))) __PYX_ERR(0, 1567, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_v_self->n_classes = __pyx_t_6;
 
-    /* "genTree/genTree.pyx":1563
+    /* "genTree/genTree.pyx":1566
  *         Wrapper Python per _create_population.
  *         """
  *         if not self.is_regression:             # <<<<<<<<<<<<<<
@@ -42308,7 +42308,7 @@ static PyObject *__pyx_pf_7genTree_7genTree_7genTree_22create_population(struct 
     goto __pyx_L3;
   }
 
-  /* "genTree/genTree.pyx":1566
+  /* "genTree/genTree.pyx":1569
  *             self.n_classes = len(np.unique(y))
  *         else:
  *             self.n_classes = 1             # <<<<<<<<<<<<<<
@@ -42320,22 +42320,22 @@ static PyObject *__pyx_pf_7genTree_7genTree_7genTree_22create_population(struct 
   }
   __pyx_L3:;
 
-  /* "genTree/genTree.pyx":1567
+  /* "genTree/genTree.pyx":1570
  *         else:
  *             self.n_classes = 1
  *         self._create_population(X, y)             # <<<<<<<<<<<<<<
  * 
  *     def count_leaves(self):
  */
-  __pyx_t_7 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(__pyx_v_X, PyBUF_WRITABLE); if (unlikely(!__pyx_t_7.memview)) __PYX_ERR(0, 1567, __pyx_L1_error)
-  __pyx_t_8 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_v_y, PyBUF_WRITABLE); if (unlikely(!__pyx_t_8.memview)) __PYX_ERR(0, 1567, __pyx_L1_error)
-  ((struct __pyx_vtabstruct_7genTree_7genTree_genTree *)__pyx_v_self->__pyx_vtab)->_create_population(__pyx_v_self, __pyx_t_7, __pyx_t_8); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1567, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(__pyx_v_X, PyBUF_WRITABLE); if (unlikely(!__pyx_t_7.memview)) __PYX_ERR(0, 1570, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_v_y, PyBUF_WRITABLE); if (unlikely(!__pyx_t_8.memview)) __PYX_ERR(0, 1570, __pyx_L1_error)
+  ((struct __pyx_vtabstruct_7genTree_7genTree_genTree *)__pyx_v_self->__pyx_vtab)->_create_population(__pyx_v_self, __pyx_t_7, __pyx_t_8); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1570, __pyx_L1_error)
   __PYX_XCLEAR_MEMVIEW(&__pyx_t_7, 1);
   __pyx_t_7.memview = NULL; __pyx_t_7.data = NULL;
   __PYX_XCLEAR_MEMVIEW(&__pyx_t_8, 1);
   __pyx_t_8.memview = NULL; __pyx_t_8.data = NULL;
 
-  /* "genTree/genTree.pyx":1559
+  /* "genTree/genTree.pyx":1562
  *         return self._compute_loss(Tree, X, y)
  * 
  *     def create_population(self, X, y):             # <<<<<<<<<<<<<<
@@ -42360,7 +42360,7 @@ static PyObject *__pyx_pf_7genTree_7genTree_7genTree_22create_population(struct 
   return __pyx_r;
 }
 
-/* "genTree/genTree.pyx":1569
+/* "genTree/genTree.pyx":1572
  *         self._create_population(X, y)
  * 
  *     def count_leaves(self):             # <<<<<<<<<<<<<<
@@ -42423,7 +42423,7 @@ static PyObject *__pyx_pf_7genTree_7genTree_7genTree_24count_leaves(struct __pyx
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("count_leaves", 1);
 
-  /* "genTree/genTree.pyx":1573
+  /* "genTree/genTree.pyx":1576
  *         Conta il numero di foglie nell'albero.
  *         """
  *         if self.best_tree is None:             # <<<<<<<<<<<<<<
@@ -42433,19 +42433,19 @@ static PyObject *__pyx_pf_7genTree_7genTree_7genTree_24count_leaves(struct __pyx
   __pyx_t_1 = (((PyObject *)__pyx_v_self->best_tree) == Py_None);
   if (unlikely(__pyx_t_1)) {
 
-    /* "genTree/genTree.pyx":1574
+    /* "genTree/genTree.pyx":1577
  *         """
  *         if self.best_tree is None:
  *             raise ValueError("Devi chiamare fit prima di count_leaves.")             # <<<<<<<<<<<<<<
  *         return self.best_tree.count_leaves()
  */
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__12, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1574, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__12, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1577, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_Raise(__pyx_t_2, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __PYX_ERR(0, 1574, __pyx_L1_error)
+    __PYX_ERR(0, 1577, __pyx_L1_error)
 
-    /* "genTree/genTree.pyx":1573
+    /* "genTree/genTree.pyx":1576
  *         Conta il numero di foglie nell'albero.
  *         """
  *         if self.best_tree is None:             # <<<<<<<<<<<<<<
@@ -42454,13 +42454,13 @@ static PyObject *__pyx_pf_7genTree_7genTree_7genTree_24count_leaves(struct __pyx
  */
   }
 
-  /* "genTree/genTree.pyx":1575
+  /* "genTree/genTree.pyx":1578
  *         if self.best_tree is None:
  *             raise ValueError("Devi chiamare fit prima di count_leaves.")
  *         return self.best_tree.count_leaves()             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self->best_tree), __pyx_n_s_count_leaves); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1575, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self->best_tree), __pyx_n_s_count_leaves); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1578, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_4 = NULL;
   __pyx_t_5 = 0;
@@ -42480,7 +42480,7 @@ static PyObject *__pyx_pf_7genTree_7genTree_7genTree_24count_leaves(struct __pyx
     PyObject *__pyx_callargs[2] = {__pyx_t_4, NULL};
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_5, 0+__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1575, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1578, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
@@ -42488,7 +42488,7 @@ static PyObject *__pyx_pf_7genTree_7genTree_7genTree_24count_leaves(struct __pyx
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "genTree/genTree.pyx":1569
+  /* "genTree/genTree.pyx":1572
  *         self._create_population(X, y)
  * 
  *     def count_leaves(self):             # <<<<<<<<<<<<<<
@@ -44380,9 +44380,9 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
   __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 80, __pyx_L1_error)
   __pyx_builtin_print = __Pyx_GetBuiltinName(__pyx_n_s_print); if (!__pyx_builtin_print) __PYX_ERR(0, 1394, __pyx_L1_error)
-  __pyx_builtin_sorted = __Pyx_GetBuiltinName(__pyx_n_s_sorted); if (!__pyx_builtin_sorted) __PYX_ERR(0, 1417, __pyx_L1_error)
-  __pyx_builtin_zip = __Pyx_GetBuiltinName(__pyx_n_s_zip); if (!__pyx_builtin_zip) __PYX_ERR(0, 1417, __pyx_L1_error)
-  __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(0, 1480, __pyx_L1_error)
+  __pyx_builtin_sorted = __Pyx_GetBuiltinName(__pyx_n_s_sorted); if (!__pyx_builtin_sorted) __PYX_ERR(0, 1420, __pyx_L1_error)
+  __pyx_builtin_zip = __Pyx_GetBuiltinName(__pyx_n_s_zip); if (!__pyx_builtin_zip) __PYX_ERR(0, 1420, __pyx_L1_error)
+  __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(0, 1483, __pyx_L1_error)
   __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(1, 2, __pyx_L1_error)
   __pyx_builtin___import__ = __Pyx_GetBuiltinName(__pyx_n_s_import); if (!__pyx_builtin___import__) __PYX_ERR(1, 100, __pyx_L1_error)
   __pyx_builtin_MemoryError = __Pyx_GetBuiltinName(__pyx_n_s_MemoryError); if (!__pyx_builtin_MemoryError) __PYX_ERR(1, 156, __pyx_L1_error)
@@ -44460,24 +44460,24 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__10);
   __Pyx_GIVEREF(__pyx_tuple__10);
 
-  /* "genTree/genTree.pyx":1480
+  /* "genTree/genTree.pyx":1483
  *         """
  *         if self.best_tree is None:
  *             raise ValueError("Devi chiamare fit prima di predict.")             # <<<<<<<<<<<<<<
  *         cdef int n_samples = X.shape[0]
  *         cdef np.ndarray[np.float64_t, ndim=1] out = np.empty(n_samples, dtype=np.float64)
  */
-  __pyx_tuple__11 = PyTuple_Pack(1, __pyx_kp_u_Devi_chiamare_fit_prima_di_predi); if (unlikely(!__pyx_tuple__11)) __PYX_ERR(0, 1480, __pyx_L1_error)
+  __pyx_tuple__11 = PyTuple_Pack(1, __pyx_kp_u_Devi_chiamare_fit_prima_di_predi); if (unlikely(!__pyx_tuple__11)) __PYX_ERR(0, 1483, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__11);
   __Pyx_GIVEREF(__pyx_tuple__11);
 
-  /* "genTree/genTree.pyx":1574
+  /* "genTree/genTree.pyx":1577
  *         """
  *         if self.best_tree is None:
  *             raise ValueError("Devi chiamare fit prima di count_leaves.")             # <<<<<<<<<<<<<<
  *         return self.best_tree.count_leaves()
  */
-  __pyx_tuple__12 = PyTuple_Pack(1, __pyx_kp_u_Devi_chiamare_fit_prima_di_count); if (unlikely(!__pyx_tuple__12)) __PYX_ERR(0, 1574, __pyx_L1_error)
+  __pyx_tuple__12 = PyTuple_Pack(1, __pyx_kp_u_Devi_chiamare_fit_prima_di_count); if (unlikely(!__pyx_tuple__12)) __PYX_ERR(0, 1577, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__12);
   __Pyx_GIVEREF(__pyx_tuple__12);
 
@@ -44582,143 +44582,143 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__22);
   __pyx_codeobj__23 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_stringsource, __pyx_n_s_pyx_unpickle_Enum, 1, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__23)) __PYX_ERR(1, 1, __pyx_L1_error)
 
-  /* "genTree/genTree.pyx":1490
+  /* "genTree/genTree.pyx":1493
  *     # --- Python wrappers ---
  * 
  *     def fit(self, X, y, alpha=0.25, importance=1, mutation_prob=0.1, best_sel=0.1):             # <<<<<<<<<<<<<<
  *         """
  *         Wrapper Python per _fit.
  */
-  __pyx_tuple__24 = PyTuple_Pack(7, __pyx_n_s_self, __pyx_n_s_X, __pyx_n_s_y, __pyx_n_s_alpha, __pyx_n_s_importance, __pyx_n_s_mutation_prob, __pyx_n_s_best_sel); if (unlikely(!__pyx_tuple__24)) __PYX_ERR(0, 1490, __pyx_L1_error)
+  __pyx_tuple__24 = PyTuple_Pack(7, __pyx_n_s_self, __pyx_n_s_X, __pyx_n_s_y, __pyx_n_s_alpha, __pyx_n_s_importance, __pyx_n_s_mutation_prob, __pyx_n_s_best_sel); if (unlikely(!__pyx_tuple__24)) __PYX_ERR(0, 1493, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__24);
   __Pyx_GIVEREF(__pyx_tuple__24);
-  __pyx_codeobj__25 = (PyObject*)__Pyx_PyCode_New(7, 0, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__24, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_genTree_genTree_pyx, __pyx_n_s_fit, 1490, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__25)) __PYX_ERR(0, 1490, __pyx_L1_error)
-  __pyx_tuple__26 = PyTuple_Pack(4, __pyx_float_0_25, __pyx_int_1, __pyx_float_0_1, __pyx_float_0_1); if (unlikely(!__pyx_tuple__26)) __PYX_ERR(0, 1490, __pyx_L1_error)
+  __pyx_codeobj__25 = (PyObject*)__Pyx_PyCode_New(7, 0, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__24, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_genTree_genTree_pyx, __pyx_n_s_fit, 1493, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__25)) __PYX_ERR(0, 1493, __pyx_L1_error)
+  __pyx_tuple__26 = PyTuple_Pack(4, __pyx_float_0_25, __pyx_int_1, __pyx_float_0_1, __pyx_float_0_1); if (unlikely(!__pyx_tuple__26)) __PYX_ERR(0, 1493, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__26);
   __Pyx_GIVEREF(__pyx_tuple__26);
 
-  /* "genTree/genTree.pyx":1497
+  /* "genTree/genTree.pyx":1500
  *         return self._fit(X, y, alpha, importance, mutation_prob, best_sel)
  * 
  *     def predict(self, X):             # <<<<<<<<<<<<<<
  *         """
  *         Wrapper Python per _predict.
  */
-  __pyx_tuple__27 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_X); if (unlikely(!__pyx_tuple__27)) __PYX_ERR(0, 1497, __pyx_L1_error)
+  __pyx_tuple__27 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_X); if (unlikely(!__pyx_tuple__27)) __PYX_ERR(0, 1500, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__27);
   __Pyx_GIVEREF(__pyx_tuple__27);
-  __pyx_codeobj__28 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__27, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_genTree_genTree_pyx, __pyx_n_s_predict, 1497, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__28)) __PYX_ERR(0, 1497, __pyx_L1_error)
+  __pyx_codeobj__28 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__27, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_genTree_genTree_pyx, __pyx_n_s_predict, 1500, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__28)) __PYX_ERR(0, 1500, __pyx_L1_error)
 
-  /* "genTree/genTree.pyx":1503
+  /* "genTree/genTree.pyx":1506
  *         return self._predict(X)
  * 
  *     def split_random_leaf(self, tree, X, y):             # <<<<<<<<<<<<<<
  *         """
  *         Wrapper Python per _split.
  */
-  __pyx_tuple__29 = PyTuple_Pack(4, __pyx_n_s_self, __pyx_n_s_tree, __pyx_n_s_X, __pyx_n_s_y); if (unlikely(!__pyx_tuple__29)) __PYX_ERR(0, 1503, __pyx_L1_error)
+  __pyx_tuple__29 = PyTuple_Pack(4, __pyx_n_s_self, __pyx_n_s_tree, __pyx_n_s_X, __pyx_n_s_y); if (unlikely(!__pyx_tuple__29)) __PYX_ERR(0, 1506, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__29);
   __Pyx_GIVEREF(__pyx_tuple__29);
-  __pyx_codeobj__30 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__29, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_genTree_genTree_pyx, __pyx_n_s_split_random_leaf, 1503, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__30)) __PYX_ERR(0, 1503, __pyx_L1_error)
+  __pyx_codeobj__30 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__29, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_genTree_genTree_pyx, __pyx_n_s_split_random_leaf, 1506, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__30)) __PYX_ERR(0, 1506, __pyx_L1_error)
 
-  /* "genTree/genTree.pyx":1510
+  /* "genTree/genTree.pyx":1513
  *         return self._split_random_leaf(tree, X, y)
  * 
  *     def prune_random_leaf(self, tree, X, y):             # <<<<<<<<<<<<<<
  *         """
  *         Wrapper Python per _prune.
  */
-  __pyx_codeobj__31 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__29, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_genTree_genTree_pyx, __pyx_n_s_prune_random_leaf, 1510, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__31)) __PYX_ERR(0, 1510, __pyx_L1_error)
+  __pyx_codeobj__31 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__29, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_genTree_genTree_pyx, __pyx_n_s_prune_random_leaf, 1513, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__31)) __PYX_ERR(0, 1513, __pyx_L1_error)
 
-  /* "genTree/genTree.pyx":1517
+  /* "genTree/genTree.pyx":1520
  *         return self._prune_random_leaf(tree, X, y)
  * 
  *     def prune_random_node(self, tree, X, y):             # <<<<<<<<<<<<<<
  *         """
  *         Wrapper Python per _prune_random_node.
  */
-  __pyx_codeobj__32 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__29, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_genTree_genTree_pyx, __pyx_n_s_prune_random_node, 1517, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__32)) __PYX_ERR(0, 1517, __pyx_L1_error)
+  __pyx_codeobj__32 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__29, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_genTree_genTree_pyx, __pyx_n_s_prune_random_node, 1520, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__32)) __PYX_ERR(0, 1520, __pyx_L1_error)
 
-  /* "genTree/genTree.pyx":1524
+  /* "genTree/genTree.pyx":1527
  *         return self._prune_random_node(tree, X, y)
  * 
  *     def major_split(self, tree, X, y):             # <<<<<<<<<<<<<<
  *         """
  *         Wrapper Python per _major_split.
  */
-  __pyx_codeobj__33 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__29, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_genTree_genTree_pyx, __pyx_n_s_major_split, 1524, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__33)) __PYX_ERR(0, 1524, __pyx_L1_error)
+  __pyx_codeobj__33 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__29, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_genTree_genTree_pyx, __pyx_n_s_major_split, 1527, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__33)) __PYX_ERR(0, 1527, __pyx_L1_error)
 
-  /* "genTree/genTree.pyx":1531
+  /* "genTree/genTree.pyx":1534
  *         return self._major_split(tree, X, y)
  * 
  *     def fix_tree_integrity(self, tree, X, y, sample_indices):             # <<<<<<<<<<<<<<
  *         """
  *         Wrapper Python per _fix_tree_integrity.
  */
-  __pyx_tuple__34 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_tree, __pyx_n_s_X, __pyx_n_s_y, __pyx_n_s_sample_indices); if (unlikely(!__pyx_tuple__34)) __PYX_ERR(0, 1531, __pyx_L1_error)
+  __pyx_tuple__34 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_tree, __pyx_n_s_X, __pyx_n_s_y, __pyx_n_s_sample_indices); if (unlikely(!__pyx_tuple__34)) __PYX_ERR(0, 1534, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__34);
   __Pyx_GIVEREF(__pyx_tuple__34);
-  __pyx_codeobj__35 = (PyObject*)__Pyx_PyCode_New(5, 0, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__34, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_genTree_genTree_pyx, __pyx_n_s_fix_tree_integrity, 1531, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__35)) __PYX_ERR(0, 1531, __pyx_L1_error)
+  __pyx_codeobj__35 = (PyObject*)__Pyx_PyCode_New(5, 0, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__34, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_genTree_genTree_pyx, __pyx_n_s_fix_tree_integrity, 1534, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__35)) __PYX_ERR(0, 1534, __pyx_L1_error)
 
-  /* "genTree/genTree.pyx":1538
+  /* "genTree/genTree.pyx":1541
  *         return self._fix_tree_integrity(tree, X, y, sample_indices)
  * 
  *     def minor_split(self, tree, X, y):             # <<<<<<<<<<<<<<
  *         """
  *         Wrapper Python per _minor_split.
  */
-  __pyx_codeobj__36 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__29, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_genTree_genTree_pyx, __pyx_n_s_minor_split, 1538, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__36)) __PYX_ERR(0, 1538, __pyx_L1_error)
+  __pyx_codeobj__36 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__29, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_genTree_genTree_pyx, __pyx_n_s_minor_split, 1541, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__36)) __PYX_ERR(0, 1541, __pyx_L1_error)
 
-  /* "genTree/genTree.pyx":1545
+  /* "genTree/genTree.pyx":1548
  *         return self._minor_split(tree, X, y)
  * 
  *     def crossover(self, a, b, X, y):             # <<<<<<<<<<<<<<
  *         """
  *         Wrapper Python per _crossover.
  */
-  __pyx_tuple__37 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_a, __pyx_n_s_b, __pyx_n_s_X, __pyx_n_s_y); if (unlikely(!__pyx_tuple__37)) __PYX_ERR(0, 1545, __pyx_L1_error)
+  __pyx_tuple__37 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_a, __pyx_n_s_b, __pyx_n_s_X, __pyx_n_s_y); if (unlikely(!__pyx_tuple__37)) __PYX_ERR(0, 1548, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__37);
   __Pyx_GIVEREF(__pyx_tuple__37);
-  __pyx_codeobj__38 = (PyObject*)__Pyx_PyCode_New(5, 0, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__37, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_genTree_genTree_pyx, __pyx_n_s_crossover, 1545, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__38)) __PYX_ERR(0, 1545, __pyx_L1_error)
+  __pyx_codeobj__38 = (PyObject*)__Pyx_PyCode_New(5, 0, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__37, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_genTree_genTree_pyx, __pyx_n_s_crossover, 1548, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__38)) __PYX_ERR(0, 1548, __pyx_L1_error)
 
-  /* "genTree/genTree.pyx":1552
+  /* "genTree/genTree.pyx":1555
  *         return self._crossover(a, b, X, y)
  * 
  *     def compute_fitness(self, DecisionNode Tree, X, y, alpha=0.25):             # <<<<<<<<<<<<<<
  *         """
  *         Calcola la fitness dell'albero.
  */
-  __pyx_tuple__39 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_Tree, __pyx_n_s_X, __pyx_n_s_y, __pyx_n_s_alpha); if (unlikely(!__pyx_tuple__39)) __PYX_ERR(0, 1552, __pyx_L1_error)
+  __pyx_tuple__39 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_Tree, __pyx_n_s_X, __pyx_n_s_y, __pyx_n_s_alpha); if (unlikely(!__pyx_tuple__39)) __PYX_ERR(0, 1555, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__39);
   __Pyx_GIVEREF(__pyx_tuple__39);
-  __pyx_codeobj__40 = (PyObject*)__Pyx_PyCode_New(5, 0, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__39, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_genTree_genTree_pyx, __pyx_n_s_compute_fitness, 1552, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__40)) __PYX_ERR(0, 1552, __pyx_L1_error)
-  __pyx_tuple__41 = PyTuple_Pack(1, __pyx_float_0_25); if (unlikely(!__pyx_tuple__41)) __PYX_ERR(0, 1552, __pyx_L1_error)
+  __pyx_codeobj__40 = (PyObject*)__Pyx_PyCode_New(5, 0, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__39, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_genTree_genTree_pyx, __pyx_n_s_compute_fitness, 1555, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__40)) __PYX_ERR(0, 1555, __pyx_L1_error)
+  __pyx_tuple__41 = PyTuple_Pack(1, __pyx_float_0_25); if (unlikely(!__pyx_tuple__41)) __PYX_ERR(0, 1555, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__41);
   __Pyx_GIVEREF(__pyx_tuple__41);
 
-  /* "genTree/genTree.pyx":1559
+  /* "genTree/genTree.pyx":1562
  *         return self._compute_loss(Tree, X, y)
  * 
  *     def create_population(self, X, y):             # <<<<<<<<<<<<<<
  *         """
  *         Wrapper Python per _create_population.
  */
-  __pyx_tuple__42 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_X, __pyx_n_s_y); if (unlikely(!__pyx_tuple__42)) __PYX_ERR(0, 1559, __pyx_L1_error)
+  __pyx_tuple__42 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_X, __pyx_n_s_y); if (unlikely(!__pyx_tuple__42)) __PYX_ERR(0, 1562, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__42);
   __Pyx_GIVEREF(__pyx_tuple__42);
-  __pyx_codeobj__43 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__42, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_genTree_genTree_pyx, __pyx_n_s_create_population, 1559, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__43)) __PYX_ERR(0, 1559, __pyx_L1_error)
+  __pyx_codeobj__43 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__42, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_genTree_genTree_pyx, __pyx_n_s_create_population, 1562, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__43)) __PYX_ERR(0, 1562, __pyx_L1_error)
 
-  /* "genTree/genTree.pyx":1569
+  /* "genTree/genTree.pyx":1572
  *         self._create_population(X, y)
  * 
  *     def count_leaves(self):             # <<<<<<<<<<<<<<
  *         """
  *         Conta il numero di foglie nell'albero.
  */
-  __pyx_tuple__44 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__44)) __PYX_ERR(0, 1569, __pyx_L1_error)
+  __pyx_tuple__44 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__44)) __PYX_ERR(0, 1572, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__44);
   __Pyx_GIVEREF(__pyx_tuple__44);
-  __pyx_codeobj__45 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__44, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_genTree_genTree_pyx, __pyx_n_s_count_leaves, 1569, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__45)) __PYX_ERR(0, 1569, __pyx_L1_error)
+  __pyx_codeobj__45 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__44, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_genTree_genTree_pyx, __pyx_n_s_count_leaves, 1572, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__45)) __PYX_ERR(0, 1572, __pyx_L1_error)
 
   /* "(tree fragment)":1
  * def __reduce_cython__(self):             # <<<<<<<<<<<<<<
@@ -45910,161 +45910,161 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_np, __pyx_t_7) < 0) __PYX_ERR(0, 6, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-  /* "genTree/genTree.pyx":1490
+  /* "genTree/genTree.pyx":1493
  *     # --- Python wrappers ---
  * 
  *     def fit(self, X, y, alpha=0.25, importance=1, mutation_prob=0.1, best_sel=0.1):             # <<<<<<<<<<<<<<
  *         """
  *         Wrapper Python per _fit.
  */
-  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_7genTree_7genTree_7genTree_3fit, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_genTree_fit, NULL, __pyx_n_s_genTree_genTree, __pyx_d, ((PyObject *)__pyx_codeobj__25)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1490, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_7genTree_7genTree_7genTree_3fit, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_genTree_fit, NULL, __pyx_n_s_genTree_genTree, __pyx_d, ((PyObject *)__pyx_codeobj__25)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1493, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_7, __pyx_tuple__26);
-  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_7genTree_7genTree_genTree, __pyx_n_s_fit, __pyx_t_7) < 0) __PYX_ERR(0, 1490, __pyx_L1_error)
+  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_7genTree_7genTree_genTree, __pyx_n_s_fit, __pyx_t_7) < 0) __PYX_ERR(0, 1493, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   PyType_Modified(__pyx_ptype_7genTree_7genTree_genTree);
 
-  /* "genTree/genTree.pyx":1497
+  /* "genTree/genTree.pyx":1500
  *         return self._fit(X, y, alpha, importance, mutation_prob, best_sel)
  * 
  *     def predict(self, X):             # <<<<<<<<<<<<<<
  *         """
  *         Wrapper Python per _predict.
  */
-  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_7genTree_7genTree_7genTree_5predict, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_genTree_predict, NULL, __pyx_n_s_genTree_genTree, __pyx_d, ((PyObject *)__pyx_codeobj__28)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1497, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_7genTree_7genTree_7genTree_5predict, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_genTree_predict, NULL, __pyx_n_s_genTree_genTree, __pyx_d, ((PyObject *)__pyx_codeobj__28)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1500, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_7genTree_7genTree_genTree, __pyx_n_s_predict, __pyx_t_7) < 0) __PYX_ERR(0, 1497, __pyx_L1_error)
+  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_7genTree_7genTree_genTree, __pyx_n_s_predict, __pyx_t_7) < 0) __PYX_ERR(0, 1500, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   PyType_Modified(__pyx_ptype_7genTree_7genTree_genTree);
 
-  /* "genTree/genTree.pyx":1503
+  /* "genTree/genTree.pyx":1506
  *         return self._predict(X)
  * 
  *     def split_random_leaf(self, tree, X, y):             # <<<<<<<<<<<<<<
  *         """
  *         Wrapper Python per _split.
  */
-  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_7genTree_7genTree_7genTree_7split_random_leaf, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_genTree_split_random_leaf, NULL, __pyx_n_s_genTree_genTree, __pyx_d, ((PyObject *)__pyx_codeobj__30)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1503, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_7genTree_7genTree_7genTree_7split_random_leaf, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_genTree_split_random_leaf, NULL, __pyx_n_s_genTree_genTree, __pyx_d, ((PyObject *)__pyx_codeobj__30)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1506, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_7genTree_7genTree_genTree, __pyx_n_s_split_random_leaf, __pyx_t_7) < 0) __PYX_ERR(0, 1503, __pyx_L1_error)
+  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_7genTree_7genTree_genTree, __pyx_n_s_split_random_leaf, __pyx_t_7) < 0) __PYX_ERR(0, 1506, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   PyType_Modified(__pyx_ptype_7genTree_7genTree_genTree);
 
-  /* "genTree/genTree.pyx":1510
+  /* "genTree/genTree.pyx":1513
  *         return self._split_random_leaf(tree, X, y)
  * 
  *     def prune_random_leaf(self, tree, X, y):             # <<<<<<<<<<<<<<
  *         """
  *         Wrapper Python per _prune.
  */
-  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_7genTree_7genTree_7genTree_9prune_random_leaf, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_genTree_prune_random_leaf, NULL, __pyx_n_s_genTree_genTree, __pyx_d, ((PyObject *)__pyx_codeobj__31)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1510, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_7genTree_7genTree_7genTree_9prune_random_leaf, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_genTree_prune_random_leaf, NULL, __pyx_n_s_genTree_genTree, __pyx_d, ((PyObject *)__pyx_codeobj__31)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1513, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_7genTree_7genTree_genTree, __pyx_n_s_prune_random_leaf, __pyx_t_7) < 0) __PYX_ERR(0, 1510, __pyx_L1_error)
+  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_7genTree_7genTree_genTree, __pyx_n_s_prune_random_leaf, __pyx_t_7) < 0) __PYX_ERR(0, 1513, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   PyType_Modified(__pyx_ptype_7genTree_7genTree_genTree);
 
-  /* "genTree/genTree.pyx":1517
+  /* "genTree/genTree.pyx":1520
  *         return self._prune_random_leaf(tree, X, y)
  * 
  *     def prune_random_node(self, tree, X, y):             # <<<<<<<<<<<<<<
  *         """
  *         Wrapper Python per _prune_random_node.
  */
-  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_7genTree_7genTree_7genTree_11prune_random_node, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_genTree_prune_random_node, NULL, __pyx_n_s_genTree_genTree, __pyx_d, ((PyObject *)__pyx_codeobj__32)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1517, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_7genTree_7genTree_7genTree_11prune_random_node, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_genTree_prune_random_node, NULL, __pyx_n_s_genTree_genTree, __pyx_d, ((PyObject *)__pyx_codeobj__32)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1520, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_7genTree_7genTree_genTree, __pyx_n_s_prune_random_node, __pyx_t_7) < 0) __PYX_ERR(0, 1517, __pyx_L1_error)
+  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_7genTree_7genTree_genTree, __pyx_n_s_prune_random_node, __pyx_t_7) < 0) __PYX_ERR(0, 1520, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   PyType_Modified(__pyx_ptype_7genTree_7genTree_genTree);
 
-  /* "genTree/genTree.pyx":1524
+  /* "genTree/genTree.pyx":1527
  *         return self._prune_random_node(tree, X, y)
  * 
  *     def major_split(self, tree, X, y):             # <<<<<<<<<<<<<<
  *         """
  *         Wrapper Python per _major_split.
  */
-  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_7genTree_7genTree_7genTree_13major_split, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_genTree_major_split, NULL, __pyx_n_s_genTree_genTree, __pyx_d, ((PyObject *)__pyx_codeobj__33)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1524, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_7genTree_7genTree_7genTree_13major_split, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_genTree_major_split, NULL, __pyx_n_s_genTree_genTree, __pyx_d, ((PyObject *)__pyx_codeobj__33)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1527, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_7genTree_7genTree_genTree, __pyx_n_s_major_split, __pyx_t_7) < 0) __PYX_ERR(0, 1524, __pyx_L1_error)
+  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_7genTree_7genTree_genTree, __pyx_n_s_major_split, __pyx_t_7) < 0) __PYX_ERR(0, 1527, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   PyType_Modified(__pyx_ptype_7genTree_7genTree_genTree);
 
-  /* "genTree/genTree.pyx":1531
+  /* "genTree/genTree.pyx":1534
  *         return self._major_split(tree, X, y)
  * 
  *     def fix_tree_integrity(self, tree, X, y, sample_indices):             # <<<<<<<<<<<<<<
  *         """
  *         Wrapper Python per _fix_tree_integrity.
  */
-  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_7genTree_7genTree_7genTree_15fix_tree_integrity, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_genTree_fix_tree_integrity, NULL, __pyx_n_s_genTree_genTree, __pyx_d, ((PyObject *)__pyx_codeobj__35)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1531, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_7genTree_7genTree_7genTree_15fix_tree_integrity, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_genTree_fix_tree_integrity, NULL, __pyx_n_s_genTree_genTree, __pyx_d, ((PyObject *)__pyx_codeobj__35)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1534, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_7genTree_7genTree_genTree, __pyx_n_s_fix_tree_integrity, __pyx_t_7) < 0) __PYX_ERR(0, 1531, __pyx_L1_error)
+  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_7genTree_7genTree_genTree, __pyx_n_s_fix_tree_integrity, __pyx_t_7) < 0) __PYX_ERR(0, 1534, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   PyType_Modified(__pyx_ptype_7genTree_7genTree_genTree);
 
-  /* "genTree/genTree.pyx":1538
+  /* "genTree/genTree.pyx":1541
  *         return self._fix_tree_integrity(tree, X, y, sample_indices)
  * 
  *     def minor_split(self, tree, X, y):             # <<<<<<<<<<<<<<
  *         """
  *         Wrapper Python per _minor_split.
  */
-  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_7genTree_7genTree_7genTree_17minor_split, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_genTree_minor_split, NULL, __pyx_n_s_genTree_genTree, __pyx_d, ((PyObject *)__pyx_codeobj__36)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1538, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_7genTree_7genTree_7genTree_17minor_split, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_genTree_minor_split, NULL, __pyx_n_s_genTree_genTree, __pyx_d, ((PyObject *)__pyx_codeobj__36)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1541, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_7genTree_7genTree_genTree, __pyx_n_s_minor_split, __pyx_t_7) < 0) __PYX_ERR(0, 1538, __pyx_L1_error)
+  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_7genTree_7genTree_genTree, __pyx_n_s_minor_split, __pyx_t_7) < 0) __PYX_ERR(0, 1541, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   PyType_Modified(__pyx_ptype_7genTree_7genTree_genTree);
 
-  /* "genTree/genTree.pyx":1545
+  /* "genTree/genTree.pyx":1548
  *         return self._minor_split(tree, X, y)
  * 
  *     def crossover(self, a, b, X, y):             # <<<<<<<<<<<<<<
  *         """
  *         Wrapper Python per _crossover.
  */
-  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_7genTree_7genTree_7genTree_19crossover, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_genTree_crossover, NULL, __pyx_n_s_genTree_genTree, __pyx_d, ((PyObject *)__pyx_codeobj__38)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1545, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_7genTree_7genTree_7genTree_19crossover, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_genTree_crossover, NULL, __pyx_n_s_genTree_genTree, __pyx_d, ((PyObject *)__pyx_codeobj__38)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1548, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_7genTree_7genTree_genTree, __pyx_n_s_crossover, __pyx_t_7) < 0) __PYX_ERR(0, 1545, __pyx_L1_error)
+  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_7genTree_7genTree_genTree, __pyx_n_s_crossover, __pyx_t_7) < 0) __PYX_ERR(0, 1548, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   PyType_Modified(__pyx_ptype_7genTree_7genTree_genTree);
 
-  /* "genTree/genTree.pyx":1552
+  /* "genTree/genTree.pyx":1555
  *         return self._crossover(a, b, X, y)
  * 
  *     def compute_fitness(self, DecisionNode Tree, X, y, alpha=0.25):             # <<<<<<<<<<<<<<
  *         """
  *         Calcola la fitness dell'albero.
  */
-  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_7genTree_7genTree_7genTree_21compute_fitness, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_genTree_compute_fitness, NULL, __pyx_n_s_genTree_genTree, __pyx_d, ((PyObject *)__pyx_codeobj__40)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1552, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_7genTree_7genTree_7genTree_21compute_fitness, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_genTree_compute_fitness, NULL, __pyx_n_s_genTree_genTree, __pyx_d, ((PyObject *)__pyx_codeobj__40)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1555, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_7, __pyx_tuple__41);
-  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_7genTree_7genTree_genTree, __pyx_n_s_compute_fitness, __pyx_t_7) < 0) __PYX_ERR(0, 1552, __pyx_L1_error)
+  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_7genTree_7genTree_genTree, __pyx_n_s_compute_fitness, __pyx_t_7) < 0) __PYX_ERR(0, 1555, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   PyType_Modified(__pyx_ptype_7genTree_7genTree_genTree);
 
-  /* "genTree/genTree.pyx":1559
+  /* "genTree/genTree.pyx":1562
  *         return self._compute_loss(Tree, X, y)
  * 
  *     def create_population(self, X, y):             # <<<<<<<<<<<<<<
  *         """
  *         Wrapper Python per _create_population.
  */
-  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_7genTree_7genTree_7genTree_23create_population, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_genTree_create_population, NULL, __pyx_n_s_genTree_genTree, __pyx_d, ((PyObject *)__pyx_codeobj__43)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1559, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_7genTree_7genTree_7genTree_23create_population, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_genTree_create_population, NULL, __pyx_n_s_genTree_genTree, __pyx_d, ((PyObject *)__pyx_codeobj__43)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1562, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_7genTree_7genTree_genTree, __pyx_n_s_create_population, __pyx_t_7) < 0) __PYX_ERR(0, 1559, __pyx_L1_error)
+  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_7genTree_7genTree_genTree, __pyx_n_s_create_population, __pyx_t_7) < 0) __PYX_ERR(0, 1562, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   PyType_Modified(__pyx_ptype_7genTree_7genTree_genTree);
 
-  /* "genTree/genTree.pyx":1569
+  /* "genTree/genTree.pyx":1572
  *         self._create_population(X, y)
  * 
  *     def count_leaves(self):             # <<<<<<<<<<<<<<
  *         """
  *         Conta il numero di foglie nell'albero.
  */
-  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_7genTree_7genTree_7genTree_25count_leaves, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_genTree_count_leaves, NULL, __pyx_n_s_genTree_genTree, __pyx_d, ((PyObject *)__pyx_codeobj__45)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1569, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_7genTree_7genTree_7genTree_25count_leaves, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_genTree_count_leaves, NULL, __pyx_n_s_genTree_genTree, __pyx_d, ((PyObject *)__pyx_codeobj__45)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1572, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_7genTree_7genTree_genTree, __pyx_n_s_count_leaves, __pyx_t_7) < 0) __PYX_ERR(0, 1569, __pyx_L1_error)
+  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_7genTree_7genTree_genTree, __pyx_n_s_count_leaves, __pyx_t_7) < 0) __PYX_ERR(0, 1572, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   PyType_Modified(__pyx_ptype_7genTree_7genTree_genTree);
 

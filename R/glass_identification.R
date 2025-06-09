@@ -35,7 +35,7 @@ dev.off()
 
 # Albero evtree con profondità massima 2
 set.seed(1090)
-ev <- evtree(Type ~ ., data = Glass, minbucket = 10, maxdepth = 2)
+ev <- evtree(Type ~ ., data = Glass, minbucket = 10, maxdepth = 5)
 
 # Visualizza e salva l'albero evtree
 png("graph_glass/glass_ev.png")
